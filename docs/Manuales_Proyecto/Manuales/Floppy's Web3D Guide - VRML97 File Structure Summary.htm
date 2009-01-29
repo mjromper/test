@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0059)http://web3d.vapourtech.com/tutorials/vrml97/es/struct.html -->
+<HTML><HEAD><TITLE>Floppy's Web3D Guide - VRML97 File Structure Summary</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<META 
+content="Guide to the world of VRML, with one of the best tutorials on the web." 
+name=DESCRIPTION>
+<META 
+content="VRML, VRML97, Virtual Reality Modeling Language,Tutorial, Guide, 3D,VRML97 file structure, summary, file, VRML file,Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace," 
+name=KEYWORDS>
+<META content="MSHTML 6.00.2800.1543" name=GENERATOR></HEAD>
+<BODY text=#000000 vLink=#dd0000 aLink=#ffff00 link=#ff0000 bgColor=#dddddd>
+<TABLE width="100%">
+  <TBODY>
+  <TR>
+    <TD bgColor=#bb0000><FONT face=Arial color=#ffffff size=+2>Sumario de la 
+      estructura de un archivo.</FONT></TD></TR></TBODY></TABLE>
+<P>
+<SCRIPT language=JavaScript 
+src="Floppy's Web3D Guide - VRML97 File Structure Summary_archivos/footer.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+navbuttons('../index-es.html','nodes.html','index.html');
+</SCRIPT>
+</P>
+<P>Este archivo es un sumario de la manera en que debe componerse un escenario 
+VRML. Muestra los nodos de agrupamiento válidos, los que están a nivel de raiz y 
+los nodos children, junto con algo más de información útil. </P>
+<P><FONT face=Arial color=#ff0000 size=+1>Cabecera de un archivo VRML97</FONT> 
+</P>
+<P>La cabecera (La primera línea) debe ser la que sigue: </P><PRE>#VRML V2.0 utf8</PRE>
+<P>Cualquier cosa posterior a una # es interpretada como un comentario, e 
+ignorada.. </P>
+<P><FONT face=Arial color=#ff0000 size=+1>Tipos de MIME VRML97</FONT> </P>
+<P>Los tipos de MIME para VRML son: </P><PRE>x-world/x-vrml
+model/vrml</PRE>
+<P>La primera es antigua, y las aplicaciones recientes usarán la segunda. </P>
+<P><FONT face=Arial color=#ff0000 size=+1>Nodos de agrupamiento.</FONT> </P>
+<P>Los siguientes nodos son de <EM>agrupamiento</EM>, lo que significa que sólo 
+podran contener otros nodos en su campo <EM>children</EM>. </P>
+<UL>
+  <LI><STRONG>Anchor</STRONG> 
+  <LI><STRONG>Billboard</STRONG> 
+  <LI><STRONG>Collision</STRONG> 
+  <LI><STRONG>Group</STRONG> 
+  <LI><STRONG>LOD</STRONG> 
+  <LI><STRONG>Switch</STRONG> 
+  <LI><STRONG>Transform</STRONG> </LI></UL>
+<P><FONT face=Arial color=#ff0000 size=+1>Nodos Children</FONT> </P>
+<P>Los siguientes nodos son children legalmente, lo que significa que no 
+<EM>necesitan </EM>estar contenidos dentro de un nodo de agrupamiento, pero que 
+pueden estarlo. Pueden ir en la raiz del archivo, o en cualquier punto del grafo 
+de la escena, contenidos dentro de alguno de los nodos de agrupamiento descritos 
+arriba. </P>
+<UL>
+  <LI><STRONG>Anchor</STRONG> 
+  <LI><STRONG>Background</STRONG> 
+  <LI><STRONG>Billboard</STRONG> 
+  <LI><STRONG>Collision</STRONG> 
+  <LI><STRONG>ColorInterpolator</STRONG> 
+  <LI><STRONG>CoordinateInterpolator</STRONG> 
+  <LI><STRONG>CylinderSensor</STRONG> 
+  <LI><STRONG>DirectionalLight</STRONG> 
+  <LI><STRONG>Fog</STRONG> 
+  <LI><STRONG>Group</STRONG> 
+  <LI><STRONG>Inline</STRONG> 
+  <LI><STRONG>LOD</STRONG> 
+  <LI><STRONG>NavigationInfo</STRONG> 
+  <LI><STRONG>NormalInterpolator</STRONG> 
+  <LI><STRONG>OrientationInterpolator</STRONG> 
+  <LI><STRONG>PlaneSensor</STRONG> 
+  <LI><STRONG>PointLight</STRONG> 
+  <LI><STRONG>PositionInterpolator</STRONG> 
+  <LI><STRONG>ProximitySensor</STRONG> 
+  <LI><STRONG>ScalarInterpolator</STRONG> 
+  <LI><STRONG>Script</STRONG> 
+  <LI><STRONG>Shape</STRONG> 
+  <LI><STRONG>Sound</STRONG> 
+  <LI><STRONG>SpotLight</STRONG> 
+  <LI><STRONG>SphereSensor</STRONG> 
+  <LI><STRONG>Switch</STRONG> 
+  <LI><STRONG>TimeSensor</STRONG> 
+  <LI><STRONG>TouchSensor</STRONG> 
+  <LI><STRONG>Transform</STRONG> 
+  <LI><STRONG>Viewpoint</STRONG> 
+  <LI><STRONG>VisibilitySensor</STRONG> 
+  <LI><STRONG>WorldInfo</STRONG> 
+  <LI><STRONG>Child nodos redefinidos con PROTO</STRONG> </LI></UL>
+<P><FONT face=Arial color=#ff0000 size=+1>Nodos Bindable</FONT> </P>
+<P>Los siguientes nodos son <EM>bindable</EM>. </P>
+<UL>
+  <LI><STRONG>Background</STRONG> 
+  <LI><STRONG>Fog</STRONG> 
+  <LI><STRONG>NavigationInfo</STRONG> 
+  <LI><STRONG>Viewpoint</STRONG> </LI></UL>
+<P><FONT face=Arial color=#ff0000 size=+1>Nodos Geométricos</FONT> </P>
+<P>Los siguientes nodos son <EM>Geométricos</EM>, y sólo pueden estar contenidos 
+dentro del campo <EM>geometry</EM> de un nodo <STRONG>Shape</STRONG>. </P>
+<UL>
+  <LI><STRONG>Box</STRONG> 
+  <LI><STRONG>Cone</STRONG> 
+  <LI><STRONG>Cylinder</STRONG> 
+  <LI><STRONG>ElevationGrid</STRONG> 
+  <LI><STRONG>Extrusion</STRONG> 
+  <LI><STRONG>IndexedFaceSet</STRONG> 
+  <LI><STRONG>IndexedLineSet</STRONG> 
+  <LI><STRONG>PointSet</STRONG> 
+  <LI><STRONG>Sphere</STRONG> 
+  <LI><STRONG>Text</STRONG> </LI></UL>
+<P><FONT face=Arial color=#ff0000 size=+1>Nodos Especiales</FONT> </P>
+<P>Los siguientes nodos son especiales, y sólo pueden estar contenidos en 
+determinados campos de determinados nodos. </P>
+<TABLE border=5>
+  <TBODY>
+  <TR>
+    <TD width=100><STRONG>Node</STRONG></TD>
+    <TD width=100><STRONG>Parent</STRONG></TD>
+    <TD width=100><EM>Field</EM></TD></TR>
+  <TR>
+    <TD>Appearance</TD>
+    <TD>Shape</TD>
+    <TD>appearance</TD></TR>
+  <TR>
+    <TD>AudioClip</TD>
+    <TD>Sound</TD>
+    <TD>source</TD></TR>
+  <TR>
+    <TD>Color</TD>
+    <TD>ElevationGrid <BR>IndexedFaceSet <BR>IndexedLineSet</TD>
+    <TD>color <BR>color <BR>color</TD></TR>
+  <TR>
+    <TD>Coordinate</TD>
+    <TD>IndexedFaceSet <BR>IndexedLineSet <BR>PointSet</TD>
+    <TD>coord <BR>coord <BR>coord</TD></TR>
+  <TR>
+    <TD>FontStyle</TD>
+    <TD>Text</TD>
+    <TD>fontStyle</TD></TR>
+  <TR>
+    <TD>ImageTexture</TD>
+    <TD>Appearance</TD>
+    <TD>texture</TD></TR>
+  <TR>
+    <TD>Material</TD>
+    <TD>Appearance</TD>
+    <TD>material</TD></TR>
+  <TR>
+    <TD>MovieTexture</TD>
+    <TD>Appearance <BR>Sound</TD>
+    <TD>texture <BR>source</TD></TR>
+  <TR>
+    <TD>Normal</TD>
+    <TD>ElevationGrid <BR>IndexedFaceSet</TD>
+    <TD>normal <BR>normal</TD></TR>
+  <TR>
+    <TD>PixelTexture</TD>
+    <TD>Appearance</TD>
+    <TD>texture</TD></TR>
+  <TR>
+    <TD>TextureCoordinate</TD>
+    <TD>ElevationGrid <BR>IndexedFaceSet</TD>
+    <TD>texCoord <BR>texCoord</TD></TR>
+  <TR>
+    <TD>TextureTransform</TD>
+    <TD>Appearance</TD>
+    <TD>textureTransform</TD></TR></TBODY></TABLE>
+<P>
+<SCRIPT type=text/javascript>
+navbuttons('../index-es.html','nodes.html','index.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+</P></BODY></HTML>
