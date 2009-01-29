@@ -1,0 +1,79 @@
+%-----------------------------------------------------------------------------------
+%  |||       Proyecto Albatros - Interfaz BCI - Herramienta de Medida          |||
+%-----------------------------------------------------------------------------------
+%
+%  Programa: Ensayo
+%
+
+%   Francisco Benavides Martín, Mayo de 2007.
+%   Copyright (c) 2006-07 by Dpto. de Tecnología Electrónica - Universidad de Málaga
+%------------------------------------------------------------------------------------
+
+global pruebactual duration tam; 
+
+global posicion sujeto identificador ensayo num_ensayo fecha prueba1 cantidad1 ...
+t_cursor t_objetivo t_analisis d_analisis d_prueba desc_ep_fijo...
+desc_ep_aleat d_descanso Fs tam_ventana;    
+global ntot_pru;
+global izq der; 
+global  bloques_proc_eje_tiempo eje_tiempo;
+global bloque_analisis bloque_dur_ana bloque_objetivo bloque_cursor;
+global dio;
+
+%NVNV-------------------------------------------------------------------- NUEVOS PARAMETROS:
+%NV ESTOS PARAMETROS LOS UTILIZO PARA CONTROLAR LOS TIEMPOS A TRAVES DE LOS
+%BLOQUES QUE VOY PROCESANDO Y NO CON EL TIEMPO DEL PROCESADOR QUE PUEDE
+%VARIAR.
+pause(5);  %%%DEJO 5 SEGUNDOS PARA MAXIMIZAR LA PANTALLA DEL SUJETO
+bloq_seg=Fs/tam_ventana;
+bloque_analisis=t_analisis*bloq_seg; %NV
+bloque_dur_ana=d_analisis*bloq_seg;
+bloque_objetivo=t_objetivo*bloq_seg; %
+bloque_cursor=t_cursor*bloq_seg;
+
+
+bloques_proc_eje_tiempo=eje_tiempo*Fs/tam_ventana; %NV NUMERO DE BLOQUES QUE SE PROCESAN EN TODO EL EJE DE TIEMPO
+%EN CASO DE DESACTIVAR LA VARIALE aquisic_normal EN HM_PANEL
+%-------------------------------------------------------------------------PARAMETROS:
+duration= d_prueba;  %Me lo da PaneldeControl_Sesion(standar=3+4sg)
+tam= tam_ventana; %Me lo da PaneldeControl_Sesion(standar= vent. de 128msg(4muestras)
+
+%--------------------------------------------------------Inicializacion de variables:
+pruebactual=0;  %Esta variable me indicara el numero de la prueba actual
+
+izq=0; %NV ESTAS VARAIBLES SON PARA CONTAR EL NUMERO DE VECES QUE SALE CADA FLECHA
+der=0;
+
+%NV(Paco)Se define un objeto digital asociado al puerto paralelo.
+%Permitiendo el manejo del puerto.
+dio=digitalio('parallel','LPT1');
+addline(dio,0:3,0,'out'); % Se va a tener el control sobre 4 líneas del
+%del puerto 0. Este puerto se puede definer tanto como lectura como
+%escritura.
+
+%----------------------------------------------------------------Cuerpo del Programa:
+
+for np=1:ntot_pru, %np llevará la cuenta del nº de prueba 
+    if pruebactual <=ntot_pru,  %Siempre que no llegue al numero final de pruebas
+       
+        Present;          %Llamo a la funcion de adquisicion
+        reload(mundovirtual);
+            
+        pause(desc_ep_fijo + rand*desc_ep_aleat); %Entre prueba y prueba hago una pausa de duración aleatoria entre 0'5 y 2'5 sg.
+      
+    end
+   
+    np = np + 1; %Actualizo nº de prueba
+end
+
+save ensayo_config.mat posicion sujeto identificador ensayo num_ensayo fecha prueba1 cantidad1 ...
+    Fs tam_ventana t_cursor t_objetivo t_analisis d_analisis d_prueba desc_ep_fijo desc_ep_aleat d_descanso ...
+    
+aviso('FIN DE LA EJECUCIÓN');
+
+%----------------------------------------------------------------------------------------
+
+close all;
+%clear all;
+                  
+

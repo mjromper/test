@@ -1,0 +1,490 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0063)http://www.iua.upf.es/~npares/docencia/vrml/script/script_e.htm -->
+<HTML><HEAD><TITLE>Tutorial VRML97: Narcís Parés i Burguès</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<SCRIPT language=JavaScript>
+function WinOpen() {
+   msg=open("","VRML","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,resizable=no,width=400,height=300");
+   msg.document.write("<HEAD><TITLE>VRML97</TITLE></HEAD>");
+}
+WinOpen();
+</SCRIPT>
+
+<META content="MSHTML 6.00.2800.1543" name=GENERATOR></HEAD>
+<BODY text=#000000 vLink=#0020d0 link=#00a020 bgColor=#ffffff>
+<H1>Scripting</H1><FONT color=#7f7f7f>
+<H2>Tutorial de VRML97</H2></FONT>
+<P>Aunque el VRML da muchos mecanismos para definir interacción y 
+comportamientos, hay cosas que no se pueden hacer diréctamente y entonces se 
+debe utilizar la poténcia de un lenguaje de programación externo. Esto se 
+consigue a través del <A 
+href="http://www.iua.upf.es/~npares/docencia/vrml/vrml97def/part1/nodesRef.html#Script"><I><B>node 
+Script</B></I></A> y los lenguajes que se pueden utilizar son el Java y el 
+JavaScript (o compatible JavaScript). 
+<P>En este tutorial, tan solo entraremos a ver la utilización del JavaScript 
+dentro del <I><B>node Script</B></I> debido a que es mucho más sencillo, directo 
+y común de utilizar. 
+<P><B>Nota:</B> Partiremos del supósito que el lector ya cuenta con un 
+conocimiento previo del JavaScript como lenguaje y que lo sabe utilizar a nivel 
+básico para realizar pequeñas utilidades en pantallas de HTML.<BR><BR><BR>
+<H3>El <I>node Script</I></H3>
+<P>El concepto básico detrás del <I><B>node Script</B></I> es que es un 
+<I><B>node</B></I> que permite los siguientes pasos: 
+<UL>
+  <LI>captar los eventos que necesitemos 
+  <LI>conseguir los valores que forman los eventos y procesarlos 
+  <LI>enviar los resultados de este proceso como eventos de salida (para ser 
+  encaminados, mediante <I><B>ROUTE</B></I>s, hacia otros <I><B>nodes</B></I>) 
+  </LI></UL>
+<P>Un <I><B>node Script</B></I> está formado por dos partes principales: las 
+definiciones de campos y eventos, y el código en el lenguaje que hemos escogido. 
+
+<P>Es importante el hecho que en este <I><B>node</B></I> podemos definir campos 
+y eventos según nuestras necesidades, en contraste con los otros 
+<I><B>nodes</B></I> de <B>VRML</B> que ya tienen predefinidos todos sus 
+componentes. 
+<P>El sitio donde se pone el código del lenguaje es en el <I><B>field 
+url</B></I>. Este <I><B>field</B></I> permite escribir todo el código entre 
+comillas dobles (<B>"</B>) o bién referenciar un archivo externo donde figure 
+todo el código. 
+<P>A continuación vemos un esquema de la estructura del <I><B>node</B></I>: 
+<BR><BR>
+<TABLE cellPadding=8 border=0>
+  <TBODY>
+  <TR>
+    <TD bgColor=#fff0e0>
+      <P><I><B>Esquema</B>: Estructura del <B>node Script</B>. <PRE>	Script {
+		field ...
+		. . .
+		. . .
+		field ...
+		eventIn ...
+		. . .
+		. . .
+		eventIn ...
+		eventOut ...
+		. . .
+		. . .
+		eventOut ...
+
+		url "javascript:
+			function X (v,t){
+				. . .
+				. . .
+			}
+			. . .
+			. . .
+			function Z (v,t){
+				. . .
+				. . .
+			}
+		"
+	}
+</PRE></I></TD></TR></TBODY></TABLE>
+<P>Aquí se pueden observar las dos partes que definíamos arriba. Primero se 
+encuentran las definiciones de campos y eventos. Estos no requieren estar 
+ordenados de ningúna forma concreta. En segundo lugar, encontramos el 
+<I><B>field url</B></I> donde, entre comillas, se define el tipo de código que 
+se utiliza (en nuestro caso <I><B>javascript:</B></I>) y a continuación todas 
+las funciones que configuran nuestros procesos. <BR><BR><BR>
+<H3>Los <I>eventIn</I>s y las <I>functions</I> de JavaScript</H3>
+<P>Existe una relación directa entre los nombres de los <I><B>eventIn</B></I> y 
+los nombres de las funciones del código. Esta relación se establece para que 
+cuando llegue un evento de entrada al <I><B>node Script</B></I> en custión, él 
+llame a la función que tiene el mismo nombre que el <I><B>eventIn</B></I> 
+referenciadi y así se pueda capturar el valor que se ha recibido y se pueda 
+procesar. 
+<P>El mecanismo implementado por el <I><B>node Script</B></I> hace que toda 
+función de JavaScript asociada a un <I><B>eventIn</B></I> tenga dos parámetros 
+por defecto: el valor recibido por el <I><B>eventIn</B></I> y el instante de 
+tiempo en que se ha generado aquel evento. De esta forma, la función puede 
+utilizar el valor del evento que ha recibido e incluso discernirlo de otros 
+eventos gracias al hecho de que también se dispone de su sello de tiempo. 
+<P>A continuación damos un ejemplo donde un <I><B>ProximitySensor</B></I> envía 
+un evento de cambio de posición del punto de vista a un <I><B>Script</B></I> que 
+mira si la coordenada <I>X</I> de este punto de vista es mayor que 5 (y no hace 
+nada más de momento). <BR><BR>
+<TABLE cellPadding=8 border=0>
+  <TBODY>
+  <TR>
+    <TD bgColor=#fff0e0>
+      <P><I><B>Ejemplo1</B>: Definimos un <B>ProximitySensor</B> llamado 
+      <B>SensorPuntoVista</B> que va detectando el movimiento del punto de vista 
+      del usuario por dentro suyo. Este <B>ProximitySensor</B> va generando 
+      <B>eventOut</B>s de nombre <B>position_changed</B>, los cuales son 
+      encaminados mediante un <B>ROUTE</B> al <B>eventIn</B> de nombre 
+      <B>nuevaPosicion</B> del <B>Script</B> llamado <B>SiguePuntoVista</B>. <PRE>DEF SensorPuntoVista ProximitySensor {
+	size 100 100 100
+}
+
+DEF SiguePuntoVista Script {
+	eventIn SFVec3f nuevaPosicion
+
+	url "javascript:
+		function nuevaPosicion (v,t) {
+			if (v[0] &gt; 5);
+		}
+	"
+}
+
+ROUTE SensorPuntoVista.position_changed TO SiguePuntoVista.nuevaPosicion
+</PRE></I></TD></TR></TBODY></TABLE>
+<P>Analicemos este código parte por parte: 
+<UL>
+  <LI>En primer lugar, tenemos la definición del <B><I>ProximitySensor</I></B> 
+  al cual le damos un nombre para referenciarlo en el <I><B>ROUTE</B></I>. 
+  <LI>Después encontramos el <I><B>Script</B></I> al cual también damos un 
+  nombre. Este <I><B>node</B></I>, no tiene ningún campo o evento definido a 
+  priori a parte del campo <I><B>url</B></I> (después veremos que si hay 2 pero 
+  de momento quedémonos con esta idea). Por lo tanto, es necesario que nosotros 
+  definamos los campos y eventos que nos convienen. De momento, como la única 
+  cosa que queremos hacer es captar el evento de cambio de posición del punto de 
+  vista dentro del <B><I>ProximitySensor</I></B>, definimos un 
+  <I><B>eventIn</B></I> del tipo vector 3D univaluado en coma flotante 
+  (<I><B>SFVec3f</B></I>, Single-valued Field of Vector 3 components in floating 
+  point). A este evento de entrada le asignamos el nombre<I><B> 
+  nuevaPosicio</B></I>n, lo cual implica que tendremos que definir una función 
+  de JavaScript con el mismo nombre para así poder captar el valor que entre por 
+  este evento. 
+  <LI>En el campo <I><B>url</B></I> encontramos el código JavaScript. De momento 
+  sólo nos hace falta definir una sola función, la que debe estar asociada al 
+  evento de entrada. Así pués, definimos una función con nombre 
+  <I><B>nuevaPosicion</B></I> y a la que por defecto el VRML le define dos 
+  parámetros: <I>v</I> que es el valor que llega al <I><B>eventIn</B></I> y 
+  <I>t</I> que es el instante de tiempo en el que se ha generado el evento. De 
+  esta forma, desde dentro de la función podemos acceder al valor del evento de 
+  entrada y lo podremos comparar en su coordenada <I>X<B><FONT 
+  size=-2>(1)</FONT></B></I> con nuestro límite de 5 unidades. 
+  <LI>Finalmente encontramos el <I><B>ROUTE</B></I> con el cual enlazamos el 
+  <I><B>eventOut position_changed</B></I> que tiene predefinido el 
+  <B><I>ProximitySensor</I></B> con el <I><B>eventIn nuevaPosicion</B></I> que 
+  hemos definido en nuestro <I><B>node Script</B></I>. </LI></UL>
+<P><B><SUP>(1)</SUP></B> Al contrario de en VRML donde no se accede nunca a las 
+componentes de los datos que pertenecen a tipos no escalares como 
+<I><B>SFVec3f</B></I>, <I><B>SFRotation</B></I>, <I><B>SFColor</B></I>, 
+<I><B>SFVec2f</B></I> y todos los <I><B>MF</B></I>s, cuando hemos de programar 
+puede interesarnos acceder a estas componentes. En un caso como este, un valor 
+de estos tipos se comporta como si fuera un array de JavaScript y por lo tanto 
+se accede a las componentes indexando desde 0 (cero) hasta el número de 
+componentes menos uno. Por ejemplo: a un <I><B>field SFColor</B></I> con nombre 
+<I>miColor</I>, se le podrían asignar los valores RGB (1, 0.5, 0.3) desde un 
+<I><B>Script</B></I> indexando de la siguiente forma: miColor[0]=1; 
+miColor[1]=0.5; miColor[2]=0.3; <BR><BR><BR>
+<H3>Los <I><B>eventOut</B></I></H3>
+<P>Los <I><B>eventOut</B></I> se definen en la primera parte del <I><B>node 
+Script</B></I> de forma similar a los <I><B>eventIn</B></I>. Para poder generar 
+el evento de salida a través del <I><B>eventOut</B></I> que hemos definido, tan 
+solo tenemos que asignarle un valor desde dentro de la función que ha de generar 
+el evento. 
+<P>Ampliemos nuestro ejemplo anterior. Ahora queremos que suene una alarma 
+cuando detectemos que el punto de vista ha sobrepasado el límite de 5 unidades 
+en el eje <I>X</I>. Los elementos necesarios son los siguientes: <BR><BR>
+<TABLE cellPadding=8 border=0>
+  <TBODY>
+  <TR>
+    <TD bgColor=#fff0e0>
+      <P><I><B><A 
+      href="http://www.iua.upf.es/~npares/docencia/vrml/script/script2.wrl" 
+      target=VRML>Ejemplo2</A></B>: Definición de unos eventos de salida para 
+      activar un sonido de alarma (añadimos al ejemplo anterior). <PRE>DEF SensorPuntoVista ProximitySensor {
+	size 100 100 100
+}
+
+DEF SiguePuntoVista Script {
+	eventIn SFVec3f nuevaPosicion
+	eventOut SFTime activaAlarma
+	eventOut SFTime apagaAlarma
+
+	url "javascript:
+		function nuevaPosicion (v,t) {
+			if (v[0] &gt; 5) activaAlarma = t;
+			else apagaAlarma = t;
+		}
+	"
+}
+
+DEF ClipAlarma AudioClip {
+	url "alarma.wav"
+	startTime -1
+	loop TRUE
+}
+
+Sound {
+	source USE ClipAlarma
+	maxFront 200
+	maxBack 200
+}
+
+ROUTE SensorPuntoVista.position_changed TO SiguePuntoVista.nuevaPosicion
+ROUTE SiguePuntoVista.activaAlarma TO ClipAlarma.startTime
+ROUTE SiguePuntoVista.apagaAlarma TO ClipAlarma.stopTime
+</PRE></I></TD></TR></TBODY></TABLE>
+<P>Los elementos nuevos son los siguientes: 
+<UL>
+  <LI>Hemos añadido dos <I><B>eventOut</B></I>s a nuestro <I><B>Script</B></I>: 
+  <I>activaAlarma</I> y <I>apagaAlarma</I>, de esta forma podremos activar y 
+  apagar el sonido de alarma según la posición del usuario. Estos eventos de 
+  salida son del tipo <I><B>SFTime</B></I> porque lo que deseamos es dar un 
+  tiempo de inicio y un tiempo de finalización del sonido. 
+  <LI>En el código de JavaScript, hemos añadido una acción a realizar en el 
+  <I>if</I> y hemos añadido una opción <I>else</I>. Lo que hacemos es aprovechar 
+  el hecho de que toda la función asociada a un <I><B>eventIn</B></I> tiene los 
+  dos parámetros por defecto: el valor del evento y el tiempo en que se ha 
+  generado. Así pués, en <I>t</I> tenemos el instante de tiempo en que se ha 
+  generado el cambio de posición del usuario y por lo tanto es el instante 
+  indicado para activar o apagar el sonido. Una vez el <I>if</I> ha discernido 
+  si el usuario ha traspasado el límite, asignamos el tiempo al evento de salida 
+  correspondiente. <B>Nota:</B> Es importante entender que el evento de salida 
+  se genera por el solo hecho de asignar un valor al <I><B>eventOut</B></I>. El 
+  momento en el que se envían estos eventos de salida es cuando el VRML ha 
+  terminado de ejecutar todo el <I><B>Script</B></I>. 
+  <LI>A continuación hemos añadido dos <I><B>nodes</B></I> para definir el 
+  sonido. No entraremos a explicarlo ya que se explican en el módulo de <A 
+  href="http://www.iua.upf.es/~npares/docencia/vrml/so/so_e.htm">sonido</A> de 
+  este tutorial. 
+  <LI>Finalmente hemos añadido dos <I><B>ROUTE</B></I>s para encaminar los 
+  eventos de salida de nuestro <I><B>Script</B></I> hacia los eventos de entrada 
+  correspondientes de nuestro <I><B>AudioClip</B></I>. </LI></UL><BR>
+<H3>Los <I><B>field</B></I>s</H3>
+<P>Los <I><B>field</B></I> también se definen en la primera parte del <I><B>node 
+Script</B></I> de forma similar a los <I><B>eventIn</B></I> y a los 
+<I><B>eventOut</B></I>. Los <I><B>field</B></I> sirven como variables globales 
+para el <I><B>Script</B></I> y para guardar valores a lo largo de toda la 
+ejecución del entorno. Con esto podemos comparar valores de eventos nuevos con 
+valores antiguos que hayamos guardado previamente en <I><B>field</B></I>s. 
+<P>De nuevo ampliemos nuestro ejemplo. Lo que haremos ahora es que suene la 
+alarma solo la primer vez que el usuario pase el límite. Si el usuario vuelve 
+atrás y después de nuevo sobrepasa el límite, la alarma ya no deberá sonar. Los 
+elementos necesarios son los siguientes: <BR><BR>
+<TABLE cellPadding=8 border=0>
+  <TBODY>
+  <TR>
+    <TD bgColor=#fff0e0>
+      <P><I><B><A 
+      href="http://www.iua.upf.es/~npares/docencia/vrml/script/script3.wrl" 
+      target=VRML>Ejemplo3</A></B>: Definición de un <I><B>field</B></I> 
+      booleano para saber si el usuario ya había traspasado el límite 
+      préviamente. <PRE>DEF SensorPuntoVista ProximitySensor {
+	size 100 100 100
+}
+
+DEF SiguePuntoVista Script {
+	eventIn SFVec3f nuevaPosicion
+	field SFBool haEntrado FALSE
+	eventOut SFTime activaAlarma
+	eventOut SFTime apagaAlarma
+
+	url "javascript:
+		function nuevaPosicion (v,t) {
+			if (v[0] &gt; 5)
+				if(!haEntrado){
+					activaAlarma = t;
+					haEntrado = TRUE;
+				}
+			else apagaAlarma = t;
+		}
+	"
+}
+
+DEF ClipAlarma AudioClip {
+	url "alarma.wav"
+	startTime -1
+	loop TRUE
+}
+
+Sound {
+	source USE ClipAlarma
+	maxFront 200
+	maxBack 200
+}
+
+ROUTE SensorPuntoVista.position_changed TO SiguePuntoVista.nuevaPosicion
+ROUTE SiguePuntoVista.activaAlarma TO ClipAlarma.startTime
+ROUTE SiguePuntoVista.apagaAlarma TO ClipAlarma.stopTime
+</PRE></I></TD></TR></TBODY></TABLE>
+<P>Solo hemos añadido los elementos siguientes: 
+<UL>
+  <LI>Primero, hemos añadido un <I><B>field</B></I> de tipo <I><B>SFBool</B></I> 
+  con el nombre <I>haEntrado</I>. A este <I><B>field</B></I> le hemos dado un 
+  valor inicial de <I><B>FALSE</B></I> porque al inicio, el usuario aún no ha 
+  sobrepasado la zona prohibida. <B>Nota:</B> todo <I><B>field</B></I> ha de 
+  tener un valor inicial independientemente de la utilización que se haga. 
+  <LI>En segundo lugar, hemos añadido un <I>if</I> dentro de la rama cierta del 
+  primero, poniendo la condición de que per activar la alarma se debe cumplir 
+  que el usuario aún nunca haya passado el límite. Esto se consigue mirando si 
+  nuestro <I><B>field</B></I> <I>haEntrado</I> es falso o cierto. 
+  <LI>Finalmente, hemos añadido a la rama cierta del <I>if</I>, la acción de 
+  asignar el valor <I><B>TRUE</B></I> al <I><B>field</B></I> <I>haEntrado</I> 
+  para tener conocimiento de que el usuario ya ha traspasado una vez el límite. 
+  <LI>No es necesario añadir nada más porque cada vez que se llame el 
+  <I><B>Script</B></I> el <I><B>field</B></I> que hemos definido tendrá el 
+  último valor que le hayamos asignado. </LI></UL><BR>
+<H3>El <I><B>field mustEvaluate</B></I></H3>
+<P>Inicialmente hemos dicho que, excepto por el <I><B>field url</B></I>, el 
+<I><B>node Script</B></I> no tenía ningún otro campo predefinido. Esto lo hemos 
+dicho para simplificar las explicaciones anteriores, pero no es exáctamente 
+cierto. De hecho el <I><B>node Script</B></I> dispone de dos campos 
+predefinidos: <I><B>mustEvaluate</B></I> y <I><B>directOutput</B></I>. 
+<P>Durante la ejecución de un entorno de VRML, el browser tiene la autorización 
+(por especificación) de gestionar los eventos en el momento que le sea más 
+idóneo. Esto puede provocar que se acumulen una série de eventos durante un 
+lapso de tiempo, para después ser evaluados todos de golpe (evidentemente en el 
+orden en que se han generado). 
+<P>Esto significa que cuando programemos un <I><B>Script</B></I> para gestionar 
+unos eventos, podría pasar que no se nos evalúe el <I><B>Script</B></I> cada vez 
+que se genera el evento de entrada que necesitamos. En este caso pasaría que al 
+cabo de un rato se evaluaría nuestro <I><B>Script</B></I> tantas veces como 
+eventos de entrada se hayan acumulado. 
+<P>Para poder evitar o controlar esto, el <I><B>node Script</B></I> dispone del 
+campo prodefinido <I><B>field SFBool mustEvaluate</B></I>. Por defecto, este 
+campo tiene valor <I><B>FALSE</B></I>, cosa que significa que la evaluación del 
+<I><B>Script</B></I> puede ser postpuesta. Si queremos que nuestro 
+<I><B>Script</B></I> se evalúe cada vez que se reciba un evento de entrada de 
+los que gestionamos, entonces debemos poner el campo <I><B>mustEvaluate 
+TRUE</B></I>. 
+<P><B>Nota:</B> Es necesario tener en cuenta que poner <I><B>mustEvaluate 
+TRUE</B></I> implica imponer un control más exhaustivo al browser y por lo tanto 
+se pierde eficiencia. Sólo debe hacerse cuando sea estríctamente necesario. 
+<BR><BR><BR>
+<H3>El Mecanismo de Acceso a otros Nodes y el <I><B>field 
+directOutput</B></I></H3>
+<P>A veces es práctico poder acceder diréctamente a los<I><B> 
+exposedField</B></I>s, <I><B>eventOut</B></I>s y <I><B>eventIn</B></I>s de 
+<I><B>nodes</B></I> externos al <I><B>Script</B></I>, sin tener que definir todo 
+un conjunto de <I><B>ROUTE</B></I>s. Esto da más control sobre el entorno ya que 
+no se depende de la gestión de eventos que hace el browser. Así pués, podríamos 
+tener definido un node de transformación con un cubo como geometría, del cual 
+queremos saber el valor del campo de traslación desde dentro del 
+<I><B>Script</B></I> sin necesidad de que se genere un evento. Entonces lo que 
+haríamos sería: <BR><BR>
+<TABLE cellPadding=8 border=0>
+  <TBODY>
+  <TR>
+    <TD bgColor=#fff0e0>
+      <P><I><B>Ejemplo4</B>: Definimos un acceso directo a un <B>node</B> 
+      externo a un <I><B>Script</B></I>. <PRE>DEF TransfCubo Transform {
+	translation 0 0 0
+	children [
+		Shape {
+			geometry Box { size 1 1 1 }
+		}
+		DEF TS TouchSensor {}
+	]
+}
+
+DEF MiScript Script {
+	eventIn SFTime click
+	field SFNode TCubo USE TransfCubo
+
+	url "javascript:
+		function click(v,t) {
+			if(TCubo.translation[0] &gt; 5) ...
+		}
+	"
+}
+
+ROUTE TS.touchTime TO MiScript.click
+</PRE></I></TD></TR></TBODY></TABLE>
+<P>Miremos paso a paso lo que se ha hecho en este ejemplo: 
+<UL>
+  <LI>Definimos un <I><B>node</B></I> de trasformación al cual ponemos un nombre 
+  <I>TransfCubo</I> para poder accederlo. Este <I><B>node</B></I> contiene un 
+  cubo como geometría, y un <I><B>TouchSensor</B></I> para que el cubo sea 
+  "clicable". 
+  <LI>A continuación definimos un <I><B>Script</B></I> con los siguientes 
+  elementos: 
+  <UL>
+    <LI>Un <I><B>eventIn SFTime click</B></I> que nos captura los eventos de 
+    activación del <I><B>TouchSensor</B></I>. 
+    <LI>Definimos después un <I><B>field</B></I> de tipo <I><B>node</B></I> 
+    (<I><B>SFNode</B></I>) para poder referenciar diréctamente el node de 
+    trasformación externo. A este <I><B>field</B></I> le llamamos <I>TCubo</I> y 
+    para dejar claro que no es un <I><B>node</B></I> nuevo sino que en realidad 
+    estamos haciendo referencia al de la trasformación, añadimos <I><B>USE 
+    TransfCubo</B></I>. Esto significa que está <I>utilizando</I> el 
+    <I><B>node</B></I> <I>TransfCubo</I> externo. 
+    <LI>Entonces definimos la función asociada al <I><B>eventIn</B></I> 
+    <I>click</I>. En esta función empezamos mirando el valor de la componente 
+    <I>X</I> del campo de traslación del <I><B>node</B></I> de transformación 
+    <I>TransfCubo</I>. Esto lo conseguimos a través de la referencia que hemos 
+    definido en la primera parte del <I><B>Script</B></I>, es decir, a través de 
+    <I>TCubo</I>. </LI></UL></LI></UL>
+<P>Con este ejemplo vemos que podemos acceder a información de 
+<I><B>nodes</B></I> externos sin tener que establecer <I><B>ROUTE</B></I>s que 
+nos encaminen eventos. Pero tal y como está definido, sólo podemos acceder a los 
+<I><B>exposedField</B></I>s o a los <I><B>eventOut</B></I>s para leer su valor. 
+<P>Si quisiéramos acceder a los <I><B>exposedField</B></I>s o a los 
+<I><B>eventIn</B></I>s para modificarlos, no podríamos a menos que utilizáramos 
+el campo que subministra el VRML en los <I><B>Script</B></I>s, que es el 
+<I><B>field SFBool directOutput</B></I>. Este campo, por defecto tiene el valor 
+<I><B>FALSE</B></I>. Así, para poder tener acceso a los campos de 
+<I><B>nodes</B></I> externos y poderlos modificar, debemos cambiarlo a 
+<I><B>TRUE</B></I>. 
+<P>Veamoslo en el siguiente ejemplo: <BR><BR>
+<TABLE cellPadding=8 border=0>
+  <TBODY>
+  <TR>
+    <TD bgColor=#fff0e0>
+      <P><I><B><A 
+      href="http://www.iua.upf.es/~npares/docencia/vrml/script/script5.wrl" 
+      target=VRML>Ejemplo5</A></B>: Definimos un acceso directo a un <B>node</B> 
+      externo a un <I><B>Script</B></I> con posibilidad de modificación. <PRE>DEF TransfCubo Transform {
+	translation 0 0 0
+	children [
+		Shape {
+			geometry Box { size 1 1 1 }
+		}
+		DEF TS TouchSensor {}
+	]
+}
+
+DEF MiScript Script {
+	directOutput TRUE
+	eventIn SFTime click
+	field SFNode TCubo USE TransfCubo
+
+	url "javascript:
+		function click(v,t) {
+			if(TCubo.translation[0] &gt; 5) TCubo.translation[0] = 0;
+			else TCubo.translation[0] = TCubo.translation[0] + 1;
+		}
+	"
+}
+
+ROUTE TS.touchTime TO MiScript.click
+</PRE></I></TD></TR></TBODY></TABLE>
+<P>Lo que hace el ejemplo es que cada vez que se entra al <I><B>Script</B></I>, 
+se mueve el cubo una posición en el eje de las <I>X</I> hasta llegar a 5, 
+momento en el que se devuelve el cubo al origen. <BR><BR>
+<TABLE cellPadding=8 border=0>
+  <TBODY>
+  <TR>
+    <TD bgColor=#e0fff0><I>
+      <H3>Ejercicos propuestos:</H3>
+      <DL>
+        <DT><B></B>
+        <DD>Diseñar un puente levadizo que suba y baje al apretar un botón que 
+        se encuentre en un panel. El puente debe realizar todo el recorrido de 
+        subida y de bajada sin que se pueda interrumpir a medio camino y sin que 
+        se le pueda pedir subir ciando ya esté arriba ni bajar cuando esté 
+        abajo. 
+        <DL>
+          <DT>Comentarios 
+          <DD>
+          <UL>
+            <LI>Utilizar tan solo primitivas para modelar los objetos. 
+            <LI>Utilitzar campos de <I><B>Script</B></I> de tipo SFBool 
+            (booleanos o lógicos) para saber el estado del puente en cada 
+            momento. 
+            <LI>Utilitzar <I><B>OrientationInterpolator</B></I>s para animar el 
+            puente. </LI></UL>
+          <DT>Solución propuesta: <A 
+          href="http://www.iua.upf.es/~npares/docencia/vrml/script/exemples/pont.wrl" 
+          target=VRML>pont.wrl</A>. 
+</DT></DL></DD></DL></I></TD></TR></TBODY></TABLE><BR><BR><BR><BR>
+<CENTER><B><A 
+href="http://www.iua.upf.es/~npares/docencia/vrml/so/so_e.htm">&lt; Anterior</A> 
+| <A href="http://www.iua.upf.es/~npares/docencia/vrml/tutorial_e.htm">Menú 
+^</A> | <A 
+href="http://www.iua.upf.es/~npares/docencia/vrml/informa/informa_e.htm">Siguiente 
+&gt;</A></B> </CENTER><BR><BR><BR><BR></BODY></HTML>

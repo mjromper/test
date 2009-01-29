@@ -1,0 +1,757 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0058)http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html -->
+<HTML><HEAD><TITLE>Floppy's Web3D Guide - VRML97 Node Reference</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<META 
+content="Guide to the world of VRML, with one of the best tutorials on the web." 
+name=DESCRIPTION>
+<META 
+content="VRML, VRML97, Virtual Reality Modeling Language,&#9;Tutorial, Guide, 3D,&#13;&#10;&#9;&#9;&#9;&#9;VRML node reference, reference, node reference, node syntax,&#13;&#10;&#9;&#9;&#9;&#9;Computer Graphics, Web3D, Java, JavaScript, ECMAScript, Virtual Reality,&#13;&#10;&#9;&#9;&#9;&#9;Internet 3D, VRML Worlds, VRML Tutorial, Web3D Guide, 3D Worlds, Cyberspace," 
+name=KEYWORDS>
+<META content="MSHTML 6.00.2800.1543" name=GENERATOR></HEAD>
+<BODY text=#000000 vLink=#dd0000 aLink=#ffff00 link=#ff0000 bgColor=#dddddd>
+<TABLE width="100%">
+  <TBODY>
+  <TR>
+    <TD bgColor=#bb0000><FONT face=Arial color=#ffffff size=+2>Referencia 
+      Rápida de nodos</FONT></TD></TR></TBODY></TABLE>
+<P>
+<SCRIPT language=JavaScript 
+src="Floppy's Web3D Guide - VRML97 Node Reference_archivos/footer.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+navbuttons('../index-es.html','tut51.html','struct.html');
+</SCRIPT>
+</P>
+<P>Esta referencia muestra la sintaxis de todos los nodos de la especificación 
+oficial del VRML 97. Muestra eventIn, eventOut, campos y exposedFields para cada 
+nodo, junto con su tipo y valores por defecto en cada caso. </P>
+<TABLE width=750>
+  <TBODY>
+  <TR align=middle>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Anchor">Anchor</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Appearance">Appearance</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#AudioClip">AudioClip</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Background">Background</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Billboard">Billboard</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Box">Box</A> 
+
+  <TR align=middle>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Collision">Collision</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Color">Color</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#ColorInterpolator">ColorInterpolator</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Cone">Cone</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Coordinate">Coordinate</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#CoordinateInterpolator">CoordinateInterpolator</A> 
+
+  <TR align=middle>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Cylinder">Cylinder</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#CylinderSensor">CylinderSensor</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#DirectionalLight">DirectionalLight</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#ElevationGrid">ElevationGrid</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Extrusion">Extrusion</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Fog">Fog</A> 
+
+  <TR align=middle>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#FontStyle">FontStyle</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Group">Group</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#ImageTexture">ImageTexture</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#IndexedFaceSet">IndexedFaceSet</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#IndexedLineSet">IndexedLineSet</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Inline">Inline</A> 
+
+  <TR align=middle>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#LOD">LOD</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Material">Material</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#MovieTexture">MovieTexture</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#NavigationInfo">NavigationInfo</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Normal">Normal</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#NormalInterpolator">NormalInterpolator</A> 
+
+  <TR align=middle>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#OrientationInterpolator">OrientationInterpolator</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#PixelTexture">PixelTexture</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#PlaneSensor">PlaneSensor</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#PointLight">PointLight</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#PointSet">PointSet</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#PositionInterpolator">PositionInterpolator</A> 
+
+  <TR align=middle>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#ProximitySensor">ProximitySensor</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#ScalarInterpolator">ScalarInterpolator</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Script">Script</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Shape">Shape</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Sound">Sound</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Sphere">Sphere</A> 
+
+  <TR align=middle>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#SphereSensor">SphereSensor</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#SpotLight">SpotLight</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Switch">Switch</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Text">Text</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#TextureCoordinate">TextureCoordinate</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#TextureTransform">TextureTransform</A> 
+
+  <TR align=middle>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#TimeSensor">TimeSensor</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#TouchSensor">TouchSensor</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Transform">Transform</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Viewpoint">Viewpoint</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#VisibilitySensor">VisibilitySensor</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#WorldInfo">WorldInfo</A> 
+  </TR></TBODY></TABLE>
+<HR>
+<A name=Anchor><FONT face=Arial color=#ff0000 size=+1>Anchor</FONT></A> <PRE>Anchor {
+   eventIn        MFNode      addChildren
+   eventIn        MFNode      removeChildren
+   exposedField   MFNode      children          []
+   exposedField   SFString    description       ""
+   exposedField   MFString    parameter         []
+   exposedField   MFString    url               []
+   field          SFVec3f     bboxCenter        0 0 0
+   field          SFVec3f     bboxSize          -1 -1 -1
+}
+</PRE><A name=Appearance><FONT face=Arial color=#ff0000 
+size=+1>Appearance</FONT></A> <PRE>Appearance {
+   exposedField   SFNode      material          NULL
+   exposedField   SFNode      texture           NULL
+   exposedField   SFNode      textureTransform  NULL
+}
+</PRE><A name=AudioClip><FONT face=Arial color=#ff0000 
+size=+1>AudioClip</FONT></A> <PRE>AudioClip {
+   exposedField   SFString    description       ""
+   exposedField   SFBool      loop              FALSE
+   exposedField   SFFloat     pitch             1.0
+   exposedField   SFTime      startTime         0
+   exposedField   SFTime      stopTime          0
+   exposedField   MFString    url               []
+   eventOut       SFTime      duration_changed
+   eventOut       SFBool      isActive
+}
+</PRE><A name=Background><FONT face=Arial color=#ff0000 
+size=+1>Background</FONT></A> <PRE>Background {
+   eventIn        SFBool      set_bind
+   exposedField   MFFloat     groundAngle       []
+   exposedField   MFColor     groundColor       []
+   exposedField   MFString    backUrl           []
+   exposedField   MFString    bottomUrl         []
+   exposedField   MFString    frontUrl          []
+   exposedField   MFString    leftUrl           []
+   exposedField   MFString    rightUrl          []
+   exposedField   MFString    topUrl            []
+   exposedField   MFFloat     skyAngle          []
+   exposedField   MFColor     skyColor          [0 0 0]
+   eventOut       SFBool      isBound
+}
+</PRE><A name=Billboard><FONT face=Arial color=#ff0000 
+size=+1>Billboard</FONT></A> <PRE>Billboard {
+   eventIn        MFNode      addChildren
+   eventIn        MFNode      removeChildren
+   exposedField   SFVec3f     axisOfRotation    0 1 0
+   exposedField   MFNode      children          []
+   field          SFVec3f     bboxCenter        0 0 0
+   field          SFVec3f     bboxSize          -1 -1 -1
+}
+</PRE><A name=Box><FONT face=Arial color=#ff0000 size=+1>Box</FONT></A> <PRE>Box {
+   field          SFVec3f     size              2 2 2
+}
+</PRE><A name=Collision><FONT face=Arial color=#ff0000 
+size=+1>Collision</FONT></A> <PRE>Collision {
+   eventIn        MFNode      addChildren
+   eventIn        MFNode      removeChildren
+   exposedField   MFNode      children          []
+   exposedField   SFBool      collide           TRUE
+   field          SFVec3f     bboxCenter        0 0 0
+   field          SFVec3f     bboxSize          -1 -1 -1
+   field          SFNode      proxy             NULL
+   eventOut       SFTime      collideTime
+}
+</PRE><A name=Color><FONT face=Arial color=#ff0000 size=+1>Color</FONT></A> <PRE>Color {
+   exposedField   MFColor     color             []
+}
+</PRE><A name=ColorInterpolator><FONT face=Arial color=#ff0000 
+size=+1>ColorInterpolator</FONT></A> <PRE>ColorInterpolator {
+   eventIn        SFFloat     set_fraction
+   exposedField   MFFloat     key               []
+   exposedField   MFFloat     keyValue          []
+   eventOut       SFFloat     value_changed
+}
+</PRE><A name=Cone><FONT face=Arial color=#ff0000 size=+1>Cone</FONT></A> <PRE>Cone {
+   field          SFBool      bottom            TRUE
+   field          SFFloat     bottomRadius      1
+   field          SFFloat     height            2
+   field          SFBool      side              TRUE
+}
+</PRE><A name=Coordinate><FONT face=Arial color=#ff0000 
+size=+1>Coordinate</FONT></A> <PRE>Coordinate {
+   exposedField   MFVec3f     point             []
+}
+</PRE><A name=CoordinateInterpolator><FONT face=Arial color=#ff0000 
+size=+1>CoordinateInterpolator</FONT></A> <PRE>CoordinateInterpolator {
+   eventIn        SFFloat     set_fraction
+   exposedField   MFFloat     key               []
+   exposedField   MFVec3f     keyValue          []
+   eventOut       MFVec3f     value_changed
+}
+</PRE><A name=Cylinder><FONT face=Arial color=#ff0000 
+size=+1>Cylinder</FONT></A> <PRE>Cylinder {
+   field          SFBool      bottom            TRUE
+   field          SFFloat     height            2
+   field          SFFloat     radius            1
+   field          SFBool      side              TRUE
+   field          SFBool      top               TRUE
+}
+</PRE><A name=CylinderSensor><FONT face=Arial color=#ff0000 
+size=+1>CylinderSensor</FONT></A> <PRE>CylinderSensor {
+   exposedField   SFBool      autoOffset        TRUE
+   exposedField   SFFloat     diskAngle         0.262
+   exposedField   SFBool      enabled           TRUE
+   exposedField   SFFloat     maxAngle          -1
+   exposedField   SFFloat     minAngle          0
+   exposedField   SFFloat     offset            0
+   eventOut       SFBool      isActive
+   eventOut       SFRotation  rotation_changed
+   eventOut       SFVec3f     trackPoint_changed
+}
+</PRE><A name=DirectionalLight><FONT face=Arial color=#ff0000 
+size=+1>DirectionalLight</FONT></A> <PRE>DirectionalLight {
+   exposedField   SFFloat     ambientIntensity  0
+   exposedField   SFColor     color             1 1 1
+   exposedField   SFVec3f     direction         0 0 -1
+   exposedField   SFFloat     intensity         1
+   exposedField   SFBool      on                TRUE
+}
+</PRE><A name=ElevationGrid><FONT face=Arial color=#ff0000 
+size=+1>ElevationGrid</FONT></A> <PRE>ElevationGrid {
+   eventIn        MFFloat     set_height
+   exposedField   SFNode      color             NULL
+   exposedField   SFNode      normal            NULL
+   exposedField   SFNode      texCoord          NULL
+   field          MFFloat     height            []
+   field          SFBool      ccw               TRUE
+   field          SFBool      colorPerVertex    TRUE
+   field          SFFloat     creaseAngle       0
+   field          SFBool      normalPerVertex   TRUE
+   field          SFBool      solid             TRUE
+   field          SFInt32     xDimension        0
+   field          SFFloat     xSpacing          0.0
+   field          SFInt32     zDimension        0
+   field          SFInt32     zSpacing          0.0
+}
+</PRE><A name=Extrusion><FONT face=Arial color=#ff0000 
+size=+1>Extrusion</FONT></A> <PRE>Extrusion {
+   eventIn        MFVec3f     set_crossSection
+   eventIn        MFRotation  set_orientation
+   eventIn        MFVec2f     set_scale
+   eventIn        MFVec3f     set_spine
+   field          SFBool      beginCap          TRUE
+   field          SFBool      ccw               TRUE
+   field          SFBool      convex            TRUE
+   field          SFFloat     creaseAngle       0
+   field          MFVec2f     crossSection      [1 1, 1 -1, -1 -1, -1 1, 1 1]
+   field          SFBool      endCap            TRUE
+   field          MFRotation  orientation       0 0 1 0
+   field          MFVec2f     scale             1 1
+   field          SFBool      solid             TRUE
+   field          MFVec3f     spine             [0 0 0, 0 1 0]
+}
+</PRE><A name=Fog><FONT face=Arial color=#ff0000 size=+1>Fog</FONT></A> <PRE>Fog {
+   eventIn        SFBool      set_bind
+   exposedField   SFColor     color             1 1 1
+   exposedField   SFString    fogType           "LINEAR"
+   exposedField   SFFloat     visibilityRange   0
+   eventOut       SFBool      isBound
+</PRE><A name=FontStyle><FONT face=Arial color=#ff0000 
+size=+1>FontStyle</FONT></A> <PRE>FontStyle {
+   field          MFString    family            "SERIF"
+   field          SFBool      horizontal        TRUE
+   field          MFString    justify           "BEGIN"
+   field          SFString    language          ""
+   field          SFBool      leftToRight       TRUE
+   field          SFFloat     size              1.0
+   field          SFFloat     spacing           1.0
+   field          SFString    style             "PLAIN"
+   field          SFBool      topToBottom       TRUE
+}
+</PRE><A name=Group><FONT face=Arial color=#ff0000 size=+1>Group</FONT></A> <PRE>Group {
+   eventIn        MFNode      addChildren
+   eventIn        MFNode      removeChildren
+   exposedField   MFNode      children          []
+   field          SFVec3f     bboxCenter        0 0 0
+   field          SFVec3f     bboxSize          -1 -1 -1
+}
+</PRE><A name=ImageTexture><FONT face=Arial color=#ff0000 
+size=+1>ImageTexture</FONT></A> <PRE>ImageTexture {
+   exposedField   MFString    url               []
+   field          SFBool      repeatS           TRUE
+   field          SFBool      repeatT           TRUE
+}
+</PRE><A name=IndexedFaceSet><FONT face=Arial color=#ff0000 
+size=+1>IndexedFaceSet</FONT></A> <PRE>IndexedFaceSet {
+   eventIn        MFInt32     set_colorIndex
+   eventIn        MFInt32     set_coordIndex
+   eventIn        MFInt32     set_normalIndex
+   eventIn        MFInt32     set_texCoordIndex
+   exposedField   SFNode      color             NULL
+   exposedField   SFNode      coord             NULL
+   exposedField   SFNode      normal            NULL
+   exposedField   SFNode      texCoord          NULL
+   field          SFBool      ccw               TRUE
+   field          MFInt32     colorIndex        []
+   field          SFBool      colorPerVertex    TRUE
+   field          SFBool      convex            TRUE
+   field          MFInt32     coordIndex        []
+   field          SFFloat     creaseAngle       0
+   field          MFInt32     normalIndex       []
+   field          SFBool      normalPerVertex   TRUE
+   field          SFBool      solid             TRUE
+   field          MFInt32     texCoordIndex     []
+}
+</PRE><A name=IndexedLineSet><FONT face=Arial color=#ff0000 
+size=+1>IndexedLineSet</FONT></A> <PRE>IndexedLineSet {
+   eventIn        MFInt32     set_colorIndex
+   eventIn        MFInt32     set_coordIndex
+   exposedField   SFNode      color             NULL
+   exposedField   SFNode      coord             NULL
+   field          MFInt32     colorIndex        []
+   field          SFBool      colorPerVertex    TRUE
+   field          MFInt32     coordIndex        []
+}
+</PRE><A name=Inline><FONT face=Arial color=#ff0000 size=+1>Inline</FONT></A> <PRE>Inline {
+   exposedField   MFString    url               []
+   field          SFVec3f     bboxCenter        0 0 0
+   field          SFVec3f     bboxSize          -1 -1 -1
+}
+</PRE><A name=LOD><FONT face=Arial color=#ff0000 size=+1>LOD</FONT></A> <PRE>LOD {
+   exposedField   MFNode      level             []
+   field          SFVec3f     center            0 0 0
+   field          MFFloat     range             []
+}
+</PRE><A name=Material><FONT face=Arial color=#ff0000 
+size=+1>Material</FONT></A> <PRE>Material {
+   exposedField   SFFloat     ambientIntensity  0.2
+   exposedField   SFColor     diffuseColor      0.8 0.8 0.8
+   exposedField   SFColor     emissiveColor     0 0 0
+   exposedField   SFFloat     shininess         0.2
+   exposedField   SFColor     specularColor     0 0 0
+   exposedField   SFFloat     transparency      0
+}
+</PRE><A name=MovieTexture><FONT face=Arial color=#ff0000 
+size=+1>MovieTexture</FONT></A> <PRE>MovieTexture {
+   exposedField   SFBool      loop              FALSE
+   exposedField   SFFloat     speed             1
+   exposedField   SFTime      startTime         0
+   exposedField   SFTime      stopTime          0
+   exposedField   MFString    url               []
+   field          SFBool      repeatS           TRUE
+   field          SFBool      repeatT           TRUE
+   eventOut       SFTime      duration_changed
+   eventOut       SFBool      isActive
+}
+</PRE><A name=NavigationInfo><FONT face=Arial color=#ff0000 
+size=+1>NavigationInfo</FONT></A> <PRE>NavigationInfo {
+   eventIn        SFBool      set_bind
+   exposedField   MFFloat     avatarSize        [0.25, 1.6, 0.75]
+   exposedField   SFBool      headlight         TRUE
+   exposedField   SFFloat     speed             1.0
+   exposedField   MFString    type              "WALK"
+   exposedField   SFFloat     visibilityLimit   0.0
+   eventOut       SFBool      isBound
+}
+</PRE><A name=Normal><FONT face=Arial color=#ff0000 size=+1>Normal</FONT></A> <PRE>Normal {
+   exposedField   MFVec3f     vector            []
+}
+</PRE><A name=NormalInterpolator><FONT face=Arial color=#ff0000 
+size=+1>NormalInterpolator</FONT></A> <PRE>NormalInterpolator {
+   eventIn        SFFloat     set_fraction
+   exposedField   MFFloat     key               []
+   exposedField   MFVec3f     keyValue          []
+   eventOut       MFVec3f     value_changed
+}
+</PRE><A name=OrientationInterpolator><FONT face=Arial color=#ff0000 
+size=+1>OrientationInterpolator</FONT></A> <PRE>OrientationInterpolator {
+   eventIn        SFFloat     set_fraction
+   exposedField   MFFloat     key               []
+   exposedField   MFRotation  keyValue          []
+   eventOut       SFRotation  value_changed
+}
+</PRE><A name=PixelTexture><FONT face=Arial color=#ff0000 
+size=+1>PixelTexture</FONT></A> <PRE>PixelTexture {
+   exposedField   SFImage     image             0 0 0
+   field          SFBool      repeatS           TRUE
+   field          SFBool      repeatT           TRUE
+}
+</PRE><A name=PlaneSensor><FONT face=Arial color=#ff0000 
+size=+1>PlaneSensor</FONT></A> <PRE>PlaneSensor {
+   exposedField   SFBool      autoOffset        TRUE
+   exposedField   SFBool      enabled           TRUE
+   exposedField   SFVec2f     maxPosition       -1 -1
+   exposedField   SFVec2f     minPosition       0 0
+   exposedField   SFVec3f     offset            0 0 0
+   eventOut       SFBool      isActive
+   eventOut       SFVec3f     trackPoint_changed
+   eventOut       SFVec3f     translation_changed
+}
+</PRE><A name=PointLight><FONT face=Arial color=#ff0000 
+size=+1>PointLight</FONT></A> <PRE>PointLight {
+   exposedField   SFFloat     ambientIntensity  0
+   exposedField   SFVec3f     attenuation       1 0 0
+   exposedField   SFColor     color             1 1 1
+   exposedField   SFFloat     intensity         1
+   exposedField   SFVec3f     location          0 0 0
+   exposedField   SFBool      on                TRUE
+   exposedField   SFFloat     radius            100
+}
+</PRE><A name=PointSet><FONT face=Arial color=#ff0000 
+size=+1>PointSet</FONT></A> <PRE>PointSet {
+   exposedField   SFNode      color             NULL
+   exposedField   SFNode      coord             NULL
+}
+</PRE><A name=PositionInterpolator><FONT face=Arial color=#ff0000 
+size=+1>PositionInterpolator</FONT></A> <PRE>PositionInterpolator {
+   eventIn        SFFloat     set_fraction
+   exposedField   MFFloat     key               []
+   exposedField   MFVec3f     keyValue          []
+   eventOut       SFVec3f     value_changed
+}
+</PRE><A name=ProximitySensor><FONT face=Arial color=#ff0000 
+size=+1>ProximitySensor</FONT></A> <PRE>ProximitySensor {
+   exposedField   SFVec3f     center            0 0 0
+   exposedField   SFVec3f     size              0 0 0
+   exposedField   SFBool      enabled           TRUE
+   eventOut       SFBool      isActive
+   eventOut       SFVec3f     position_changed
+   eventOut       SFRotation  orientation_changed
+   eventOut       SFTime      enterTime
+   eventOut       SFTime      exitTime
+}
+</PRE><A name=ScalarInterpolator><FONT face=Arial color=#ff0000 
+size=+1>ScalarInterpolator</FONT></A> <PRE>ScalarInterpolator {
+   eventIn        SFFloat     set_fraction
+   exposedField   MFFloat     key               []
+   exposedField   MFFloat     keyValue          []
+   eventOut       SFFloat     value_changed
+}
+</PRE><A name=Script><FONT face=Arial color=#ff0000 size=+1>Script</FONT></A> <PRE>Script {
+   exposedField   MFString    url               []
+   field          SFBool      directOutput      FALSE
+   field          SFBool      mustEvaluate      FALSE
+
+   Also, any number of the following:
+   eventIn        Type        eventInName
+   field          Type        fieldName         default value
+   eventOut       Type        eventOutName
+}
+</PRE><A name=Shape><FONT face=Arial color=#ff0000 size=+1>Shape</FONT></A> <PRE>Shape {
+   exposedField   SFNode      appearance        NULL
+   exposedField   SFNode      geometry          NULL
+}
+</PRE><A name=Sound><FONT face=Arial color=#ff0000 size=+1>Sound</FONT></A> <PRE>Sound {
+   exposedField   SFVec3f     direction         0 0 1
+   exposedField   SFFloat     intensity         1
+   exposedField   SFVec3f     location          0 0 0
+   exposedField   SFFloat     maxBack           10
+   exposedField   SFFloat     maxFront          10
+   exposedField   SFFloat     minBack           1
+   exposedField   SFFloat     minFront          1
+   exposedField   SFFloat     priority          0
+   exposedField   SFNode      source            NULL
+   field          SFBool      spatialize        TRUE   
+}
+</PRE><A name=Sphere><FONT face=Arial color=#ff0000 size=+1>Sphere</FONT></A> <PRE>Sphere {
+   field          SFFloat     radius            1
+}
+</PRE><A name=SphereSensor><FONT face=Arial color=#ff0000 
+size=+1>SphereSensor</FONT></A> <PRE>SphereSensor {
+   exposedField   SFBool      autoOffset        TRUE
+   exposedField   SFBool      enabled           TRUE
+   exposedField   SFRotation  offset            0 1 0 0
+   eventOut       SFBool      isActive
+   eventOut       SFRotation  rotation_changed
+   eventOut       SFVec3f     trackPoint_changed
+}
+</PRE><A name=SpotLight><FONT face=Arial color=#ff0000 
+size=+1>SpotLight</FONT></A> <PRE>SpotLight {
+   exposedField   SFFloat     ambientIntensity  0
+   exposedField   SFVec3f     attenuation       1 0 0
+   exposedField   SFFloat     beamWidth         1.570796
+   exposedField   SFColor     color             1 1 1
+   exposedField   SFFloat     cutOffAngle       0.785398
+   exposedField   SFVec3f     direction         0 0 -1
+   exposedField   SFFloat     intensity         1
+   exposedField   SFVec3f     location          0 0 0
+   exposedField   SFBool      on                TRUE
+   exposedField   SFFloat     radius            100
+}
+</PRE><A name=Switch><FONT face=Arial color=#ff0000 size=+1>Switch</FONT></A> <PRE>Switch {
+   exposedField   MFNode      choice            []
+   exposedField   SFInt32     whichChoice       -1
+}
+</PRE><A name=Text><FONT face=Arial color=#ff0000 size=+1>Text</FONT></A> <PRE>Text {
+   exposedField   MFString    string            []
+   exposedField   SFNode      fontStyle         NULL
+   exposedField   MFFloat     length            []
+   exposedField   SFFloat     maxExtent         0.0
+}
+</PRE><A name=TextureCoordinate><FONT face=Arial color=#ff0000 
+size=+1>TextureCoordinate</FONT></A> <PRE>TextureCoordinate {
+   exposedField   MFVec2f     point             []
+}
+</PRE><A name=TextureTransform><FONT face=Arial color=#ff0000 
+size=+1>TextureTransform</FONT></A> <PRE>TextureTransform {
+   exposedField   SFVec2f     center            0 0
+   exposedField   SFFloat     rotation          0
+   exposedField   SFVec2f     scale             1 1
+   exposedField   SFVec2f     translation       0 0
+}
+</PRE><A name=TimeSensor><FONT face=Arial color=#ff0000 
+size=+1>TimeSensor</FONT></A> <PRE>TimeSensor {
+   exposedField   SFTime      cycleInterval     1
+   exposedField   SFBool      enabled           TRUE
+   exposedField   SFBool      loop              FALSE
+   exposedField   SFTime      startTime         0
+   exposedField   SFTime      stopTime          0
+   eventOut       SFTime      cycleTime
+   eventOut       SFFloat     fraction_changed
+   eventOut       SFBool      isActive
+   eventOut       SFTime      time
+}
+</PRE><A name=TouchSensor><FONT face=Arial color=#ff0000 
+size=+1>TouchSensor</FONT></A> <PRE>TouchSensor {
+   exposedField   SFBool      enabled           TRUE
+   eventOut       SFVec3f     hitNormal_changed
+   eventOut       SFVec3f     hitPoint_changed
+   eventOut       SFVec2f     hitTexCoord_changed
+   eventOut       SFBool      isActive
+   eventOut       SFBool      isOver
+   eventOut       SFTime      touchTime
+}
+</PRE><A name=Transform><FONT face=Arial color=#ff0000 
+size=+1>Transform</FONT></A> <PRE>Transform {
+   eventIn        MFNode      addChildren
+   eventIn        MFNode      removeChildren
+   exposedField   SFVec3f     center            0 0 0
+   exposedField   MFNode      children          []
+   exposedField   SFRotation  rotation          0 0 1 0
+   exposedField   SFVec3f     scale             1 1 1
+   exposedField   SFRotation  scaleOrientation  0 0 1 0
+   exposedField   SFVec3f     translation       0 0 0 
+   field          SFVec3f     bboxCenter        0 0 0
+   field          SFVec3f     bboxSize          -1 -1 -1
+}
+</PRE><A name=Viewpoint><FONT face=Arial color=#ff0000 
+size=+1>Viewpoint</FONT></A> <PRE>Viewpoint {
+   eventIn        SFBool      set_bind
+   exposedField   SFFloat     fieldOfView       0.785398
+   exposedField   SFBool      jump              TRUE
+   exposedField   SFRotation  orientation       0 0 1 0
+   exposedField   SFVec3f     position          0 0 10
+   field          SFString    description       ""
+   eventOut       SFTime      bindTime
+   eventOut       SFBool      isBound
+}
+</PRE><A name=VisibilitySensor><FONT face=Arial color=#ff0000 
+size=+1>VisibilitySensor</FONT></A> <PRE>VisibilitySensor {
+   exposedField   SFVec3f     center            0 0 0
+   exposedField   SFBool      enabled           TRUE
+   exposedField   SFVec3f     size              0 0 0
+   eventOut       SFTime      enterTime
+   eventOut       SFTime      exitTime
+   eventOut       SFBool      isActive
+}
+</PRE><A name=WorldInfo><FONT face=Arial color=#ff0000 
+size=+1>WorldInfo</FONT></A> <PRE>WorldInfo {
+   field          MFString    info              []
+   field          SFString    title             ""
+}
+</PRE>
+<HR>
+
+<TABLE>
+  <TBODY>
+  <TR align=middle>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Anchor">Anchor</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Appearance">Appearance</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#AudioClip">AudioClip</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Background">Background</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Billboard">Billboard</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Box">Box</A> 
+
+  <TR align=middle>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Collision">Collision</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Color">Color</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#ColorInterpolator">ColorInterpolator</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Cone">Cone</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Coordinate">Coordinate</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#CoordinateInterpolator">CoordinateInterpolator</A> 
+
+  <TR align=middle>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Cylinder">Cylinder</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#CylinderSensor">CylinderSensor</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#DirectionalLight">DirectionalLight</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#ElevationGrid">ElevationGrid</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Extrusion">Extrusion</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Fog">Fog</A> 
+
+  <TR align=middle>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#FontStyle">FontStyle</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Group">Group</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#ImageTexture">ImageTexture</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#IndexedFaceSet">IndexedFaceSet</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#IndexedLineSet">IndexedLineSet</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Inline">Inline</A> 
+
+  <TR align=middle>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#LOD">LOD</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Material">Material</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#MovieTexture">MovieTexture</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#NavigationInfo">NavigationInfo</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Normal">Normal</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#NormalInterpolator">NormalInterpolator</A> 
+
+  <TR align=middle>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#OrientationInterpolator">OrientationInterpolator</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#PixelTexture">PixelTexture</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#PlaneSensor">PlaneSensor</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#PointLight">PointLight</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#PointSet">PointSet</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#PositionInterpolator">PositionInterpolator</A> 
+
+  <TR align=middle>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#ProximitySensor">ProximitySensor</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#ScalarInterpolator">ScalarInterpolator</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Script">Script</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Shape">Shape</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Sound">Sound</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Sphere">Sphere</A> 
+
+  <TR align=middle>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#SphereSensor">SphereSensor</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#SpotLight">SpotLight</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Switch">Switch</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Text">Text</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#TextureCoordinate">TextureCoordinate</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#TextureTransform">TextureTransform</A> 
+
+  <TR align=middle>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#TimeSensor">TimeSensor</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#TouchSensor">TouchSensor</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Transform">Transform</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#Viewpoint">Viewpoint</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#VisibilitySensor">VisibilitySensor</A>
+    <TD><A 
+      href="http://web3d.vapourtech.com/tutorials/vrml97/es/nodes.html#WorldInfo">WorldInfo</A> 
+  </TR></TBODY></TABLE>
+<SCRIPT type=text/javascript>
+navbuttons('../index-es.html','tut51.html','struct.html');
+footer('../pics/guidelogo.gif','Index','../index-es.html', 'es', '..');
+</SCRIPT>
+</BODY></HTML>

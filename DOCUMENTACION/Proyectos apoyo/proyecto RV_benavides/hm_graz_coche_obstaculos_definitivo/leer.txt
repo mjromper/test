@@ -1,0 +1,19 @@
+Esta es una modificación para accelerar el entrenmiento
+	Aquí lo que hago es modificar el programa de descursor2, de forma
+que a la hora de jugar se facilite al usuario el entrenamiento.
+Básicamente consiste en que sólo se desplace hacia ariba o haia abajo.
+
+	Modificación realizada el 5/4/02.
+
+	El nuevo programa se llama descursor3, y si se quiere utilizar,
+se tiene que cambiar la llamada a esa función que hace el programa "frec2burg.m"
+en la línea 139.
+
+	La modificación que he hecho en descursor3, es introducir la variable
+"objet" que indica con un 1 que el rectángulo está arriba y con 2 que está
+abajo. Con esto, desplazo hacia arriba sólo si el rectángulo está arriba, y
+abajo si el rectángulo está abajo.
+
+	Otra modificación que propongo para facilitar el entrenamiento, es 
+modificar la línea 75 del programa "prueba.m" de forma que se configure para
+sólo aparezcan rectángilo arriba "if rand<1"o abajo "if rand<0"
