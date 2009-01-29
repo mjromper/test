@@ -1,0 +1,5 @@
+casavr_v4a --> casa virtual en los que se ha creado un "hermano" 
+		tipo box (cajas) para cada sensor de manera que queden reflejadas 
+		las dimensiones de cada sensor.
+
+casavr_v4b --> casa virtual con los sensores (casavr_v4a sin las cajas)
