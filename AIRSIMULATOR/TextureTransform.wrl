@@ -1,0 +1,94 @@
+#VRML V2.0 utf8
+
+#	Example illustrating a moving texture.  This is done using
+#	2 ScalarInterpolators (or 1 PositionInterpolator).  The
+#	translation field takes a SFVec2f, so you need to use a script
+#	to insure the correct event type.
+#
+#
+#       Author:  Leonard Daly (daly@realism.com)
+#       Copyright 1999, Leonard Daly
+
+
+
+Viewpoint {
+  position 0 0 40
+  description "Viewing Location"
+}
+
+Transform {
+  children [
+    Shape {
+      appearance Appearance {
+        texture ImageTexture {
+          url "texture.gif"
+        }
+        textureTransform DEF TT TextureTransform {}
+        material Material {}
+      }
+      geometry IndexedFaceSet {
+        coord Coordinate {
+          point [10 10 -15, -10 10 -15, -10 -10 -15, 10 -10 -15]
+        }
+        coordIndex [0 1 2 3 -1]
+      }
+    }
+  ]
+}
+
+
+#	Timer control
+
+DEF Timer TimeSensor {
+  enabled	TRUE
+  loop		TRUE
+  cycleInterval	10.
+  startTime	2
+  stopTime	1
+}
+
+
+#	X and Y interpolators (probably should be called S & T).
+
+DEF MoveX ScalarInterpolator {
+  key		[0 1]
+  keyValue	[0 1.]
+}
+DEF MoveY ScalarInterpolator {
+  key		[0 .5 1]
+  keyValue	[0 0 1.]
+}
+
+
+#	The script that puts the two interpolator results
+#	together.  This generates 2 events for each
+#	TimeSensor event.
+
+DEF Merge Script {
+  field   SFFloat	Xf	0
+  field   SFFloat	Yf	0
+  eventIn SFFloat	xFraction
+  eventIn SFFloat	yFraction
+  eventOut SFVec2f	trans2D
+
+  url "javascript:
+      function xFraction (value) {
+	Xf = value;
+	trans2D[0] = Xf;
+	trans2D[1] = Yf;
+      }
+      function yFraction (value) {
+	Yf = value;
+	trans2D[0] = Xf;
+	trans2D[1] = Yf;
+      }
+  "
+}
+
+ROUTE	Timer.fraction_changed	TO	MoveX.set_fraction
+ROUTE	Timer.fraction_changed	TO	MoveY.set_fraction
+ROUTE	MoveX.value_changed	TO	Merge.xFraction
+ROUTE	MoveY.value_changed	TO	Merge.yFraction
+ROUTE	Merge.trans2D		TO	TT.translation
+
+ 
