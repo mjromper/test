@@ -2481,7 +2481,7 @@ textureTransform DEF TT TextureTransform {
 }
 
 texture ImageTexture {
-url "./texturas/wee.jpg"
+url "./texturas/3.jpg"
 }
 }
 geometry DEF Plane01-FACES IndexedFaceSet {

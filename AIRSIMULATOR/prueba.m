@@ -1,25 +1,27 @@
 function prueba()
 
+global textura;
+global avion;
 
-world = vrworld('plain2.WRL');
-%reload(world);
+world = vrworld('plain3.WRL');
 open(world);
-fig_sujeto=vrfigure(world,[4 75 1300 750]);
+reload(world);
 
-%nodes(world);
+% fig_sujeto=vrfigure(world,[4 75 1300 750]);
+vrdrawnow;
+nodes(world);
 textura = vrnode(world,'TT');
-textura.translation
+avion=vrnode(world,'A6M2Fuse');
+fields(avion)
+textura.translation(2)+0.0002
 vrdrawnow;
 pause(0.02);
-for i=0:0.001:2
 
-   textura.translation = [0 i];
-    vrdrawnow;
-    pause(0.02);
-end,    
- 
 
- 
+movePlain(3);
+movePlain(3);
+movePlain(0);
+movePlain(1);
 
 
 
