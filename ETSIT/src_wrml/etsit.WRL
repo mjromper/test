@@ -5,6 +5,34 @@
 #www.ids-net.com
 
 
+DEF Omni04 PointLight {
+	color	1 1 1
+	intensity	1
+	location	632 -478 360
+	on	TRUE
+	radius	1810
+}
+DEF Omni03 PointLight {
+	color	1 1 1
+	intensity	1
+	location	-546 -344 360
+	on	TRUE
+	radius	1810
+}
+DEF Omni02 PointLight {
+	color	1 1 1
+	intensity	1
+	location	558 515 -523
+	on	TRUE
+	radius	1810
+}
+DEF Omni01 PointLight {
+	color	1 1 1
+	intensity	1
+	location	-546 515 -547
+	on	TRUE
+	radius	1810
+}
 DEF cafete Transform {
 	translation	1.93 0 56.4
 	rotation	0 1 0  0.357641
@@ -43,18 +71,8 @@ DEF cafete Transform {
 
 	    Transform {
 		    translation	0 0 -0.2
-		    children Shape {
-			    appearance	Appearance {
-				    material	Material {
-					    diffuseColor	0.531497 0.325406 0.8
-				    }
-
-			    }
-
-			    geometry	Box {
-				    size	7.5 7.5 7.5
-			    }
-
+		    children ProximitySensor {
+			    size	7.5 7.5 7.5
 		    }
 	    }
 	]
@@ -70,34 +88,6 @@ Background {
 			  0.277798 0.219779 0.7,
 			  0.222549 0.390234 0.7,
 			  0.60094 0.662637 0.69 ]
-}
-DEF Omni01 PointLight {
-	color	1 1 1
-	intensity	1
-	location	-546 515 -547
-	on	TRUE
-	radius	1810
-}
-DEF Omni02 PointLight {
-	color	1 1 1
-	intensity	1
-	location	558 515 -523
-	on	TRUE
-	radius	1810
-}
-DEF Omni03 PointLight {
-	color	1 1 1
-	intensity	1
-	location	-546 -344 360
-	on	TRUE
-	radius	1810
-}
-DEF Omni04 PointLight {
-	color	1 1 1
-	intensity	1
-	location	632 -478 360
-	on	TRUE
-	radius	1810
 }
 DEF Camera02 Viewpoint {
 	fieldOfView	0.602
@@ -540,18 +530,9 @@ DEF cafeteria Transform {
 	}
 
 	Transform {
-		children Shape {
-			appearance	Appearance {
-				material	Material {
-					diffuseColor	0.259249 0.539659 0.8
-				}
-
-			}
-
-			geometry	Box {
-				size	300 80 72
-			}
-
+		translation	0 0 0
+		children ProximitySensor {
+			size	300 80 72
 		}
 	}
     ]
@@ -2197,18 +2178,8 @@ DEF chiqui_stairs Transform {
 		}
 
 		Transform {
-			children Shape {
-				appearance	Appearance {
-					material	Material {
-						diffuseColor	0.8 0.35816 0.342566
-					}
-
-				}
-
-				geometry	Box {
-					size	28 500 100
-				}
-
+			children ProximitySensor {
+				size	28 500 100
 			}
 		}
 	    ]
@@ -2938,18 +2909,8 @@ DEF columnon Transform {
 
 	Transform {
 		translation	0 0 0
-		children Shape {
-			appearance	Appearance {
-				material	Material {
-					diffuseColor	0.8 0.277296 0.292889
-				}
-
-			}
-
-			geometry	Box {
-				size	500 1000 500
-			}
-
+		children ProximitySensor {
+			size	500 1000 500
 		}
 	}
     ]
@@ -7240,18 +7201,8 @@ DEF Box12 Transform {
 	}
 
 	Transform {
-		children Shape {
-			appearance	Appearance {
-				material	Material {
-					diffuseColor	0.784257 0.8 0.281392
-				}
-
-			}
-
-			geometry	Box {
-				size	128 502 670
-			}
-
+		children ProximitySensor {
+			size	128 502 670
 		}
 	}
     ]
@@ -7350,18 +7301,9 @@ DEF Box221 Transform {
 	}
 
 	Transform {
-		children Shape {
-			appearance	Appearance {
-				material	Material {
-					diffuseColor	0.220236 0.8 0.242918
-				}
-
-			}
-
-			geometry	Box {
-				size	136 663 680
-			}
-
+		translation	-2.66758e-006 -0.000445149 0.0113857
+		children ProximitySensor {
+			size	136 663 680
 		}
 	}
     ]
@@ -7554,18 +7496,8 @@ DEF Box223 Transform {
 	}
 
 	Transform {
-		children Shape {
-			appearance	Appearance {
-				material	Material {
-					diffuseColor	0.8 0.539726 0.0682144
-				}
-
-			}
-
-			geometry	Box {
-				size	150 500 650
-			}
-
+		children ProximitySensor {
+			size	150 500 650
 		}
 	}
     ]
@@ -7664,18 +7596,8 @@ DEF Box224 Transform {
 	}
 
 	Transform {
-		children Shape {
-			appearance	Appearance {
-				material	Material {
-					diffuseColor	0.8 0.556891 0.137014
-				}
-
-			}
-
-			geometry	Box {
-				size	139 500 650
-			}
-
+		children ProximitySensor {
+			size	139 500 650
 		}
 	}
     ]
@@ -7773,18 +7695,8 @@ DEF Box225 Transform {
 	}
 
 	Transform {
-		children Shape {
-			appearance	Appearance {
-				material	Material {
-					diffuseColor	0.364079 0.8 0.278317
-				}
-
-			}
-
-			geometry	Box {
-				size	145 500 650
-			}
-
+		children ProximitySensor {
+			size	145 500 650
 		}
 	}
     ]
@@ -7882,18 +7794,8 @@ DEF Box226 Transform {
 	}
 
 	Transform {
-		children Shape {
-			appearance	Appearance {
-				material	Material {
-					diffuseColor	0.486791 0.0799648 0.8
-				}
-
-			}
-
-			geometry	Box {
-				size	172 1146 680
-			}
-
+		children ProximitySensor {
+			size	172 1146 680
 		}
 	}
     ]
@@ -7992,18 +7894,8 @@ DEF Box227 Transform {
 	}
 
 	Transform {
-		children Shape {
-			appearance	Appearance {
-				material	Material {
-					diffuseColor	0.8 0.319795 0.257281
-				}
-
-			}
-
-			geometry	Box {
-				size	149 1000 800
-			}
-
+		children ProximitySensor {
+			size	149 1000 800
 		}
 	}
     ]
@@ -8052,18 +7944,8 @@ DEF Box228 Transform {
 	    }
 
 	    Transform {
-		    children Shape {
-			    appearance	Appearance {
-				    material	Material {
-					    diffuseColor	0.0645809 0.768808 0.8
-				    }
-
-			    }
-
-			    geometry	Box {
-				    size	300 1200 650
-			    }
-
+		    children ProximitySensor {
+			    size	300 1200 650
 		    }
 	    }
 	]
@@ -13905,18 +13787,8 @@ DEF Box275 Transform {
 	}
 
 	Transform {
-		children Shape {
-			appearance	Appearance {
-				material	Material {
-					diffuseColor	0.67063 0.8 0.128823
-				}
-
-			}
-
-			geometry	Box {
-				size	300 600 1000
-			}
-
+		children ProximitySensor {
+			size	300 600 1000
 		}
 	}
     ]
@@ -17289,18 +17161,9 @@ DEF columnas_patio Transform {
 			}
 
 			Transform {
-				children Shape {
-					appearance	Appearance {
-						material	Material {
-							diffuseColor	0.558563 0.8 0.0347401
-						}
-
-					}
-
-					geometry	Box {
-						size	500 500 500
-					}
-
+				children ProximitySensor {
+					center	0 0 0
+					size	500 500 500
 				}
 			}
 		    ]
@@ -18759,18 +18622,8 @@ DEF columnas_patio Transform {
 			}
 
 			Transform {
-				children Shape {
-					appearance	Appearance {
-						material	Material {
-							diffuseColor	0.558563 0.8 0.0347401
-						}
-
-					}
-
-					geometry	Box {
-						size	500 500 500
-					}
-
+				children ProximitySensor {
+					size	500 500 500
 				}
 			}
 		    ]
@@ -19019,18 +18872,8 @@ DEF columnas_patio Transform {
 			}
 
 			Transform {
-				children Shape {
-					appearance	Appearance {
-						material	Material {
-							diffuseColor	0.558563 0.8 0.0347401
-						}
-
-					}
-
-					geometry	Box {
-						size	500 500 500
-					}
-
+				children ProximitySensor {
+					size	500 500 500
 				}
 			}
 		    ]
@@ -19279,18 +19122,8 @@ DEF columnas_patio Transform {
 			}
 
 			Transform {
-				children Shape {
-					appearance	Appearance {
-						material	Material {
-							diffuseColor	0.558563 0.8 0.0347401
-						}
-
-					}
-
-					geometry	Box {
-						size	500 500 500
-					}
-
+				children ProximitySensor {
+					size	500 500 500
 				}
 			}
 		    ]
@@ -19781,18 +19614,8 @@ DEF columnas_patio Transform {
 			}
 
 			Transform {
-				children Shape {
-					appearance	Appearance {
-						material	Material {
-							diffuseColor	0.558563 0.8 0.0347401
-						}
-
-					}
-
-					geometry	Box {
-						size	500 500 500
-					}
-
+				children ProximitySensor {
+					size	500 500 500
 				}
 			}
 		    ]
@@ -20041,18 +19864,8 @@ DEF columnas_patio Transform {
 			}
 
 			Transform {
-				children Shape {
-					appearance	Appearance {
-						material	Material {
-							diffuseColor	0.558563 0.8 0.0347401
-						}
-
-					}
-
-					geometry	Box {
-						size	500 500 500
-					}
-
+				children ProximitySensor {
+					size	500 500 500
 				}
 			}
 		    ]
@@ -20301,18 +20114,8 @@ DEF columnas_patio Transform {
 			}
 
 			Transform {
-				children Shape {
-					appearance	Appearance {
-						material	Material {
-							diffuseColor	0.558563 0.8 0.0347401
-						}
-
-					}
-
-					geometry	Box {
-						size	500 500 500
-					}
-
+				children ProximitySensor {
+					size	500 500 500
 				}
 			}
 		    ]
@@ -20561,18 +20364,8 @@ DEF columnas_patio Transform {
 			}
 
 			Transform {
-				children Shape {
-					appearance	Appearance {
-						material	Material {
-							diffuseColor	0.558563 0.8 0.0347401
-						}
-
-					}
-
-					geometry	Box {
-						size	500 500 500
-					}
-
+				children ProximitySensor {
+					size	500 500 500
 				}
 			}
 		    ]
@@ -20821,18 +20614,9 @@ DEF columnas_patio Transform {
 			}
 
 			Transform {
-				children Shape {
-					appearance	Appearance {
-						material	Material {
-							diffuseColor	0.558563 0.8 0.0347401
-						}
-
-					}
-
-					geometry	Box {
-						size	500 500 500
-					}
-
+				children ProximitySensor {
+					center	0 0 0
+					size	500 500 500
 				}
 			}
 		    ]
@@ -21081,18 +20865,8 @@ DEF columnas_patio Transform {
 			}
 
 			Transform {
-				children Shape {
-					appearance	Appearance {
-						material	Material {
-							diffuseColor	0.558563 0.8 0.0347401
-						}
-
-					}
-
-					geometry	Box {
-						size	500 500 500
-					}
-
+				children ProximitySensor {
+					size	500 500 500
 				}
 			}
 		    ]
@@ -21341,18 +21115,8 @@ DEF columnas_patio Transform {
 			}
 
 			Transform {
-				children Shape {
-					appearance	Appearance {
-						material	Material {
-							diffuseColor	0.558563 0.8 0.0347401
-						}
-
-					}
-
-					geometry	Box {
-						size	500 500 500
-					}
-
+				children ProximitySensor {
+					size	500 500 500
 				}
 			}
 		    ]
@@ -21601,18 +21365,8 @@ DEF columnas_patio Transform {
 			}
 
 			Transform {
-				children Shape {
-					appearance	Appearance {
-						material	Material {
-							diffuseColor	0.558563 0.8 0.0347401
-						}
-
-					}
-
-					geometry	Box {
-						size	500 500 500
-					}
-
+				children ProximitySensor {
+					size	500 500 500
 				}
 			}
 		    ]
@@ -21861,18 +21615,8 @@ DEF columnas_patio Transform {
 			}
 
 			Transform {
-				children Shape {
-					appearance	Appearance {
-						material	Material {
-							diffuseColor	0.558563 0.8 0.0347401
-						}
-
-					}
-
-					geometry	Box {
-						size	500 500 500
-					}
-
+				children ProximitySensor {
+					size	500 500 500
 				}
 			}
 		    ]
@@ -22121,18 +21865,8 @@ DEF columnas_patio Transform {
 			}
 
 			Transform {
-				children Shape {
-					appearance	Appearance {
-						material	Material {
-							diffuseColor	0.558563 0.8 0.0347401
-						}
-
-					}
-
-					geometry	Box {
-						size	500 500 500
-					}
-
+				children ProximitySensor {
+					size	500 500 500
 				}
 			}
 		    ]
@@ -22381,18 +22115,8 @@ DEF columnas_patio Transform {
 			}
 
 			Transform {
-				children Shape {
-					appearance	Appearance {
-						material	Material {
-							diffuseColor	0.558563 0.8 0.0347401
-						}
-
-					}
-
-					geometry	Box {
-						size	500 500 500
-					}
-
+				children ProximitySensor {
+					size	500 500 500
 				}
 			}
 		    ]
@@ -22641,18 +22365,8 @@ DEF columnas_patio Transform {
 			}
 
 			Transform {
-				children Shape {
-					appearance	Appearance {
-						material	Material {
-							diffuseColor	0.558563 0.8 0.0347401
-						}
-
-					}
-
-					geometry	Box {
-						size	500 500 500
-					}
-
+				children ProximitySensor {
+					size	500 500 500
 				}
 			}
 		    ]
@@ -22901,18 +22615,8 @@ DEF columnas_patio Transform {
 			}
 
 			Transform {
-				children Shape {
-					appearance	Appearance {
-						material	Material {
-							diffuseColor	0.558563 0.8 0.0347401
-						}
-
-					}
-
-					geometry	Box {
-						size	500 500 500
-					}
-
+				children ProximitySensor {
+					size	500 500 500
 				}
 			}
 		    ]
@@ -23161,18 +22865,8 @@ DEF columnas_patio Transform {
 			}
 
 			Transform {
-				children Shape {
-					appearance	Appearance {
-						material	Material {
-							diffuseColor	0.558563 0.8 0.0347401
-						}
-
-					}
-
-					geometry	Box {
-						size	500 500 500
-					}
-
+				children ProximitySensor {
+					size	500 500 500
 				}
 			}
 		    ]
@@ -23421,18 +23115,8 @@ DEF columnas_patio Transform {
 			}
 
 			Transform {
-				children Shape {
-					appearance	Appearance {
-						material	Material {
-							diffuseColor	0.558563 0.8 0.0347401
-						}
-
-					}
-
-					geometry	Box {
-						size	500 500 500
-					}
-
+				children ProximitySensor {
+					size	500 500 500
 				}
 			}
 		    ]
@@ -23681,18 +23365,8 @@ DEF columnas_patio Transform {
 			}
 
 			Transform {
-				children Shape {
-					appearance	Appearance {
-						material	Material {
-							diffuseColor	0.558563 0.8 0.0347401
-						}
-
-					}
-
-					geometry	Box {
-						size	500 500 500
-					}
-
+				children ProximitySensor {
+					size	500 500 500
 				}
 			}
 		    ]
@@ -24629,18 +24303,9 @@ DEF biblioteca_puerta1 Transform {
 
 				    Transform {
 					    translation	130 600 0
-					    children Shape {
-						    appearance	Appearance {
-							    material	Material {
-								    diffuseColor	0.8 0.204138 0.298108
-							    }
-
-						    }
-
-						    geometry	Box {
-							    size	3700 1900 2500
-						    }
-
+					    children ProximitySensor {
+						    center	0 0 0
+						    size	3700 1900 2500
 					    }
 				    }
 				]
@@ -41011,18 +40676,8 @@ DEF banco05 Transform {
 
 			Transform {
 				translation	-118 0 0
-				children Shape {
-					appearance	Appearance {
-						material	Material {
-							diffuseColor	0.326531 0.455923 0.8
-						}
-
-					}
-
-					geometry	Box {
-						size	224 315 58
-					}
-
+				children ProximitySensor {
+					size	224 315 58
 				}
 			}
 		    ]
@@ -41349,18 +41004,8 @@ DEF banco06 Transform {
 
 			Transform {
 				translation	-201 0 0
-				children Shape {
-					appearance	Appearance {
-						material	Material {
-							diffuseColor	0.143797 0.0298791 0.8
-						}
-
-					}
-
-					geometry	Box {
-						size	421 303 115
-					}
-
+				children ProximitySensor {
+					size	421 303 115
 				}
 			}
 		    ]
@@ -48961,18 +48606,8 @@ children [
 
 Transform {
 	translation	0 0 -8000
-	children Shape {
-		appearance	Appearance {
-			material	Material {
-				diffuseColor	0.8 0.138826 0.361695
-			}
-
-		}
-
-		geometry	Box {
-			size	5000 5000 25000
-		}
-
+	children ProximitySensor {
+		size	5000 5000 25000
 	}
 }
     ]
@@ -52445,18 +52080,8 @@ point	[ 0.674 -11,
 
     Transform {
     translation	0 0 -0.8
-    children Shape {
-    appearance	Appearance {
-    material	Material {
-    diffuseColor	0.257281 0.8 0.737486
-    }
-
-    }
-
-    geometry	Box {
+    children ProximitySensor {
     size	37.2 10 5.4
-    }
-
     }
     }
 ]
@@ -53599,18 +53224,8 @@ DEF modulo02 Transform {
 
 				Transform {
 					translation	0 0 -8000
-					children Shape {
-						appearance	Appearance {
-							material	Material {
-								diffuseColor	0.8 0.138826 0.361695
-							}
-
-						}
-
-						geometry	Box {
-							size	5000 5000 25000
-						}
-
+					children ProximitySensor {
+						size	5000 5000 25000
 					}
 				}
 			    ]
@@ -54420,18 +54035,8 @@ DEF modulo02 Transform {
 
     Transform {
     translation	0 0 -0.8
-    children Shape {
-	    appearance	Appearance {
-		    material	Material {
-			    diffuseColor	0.257281 0.8 0.737486
-		    }
-
-	    }
-
-	    geometry	Box {
-		    size	37.2 10 5.4
-	    }
-
+    children ProximitySensor {
+	    size	37.2 10 5.4
     }
     }
 ]
@@ -55574,18 +55179,8 @@ DEF modulo03 Transform {
 
 				Transform {
 					translation	0 0 -8000
-					children Shape {
-						appearance	Appearance {
-							material	Material {
-								diffuseColor	0.8 0.138826 0.361695
-							}
-
-						}
-
-						geometry	Box {
-							size	5000 5000 25000
-						}
-
+					children ProximitySensor {
+						size	5000 5000 25000
 					}
 				}
 			    ]
@@ -56395,18 +55990,8 @@ DEF modulo03 Transform {
 
     Transform {
     translation	0 0 -0.8
-    children Shape {
-	    appearance	Appearance {
-		    material	Material {
-			    diffuseColor	0.257281 0.8 0.737486
-		    }
-
-	    }
-
-	    geometry	Box {
-		    size	37.2 10 5.4
-	    }
-
+    children ProximitySensor {
+	    size	37.2 10 5.4
     }
     }
 ]
