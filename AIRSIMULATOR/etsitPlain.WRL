@@ -1,7 +1,7 @@
 #VRML V2.0 utf8
 
 # Produced by 3D Studio MAX VRML97 exporter, Version 9, Revision 1
-# MAX File: plain2.max, Date: Wed Feb 11 20:17:33 2009
+# MAX File: plain.max, Date: Thu Apr 02 14:51:37 2009
 
 DEF Camera02 Viewpoint {
 position 736 171 -392
@@ -2459,9 +2459,10 @@ coordIndex [
 ]
 }
 DEF Plane01 Transform {
-translation 909 97 -625
+translation 909 34.1 -625
 scale 7.78 7.78 7.78
 children [
+DEF Plane01-TIMER TimeSensor { loop TRUE cycleInterval 1 },
 Shape {
 appearance Appearance {
 material Material {
@@ -2471,15 +2472,6 @@ specularColor 0 0 0
 shininess 0.145
 transparency 0
 }
-textureTransform DEF TT TextureTransform {
- 				translation           0.0 0.0       #exposedField  SFVec2f
-    				rotation              0.00          #exposedField  SFFloat
-   				scale                 1.0 1.0       #exposedField  SFVec2f
-    				center                0.0 0.0       #exposedField  SFVec2f
-
-
-}
-
 texture ImageTexture {
 url "./texturas/3.jpg"
 }
@@ -2495,11 +2487,11 @@ coord DEF Plane01-COORD Coordinate { point [
 106 0 -153, 212 0 -153]
 }
 texCoord DEF Plane01-TEXCOORD TextureCoordinate { point [
--3.03 -2.57, -1.26 -2.57, 0.5 -2.57, 2.26 -2.57, 4.03 -2.57, 
--3.03 -1.03, -1.26 -1.03, 0.5 -1.03, 2.26 -1.03, 4.03 -1.03, 
--3.03 0.5, -1.26 0.5, 0.5 0.5, 2.26 0.5, 4.03 0.5, -3.03 2.03, 
--1.26 2.03, 0.5 2.03, 2.26 2.03, 4.03 2.03, -3.03 3.57, -1.26 3.57, 
-0.5 3.57, 2.26 3.57, 4.03 3.57]
+-0.347 -1.45, -0.101 -1.45, 0.145 -1.45, 0.391 -1.45, 0.637 -1.45, 
+-0.347 -1.21, -0.101 -1.21, 0.145 -1.21, 0.391 -1.21, 0.637 -1.21, 
+-0.347 -0.969, -0.101 -0.969, 0.145 -0.969, 0.391 -0.969, 0.637 -0.969, 
+-0.347 -0.73, -0.101 -0.73, 0.145 -0.73, 0.391 -0.73, 0.637 -0.73, 
+-0.347 -0.49, -0.101 -0.49, 0.145 -0.49, 0.391 -0.49, 0.637 -0.49]
 }
 coordIndex [
 5, 0, 6, -1, 1, 6, 0, -1, 6, 1, 7, -1, 2, 7, 1, -1, 7, 2, 8, -1, 
