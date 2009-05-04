@@ -2459,7 +2459,7 @@ coordIndex [
 ]
 }
 DEF Plane01 Transform {
-translation 909 95 -625
+translation 909 97 -625
 scale 7.78 7.78 7.78
 children [
 Shape {

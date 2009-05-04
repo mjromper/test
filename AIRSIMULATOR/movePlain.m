@@ -1,60 +1,80 @@
-function movePlain(lado)
+function movePlain(lado,avance)
 
 
 global textura;
 global avion;
+global camara;
+pausa=0.02;
+texturaGiro = 0.0001;
+avionGiro = 0.01;
+avanceRecto = 0.001;
+avanceGiro = 0.0005;
 
-x=0.001;
-
-if (lado==0)
-    %Girar derecha
-    for i=0:20
-        textura.translation = [textura.translation(1)+x textura.translation(2)+x];
-        avion.rotation=[avion.rotation(1)-0.01 avion.rotation(2) avion.rotation(3) avion.rotation(4)];
+if (lado=='d') %Girar derecha
+    
+    for i=0:20+avance
+        textura.rotation=textura.rotation-texturaGiro;
+       textura.translation = textura.translation + [avanceGiro avanceGiro];
+        if (i<21)
+          avion.rotation = avion.rotation + [avionGiro 0 0 0];
+        end,  
+        
         vrdrawnow;
+        pause(pausa);
        
     end,
-    for i=0:0.001:0.2   
-        textura.translation = [textura.translation(1)+x textura.translation(2)+x];
-        vrdrawnow;
-       
-    end,   
     for i=0:20
-        textura.translation = [textura.translation(1)+x textura.translation(2)+x];
-        avion.rotation=[avion.rotation(1)+0.01 avion.rotation(2) avion.rotation(3) avion.rotation(4)];
+        textura.rotation=textura.rotation-texturaGiro;
+        textura.translation = textura.translation + [avanceGiro avanceGiro];
+         avion.rotation = avion.rotation - [avionGiro 0 0 0];
         vrdrawnow;
-      
-    end,
-
-elseif (lado==1)
-
-    %Girar izquierda
-    for i=0:20
-        textura.translation = [textura.translation(1)-x textura.translation(2)+x];
-        avion.rotation=[avion.rotation(1)+0.01 avion.rotation(2) avion.rotation(3) avion.rotation(4)];
-        vrdrawnow;
-       
-    end,
-    for i=0:0.001:0.2
-        textura.translation = [textura.translation(1)-x textura.translation(2)+x];
-        vrdrawnow;
-       
-    end,  
-    for i=0:20
-        textura.translation = [textura.translation(1)-x textura.translation(2)+x];
-        avion.rotation=[avion.rotation(1)-0.01 avion.rotation(2) avion.rotation(3) avion.rotation(4)];
-        vrdrawnow;
+        pause(pausa);
        
     end,
     
-else
-    
-    %Avanzar
-    for i=0:0.001:0.2
-        textura.translation = [0 textura.translation(2)+x];
+elseif (lado=='i') %Girar izquierda
+  
+    for i=0:20+avance
+        textura.rotation=textura.rotation+texturaGiro;
+        textura.translation = textura.translation + [-avanceGiro avanceGiro];
+        if (i<21)
+         avion.rotation = avion.rotation - [avionGiro 0 0 0];
+        end,  
         vrdrawnow;
-        pause(0.02);
-    end,  
+        pause(pausa);
+            
+       
+    end,
+    for i=0:20
+        textura.rotation=textura.rotation+texturaGiro;
+        textura.translation = textura.translation + [-avanceGiro avanceGiro];
+        avion.rotation = avion.rotation + [avionGiro 0 0 0];
+        vrdrawnow;
+        pause(pausa);
+            
+       
+    end,
+     
+else %%   
+  
+    if (lado == 's')
+        for i=0:avance
+            textura.translation = textura.translation + [0 avanceRecto];
+            camara.position = camara.position +[0 2 0];
+            avion.translation = avion.translation +[0 2 0];
+            vrdrawnow;
+            pause(pausa);
+        end,
+    elseif(lado == 'b')
+        for i=0:avance
+            textura.translation = textura.translation + [0 avanceRecto];
+            camara.position = camara.position - [0 2 0];
+            avion.translation = avion.translation - [0 2 0];
+            vrdrawnow;
+            pause(pausa);
+        end,  
+    end,        
+    
     
 end,
     

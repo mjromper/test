@@ -21817,7 +21817,7 @@ DEF Plane01 Transform {
 	}
 
         texture ImageTexture {
-          url "./texturas/3.jpg"
+          url "./texturas/fondo.PNG"
         }
       }
       geometry DEF Plane01-FACES IndexedFaceSet {

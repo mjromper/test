@@ -6967,17 +6967,15 @@ DEF Plane01 Transform {
 				shininess	0.145
 			}
 
-			textureTransform DEF TT TextureTransform {
- 				translation           0.0 0.0       #exposedField  SFVec2f
-    				rotation              0.00          #exposedField  SFFloat
-   				scale                 1.0 1.0       #exposedField  SFVec2f
-    				center                0.0 0.0       #exposedField  SFVec2f
-
-
+			textureTransform	DEF TT TextureTransform {
+				center	0 0
+				rotation	0
+				scale	1 1
+				translation	0 0
 			}
 
 			texture	ImageTexture {
-				url	"texture/wee.jpg"
+				url	"texture/wee.JPG"
 			}
 
 		}
