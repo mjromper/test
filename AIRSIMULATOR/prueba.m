@@ -2,9 +2,9 @@ function prueba()
 
 global textura;
 global avion;
-global camara;
+global plano;
 vrclear;
-world = vrworld('./wrl_src/mundoAvion.WRL');
+world = vrworld('./wrl_src/etsitPlain3.WRL');
 open(world);
 reload(world);
 
@@ -13,18 +13,21 @@ vrdrawnow;
 %nodes(world);
 textura = vrnode(world,'TT');
 avion=vrnode(world,'A6M2Fuse');
-camara = vrnode(world,'Viewpoint_user02');
+%camara = vrnode(world,'Viewpoint_user02');
+plano = vrnode(world,'Plane01');
 textura.translation(2)+0.0002;
 vrdrawnow;
 pause(2);
-
-textura.center = textura.center + [0 0];
-
+fields(plano)
+textura.center = textura.center + [0.15 -0.5];
+plano.translation
 vrdrawnow;
 pause(2);
- movePlain('d',5000);
- %movePlain('i',1);
- %movePlain('d',1);
+ movePlain('b',10);
+ movePlain('b',10);
+ movePlain('s',10);
+ movePlain('s',10);
+ %
  %movePlain('d',30);
  %movePlain('i',10);
 vrdrawnow;
