@@ -1,4 +1,4 @@
-function goLeft()
+function goLeft(avance)
 
 global textura;
 global avion;

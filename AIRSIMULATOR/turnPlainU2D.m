@@ -1,4 +1,4 @@
-function turnPlainDown()
+function turnPlainU2D()
 
 global textura;
 global avion;
@@ -15,4 +15,4 @@ for i=0:20
             plano.translation = plano.translation - [0  0 0.05];
             vrdrawnow;
             pause(pausa);
-end,  
+end,     

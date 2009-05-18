@@ -1,4 +1,4 @@
-function goLeft()
+function goRight(avance)
 
 global textura;
 global avion;
@@ -10,8 +10,10 @@ avanceRecto = 0.001;
 avanceGiro = 0.0008;
 
 for i=0:avance
-         textura.rotation=textura.rotation-texturaGiro;
-         textura.translation = textura.translation + [avanceGiro 0];
-         vrdrawnow;
+        textura.rotation=textura.rotation-texturaGiro;
+        textura.translation = textura.translation + [avanceGiro 0];
+        vrdrawnow;
         pause(pausa);
+            
+       
 end,

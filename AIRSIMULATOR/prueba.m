@@ -23,13 +23,14 @@ textura.center = textura.center + [0.15 -0.5];
 plano.translation
 vrdrawnow;
 pause(2);
- movePlain('s',20);
- movePlain('d',20);
- movePlain('i',20);
- movePlain('b',20);
- %
- %movePlain('d',30);
- %movePlain('i',10);
+
+movePlain('s',40);
+movePlain('s',40);
+movePlain('i',40);
+movePlain('d',40);
+movePlain('b',40);
+movePlain('b',40);
+
 vrdrawnow;
 pause(2);
 vrclear;
