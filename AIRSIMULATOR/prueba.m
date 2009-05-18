@@ -4,7 +4,7 @@ global textura;
 global avion;
 global plano;
 vrclear;
-world = vrworld('./wrl_src/etsitPlain3.WRL');
+world = vrworld('./wrl_src/etsitPlain.WRL');
 open(world);
 reload(world);
 
@@ -23,10 +23,10 @@ textura.center = textura.center + [0.15 -0.5];
 plano.translation
 vrdrawnow;
 pause(2);
- movePlain('b',10);
- movePlain('b',10);
- movePlain('s',10);
- movePlain('s',10);
+ movePlain('s',20);
+ movePlain('d',20);
+ movePlain('i',20);
+ movePlain('b',20);
  %
  %movePlain('d',30);
  %movePlain('i',10);
