@@ -684,13 +684,9 @@ while(closingTime == 0)
                         end
                         previousPosition = chair.translation;
                         if(option == 1) % avanza
-%% -Manolo:------ASCIENDE EL AVION. CASO CONTINUO                       
-                            goPlainUp(1);
-                            %%chair.translation = previousPosition + [x 0 z];
+                            chair.translation = previousPosition + [x 0 z];
                         else % retrocede
-%% -Manolo:------DESCIENTE EL AVION. CASO CONTINUO   
-                            goPlainDown(1);
-                            %%chair.translation = previousPosition - [x 0 z];
+                            chair.translation = previousPosition - [x 0 z];
                         end
                         vrdrawnow;
 
@@ -703,7 +699,7 @@ while(closingTime == 0)
                                         closingTime = 1;
                                         disp('FIN');
                                     else
-                                        %%chair.translation = previousPosition;
+                                        chair.translation = previousPosition;
                                         nextCommand = 2;
                                         reinicio2();
                                         numColisiones = numColisiones + 1;
@@ -731,21 +727,21 @@ while(closingTime == 0)
                             if (tempMoving == 0)
                                 numColisiones = numColisiones + 1;
                                 if(reubicax == 1) % se deja donde está
-                                    %%chair.translation = previousPosition;
+                                    chair.translation = previousPosition;
                                 else % se lleva al centro del pasillo
                                     pause(0.5);
                                     pos = chair.translation - lastTile.translation;
                                     [theta, r] = cart2pol( pos(1), -pos(3) );
                                     [posX posY] = pol2cart( (theta - (lastTile.rotation(2)*lastTile.rotation(4) ) ) , r );
                                     [pos2X pos2Y]= pol2cart( (lastTile.rotation(2)*lastTile.rotation(4) ), posX );
-                                    %%chair.translation = lastTile.translation + [pos2X 0 -pos2Y];
+                                    chair.translation = lastTile.translation + [pos2X 0 -pos2Y];
                                     rot4 = lastTile.rotation(2)*lastTile.rotation(4) - pi/2; % pq la silla está girada 90º desde el principio
                                     if(rot4 < -pi)
                                         rot4 = rot4 +  2*pi;
                                     elseif(rot4 > pi)
                                         rot4 = rot4 -  2*pi;
                                     end
-                                    %%chair.rotation = [0 1 0 rot4];
+                                    chair.rotation = [0 1 0 rot4];
                                 end
                                 nextCommand = 2;
                                 reinicio2();
@@ -764,13 +760,9 @@ while(closingTime == 0)
                     while (moving && j <= maxJ)
                         previousPosition = chair.translation;
                         if(option == 1) % avanza
-%% -Manolo:------ASCIENDE EL AVION. CASO DISCRETO                              
-                            goUp(1);
-                            %chair.translation = previousPosition + [x 0 z];
+                            chair.translation = previousPosition + [x 0 z];
                         else % retrocede
-%% -Manolo:------DESCIENTE EL AVION. CASO DISCRETO  
-                            goDown(1);
-                            %chair.translation = previousPosition - [x 0 z];
+                            chair.translation = previousPosition - [x 0 z];
                         end
                         vrdrawnow;
                         if (explore  ~= 3) %lo clásico, se testean los sensores de colisión, si alguno está activo, se detiene el movimiento
@@ -781,7 +773,7 @@ while(closingTime == 0)
                                         closingTime = 1;
                                         disp('FIN');
                                     else
-                                        %%chair.translation = previousPosition;
+                                        chair.translation = previousPosition;
                                         moving = 0;
                                         numColisiones = numColisiones + 1;
                                     end
@@ -809,21 +801,21 @@ while(closingTime == 0)
                             if (tempMoving == 0)
                                 numColisiones = numColisiones + 1;
                                 if(reubicax == 1) % se deja donde está
-                                    %%chair.translation = previousPosition;
+                                    chair.translation = previousPosition;
                                 else % se lleva al centro del pasillo
                                     pause(0.5);
                                     pos = chair.translation - lastTile.translation;
                                     [theta, r] = cart2pol( pos(1), -pos(3) );
                                     [posX posY] = pol2cart( (theta - (lastTile.rotation(2)*lastTile.rotation(4) ) ) , r );
                                     [pos2X pos2Y]= pol2cart( (lastTile.rotation(2)*lastTile.rotation(4) ), posX );
-                                    %%chair.translation = lastTile.translation + [pos2X 0 -pos2Y];
+                                    chair.translation = lastTile.translation + [pos2X 0 -pos2Y];
                                     rot4 = lastTile.rotation(2)*lastTile.rotation(4) - pi/2; % pq la silla está girada 90º desde el principio
                                     if(rot4 < -pi)
                                         rot4 = rot4 +  2*pi;
                                     elseif(rot4 > pi)
                                         rot4 = rot4 -  2*pi;
                                     end
-                                    %%chair.rotation = [0 1 0 rot4];
+                                    chair.rotation = [0 1 0 rot4];
                                 end
                                 moving = 0;
                             end
@@ -855,12 +847,10 @@ while(closingTime == 0)
                 % giro dcha o izqd
                 if(giro == 2) %giro discreto
                     if ( option == 2 )
-%% -Manolo:------GIRO A LA DERECHA DISCRETO                        
                         % j <= 20 pequeños pasos
                         j = 1;
-                        goRight(1);
                         while ( j <= 20)
-                            %chair.rotation = chair.rotation - [0 0 0 pi/(2*20)];
+                            chair.rotation = chair.rotation - [0 0 0 pi/(2*20)];
                             j = j+1;
                             % Se llama a la función que presenta la flecha indicando la dirección a
                             % seguir
@@ -868,12 +858,10 @@ while(closingTime == 0)
                             pause(0.05);
                         end
                     else %( option == 3)
-%% -Manolo:------GIRO A LA IZQUIERDA DISCRETO
                         % j <= 20 pequeños pasos
                         j = 1;
-                        goLeft(1);
-                        while j <= 20                           
-                           %chair.rotation = chair.rotation + [0 0 0 pi/(2*20)];
+                        while j <= 20
+                            chair.rotation = chair.rotation + [0 0 0 pi/(2*20)];
                             j = j+1;
                             % Se llama a la función que presenta la flecha indicando la dirección a
                             % seguir
@@ -882,9 +870,9 @@ while(closingTime == 0)
                         end
                     end
                     if(chair.rotation(4) < -pi)
-                        %%chair.rotation = chair.rotation + [0 0 0 2*pi];
+                        chair.rotation = chair.rotation + [0 0 0 2*pi];
                     elseif(chair.rotation(4) > pi)
-                        %%chair.rotation = chair.rotation - [0 0 0 2*pi];
+                        chair.rotation = chair.rotation - [0 0 0 2*pi];
                     end
 
                     if (numVueltas > 0)
@@ -930,18 +918,14 @@ while(closingTime == 0)
                         end
                         velScale = .3;
                         if(option == 2)
-%% -Manolo:------GIRO A LA DERECHA CONTINUO                            
-                            %%chair.rotation = chair.rotation - [0 0 0 pi*velScale/(2*20)];
-                            goRight(1);
+                            chair.rotation = chair.rotation - [0 0 0 pi*velScale/(2*20)];
                         else % option == 3
-%% -Manolo:------GIRO A LA IZQUIERDA CONTINUO
-                            %%chair.rotation = chair.rotation + [0 0 0 pi*velScale/(2*20)];
-                            goLeft(1);
+                            chair.rotation = chair.rotation + [0 0 0 pi*velScale/(2*20)];
                         end
                         if(chair.rotation(4) < -pi)
-                            %%chair.rotation = chair.rotation + [0 0 0 2*pi];
+                            chair.rotation = chair.rotation + [0 0 0 2*pi];
                         elseif(chair.rotation(4) > pi)
-                            %%chair.rotation = chair.rotation - [0 0 0 2*pi];
+                            chair.rotation = chair.rotation - [0 0 0 2*pi];
                         end
                         % Se llama a la función que presenta la flecha indicando la dirección a
                         % seguir
