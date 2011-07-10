@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent" android:background="@drawable/background">
+	<com.google.android.maps.MapView
+		android:id="@+id/map_view" android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:apiKey="0MfzSh_aDMWFqZyKO6wSLWKcQp9xqBogGkvMFJg" />	
+
+	<!-- debug 48:F2:45:3C:6E:23:A3:8A:40:58:91:21:08:27:92:0D 0MfzSh_aDMWFqZyKO6wSLWKcQp9xqBogGkvMFJg -->
+
+	<!-- hathand FB:B2:71:3E:0D:5D:44:64:6F:02:9E:85:C1:7D:25:5B 0MfzSh_aDMWGgKRsEvDKtLvZXCaORDwdx3cSHjA -->
+</RelativeLayout>

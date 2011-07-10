@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="@drawable/background"
+	android:weightSum="1.0">
+	<RelativeLayout
+		android:layout_marginTop="150dp"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="0.4" >
+	</RelativeLayout>
+	<RelativeLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="0.4" >
+		<Button 
+			android:id="@+id/new_track_btn"
+			android:layout_width="220sp" 
+			android:layout_height="wrap_content"
+			android:layout_centerInParent="true"
+			android:text="New Run" 
+			android:textStyle="bold"
+			android:textScaleX="1.5" >
+		</Button>
+	</RelativeLayout>
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="0.1" 
+		android:text="" >
+	</TextView>
+</LinearLayout>
