@@ -13,15 +13,7 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		
-		<activity android:name=".RaceListActivity"
-                   android:label="@string/app_name" android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.RACELISTACTIVITY" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        
+  
         <!-- Tab Groups -->
 		<activity android:name=".tabs.HomeGroupActivity" />
 		<activity android:name=".tabs.RecordsGroupActivity" />
@@ -29,6 +21,7 @@
 		<!-- First Group -->
 		<activity android:name=".tabs.home.HomeActivity" />
 		<activity android:name=".tabs.home.NewTrackActivity" />
+		<activity android:name=".tabs.home.RunningActivity" />
 		
 		<!-- Second Group -->
 		<activity android:name=".tabs.records.BDResultsActivity" />
