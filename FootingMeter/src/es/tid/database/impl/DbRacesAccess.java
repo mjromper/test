@@ -29,7 +29,10 @@ public class DbRacesAccess extends DbAccess<Race> {
 	private static final Logger LOG = LoggerFactory.getLogger(DbRacesAccess.class);
 
 	private static final String[] ALL_COLUMNS = { DbTableModel.RACE_ID, 
-		DbTableModel.RACE_NAME,  DbTableModel.RACE_DATE};
+		DbTableModel.RACE_NAME,  
+		DbTableModel.RACE_DATE, 
+		DbTableModel.RACE_DURATION, 
+		DbTableModel.RACE_DISTANCE};
 
 	/**
 	 * Default constructor
@@ -140,7 +143,15 @@ public class DbRacesAccess extends DbAccess<Race> {
 		if (entity != null){
 
 			if (entity.getPkey() == null){
-				insert(entity);     
+				
+				Race base = selectRaceByDate(entity.getDate());
+				if (base != null){
+					entity.setPkey(base.getPkey());
+					update(entity);
+				}else{
+					insert(entity);    
+				}
+				 
 			} else{
 				//Entity already exists
 				update(entity);
@@ -157,7 +168,9 @@ public class DbRacesAccess extends DbAccess<Race> {
 	private ContentValues getContentValues(final Race race) {
 		final ContentValues vals = new ContentValues();
 		vals.put(DbTableModel.RACE_NAME,race.getName());
-		vals.put(DbTableModel.RACE_DATE, race.getDate());       
+		vals.put(DbTableModel.RACE_DATE, race.getDate());   
+		vals.put(DbTableModel.RACE_DURATION, race.getDuration());
+		vals.put(DbTableModel.RACE_DISTANCE, race.getDistance());
 		return vals;
 	}
 	
@@ -174,6 +187,12 @@ public class DbRacesAccess extends DbAccess<Race> {
 			race.setPkey(cursor.getInt(cursor.getColumnIndex(DbTableModel.RACE_ID)));
 			race.setName(cursor.getString(cursor.getColumnIndex(DbTableModel.RACE_NAME)));
 			race.setDate(Long.valueOf(cursor.getString(cursor.getColumnIndex(DbTableModel.RACE_DATE))));
+			if (cursor.getString(cursor.getColumnIndex(DbTableModel.RACE_DURATION))!= null){
+				race.setDuration(Long.valueOf(cursor.getString(cursor.getColumnIndex(DbTableModel.RACE_DURATION))));
+			}
+			if (cursor.getString(cursor.getColumnIndex(DbTableModel.RACE_DISTANCE))!= null){
+				race.setDistance(Long.valueOf(cursor.getString(cursor.getColumnIndex(DbTableModel.RACE_DISTANCE))));
+			}
 		}
 
 		return race;

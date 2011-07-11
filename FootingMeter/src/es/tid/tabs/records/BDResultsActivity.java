@@ -2,13 +2,11 @@ package es.tid.tabs.records;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
-import es.tid.R;
 import es.tid.database.bo.Race;
 import es.tid.database.impl.DbRacesAccess;
 import es.tid.gmaps.FootingMeterActivity;
@@ -23,9 +21,7 @@ public class BDResultsActivity extends ListActivity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.bd_results_layout);
-		
-		listLV = (ListView) findViewById(R.id.resultsListView);
+    	listLV = this.getListView();
 
 		recordsList = new ArrayList<Race>();
 		

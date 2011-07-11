@@ -1,17 +1,15 @@
 package es.tid.tabs.home;
 
 
-import java.util.Date;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import es.tid.R;
-import es.tid.database.bo.Race;
-import es.tid.database.impl.DbRacesAccess;
+import es.tid.tabs.TabGroupActivity;
 
 public class NewTrackActivity extends Activity {
 	private EditText runningName;
@@ -38,17 +36,11 @@ public class NewTrackActivity extends Activity {
 				// sAux = "" + trackName.getText();
 				// UtilsStride.currentFileName = sAux;
 				// UtilsStride.newTrack = true;
-//				TabGroupActivity parentActivity = (TabGroupActivity) getParent();
-//				Intent intent = new Intent(parentActivity,
-//						ChooseExerciseActivity.class);
-//				parentActivity.startChildActivity("ChooseExerciseActivity",
-//						intent);
-				
-				DbRacesAccess dbRaces = new DbRacesAccess(NewTrackActivity.this, DbRacesAccess.DB_NAME);
-				Race race = new Race();
-				race.setName(runningName.getText().toString());
-				race.setDate(new Date().getTime());
-				dbRaces.insert(race);
+				TabGroupActivity parentActivity = (TabGroupActivity) getParent();
+				Intent intent = new Intent(parentActivity,
+						RunningActivity.class);
+				parentActivity.startChildActivity("RunningActivity",
+						intent);			
 
 			}
 		};

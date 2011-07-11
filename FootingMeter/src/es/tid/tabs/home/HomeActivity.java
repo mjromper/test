@@ -22,6 +22,7 @@ public class HomeActivity extends Activity {
 		parentActivity.closeAllChildsExceptLastOne();
 
 		final Button newTrackBtn = (Button) findViewById(R.id.new_track_btn);
+		
 
 		OnTouchListener newTrackListener = new OnTouchListener() {
 			@Override
@@ -30,6 +31,7 @@ public class HomeActivity extends Activity {
 					Intent intent = new Intent(getParent(),
 							NewTrackActivity.class);
 					TabGroupActivity parentActivity = (TabGroupActivity) getParent();
+					
 					parentActivity.startChildActivity("NewTrackActivity",
 							intent);
 					return true;

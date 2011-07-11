@@ -1,8 +1,8 @@
 package es.tid.tabs;
 
-import es.tid.tabs.home.HomeActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import es.tid.tabs.home.HomeActivity;
 
 public class HomeGroupActivity extends TabGroupActivity {
 

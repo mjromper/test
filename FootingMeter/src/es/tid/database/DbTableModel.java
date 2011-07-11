@@ -22,7 +22,8 @@ public final class DbTableModel {
     public static final String RACE_ID = android.provider.BaseColumns._ID;
     public static final String RACE_DATE = "date";
     public static final String RACE_NAME = "name";
-    public static final Object RACE_DURATION = "duration";
+    public static final String RACE_DURATION = "duration";
+    public static final String RACE_DISTANCE = "distance";
 
 	
     

@@ -8,17 +8,19 @@ public class Race {
 	private String name;
 	private Long date;
 	private Long duration;
+	private Long distance;
 	
 	public Race(){
 		super();
 	}
 
-	public Race(Integer pkey, String name, Long date, Long duration) {
+	public Race(Integer pkey, String name, Long date, Long duration, Long distance) {
 		super();
 		this.pkey = pkey;
 		this.name = name;
 		this.date = date;
 		this.duration = duration;
+		this.distance = distance;
 	}
 
 	public void setPkey(Integer pkey) {
@@ -56,6 +58,14 @@ public class Race {
 
 	public Long getDuration() {
 		return duration;
+	}
+
+	public void setDistance(Long distance) {
+		this.distance = distance;
+	}
+
+	public Long getDistance() {
+		return distance;
 	}
 
 }

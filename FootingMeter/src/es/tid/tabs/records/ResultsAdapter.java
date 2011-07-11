@@ -40,20 +40,31 @@ public class ResultsAdapter extends BaseAdapter
 
 	public View getView(final int position, View convertView, ViewGroup viewGroup)
 	{
-		final Race entry = resultsList.get(position);
-		if (convertView == null)
-		{
-			LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.bd_results_row, null);
+		if (resultsList !=null){
+			final Race entry = resultsList.get(position);
+			if (convertView == null)
+			{
+				LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				convertView = inflater.inflate(R.layout.bd_results_row, null);
+			}
+
+			TextView resultsName = (TextView) convertView.findViewById(R.id.resultsName);
+			resultsName.setText(entry.getName());
+
+			TextView resultsDate= (TextView) convertView.findViewById(R.id.resultsDate);
+			resultsDate.setText(new Date(entry.getDate()).toString());
+			
+			TextView duration = (TextView) convertView.findViewById(R.id.duration);
+			if (entry.getDuration() != null){
+				duration.setText(entry.getDuration() /  1000 +" s");
+			}
+			
+			TextView distance = (TextView) convertView.findViewById(R.id.distance);
+			if (entry.getDistance() != null){
+				distance.setText(entry.getDistance() / 1000 +" Km");
+			}
 		}
-		
-		TextView resultsName = (TextView) convertView.findViewById(R.id.resultsName);
-		resultsName.setText(entry.getName());
 
-		TextView resultsDate= (TextView) convertView.findViewById(R.id.resultsDate);
-		resultsDate.setText(new Date(entry.getDate()).toString());
-
-		
 		return convertView;
 	}
 }

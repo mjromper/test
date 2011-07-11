@@ -25,7 +25,7 @@ public abstract class DbAccess<T> extends SQLiteOpenHelper {
 
 	public static final String DB_PATH_EXTERNAL = "/mnt/sdcard/hathdroid/";
 
-	public static final int DB_VERSION = 6;
+	public static final int DB_VERSION = 8;
 
 	public static final String DB_PATH_LOCAL = "footing.db";
 
@@ -140,7 +140,9 @@ public abstract class DbAccess<T> extends SQLiteOpenHelper {
 		sb_races.append(DbTableModel.RACE_NAME);
 		sb_races.append(" TEXT NULL, " );
 		sb_races.append(DbTableModel.RACE_DURATION);
-		sb_races.append(" TEXT NULL, ");		
+		sb_races.append(" TEXT NULL, ");
+		sb_races.append(DbTableModel.RACE_DISTANCE);
+		sb_races.append(" TEXT NULL, ");	
 		sb_races.append(DbTableModel.RACE_DATE);
 		sb_races.append(" TEXT NOT NULL ");		
 		sb_races.append(" );");
