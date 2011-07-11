@@ -5,5 +5,9 @@
     
     <string name="home_tab">Home</string>
     <string name="stored_tab">Stored tracks</string>
+    <string name="resume_track_btn">Pause/Resume</string>
+    <string name="stop_track_btn">Stop</string>
+    
+    
     
 </resources>

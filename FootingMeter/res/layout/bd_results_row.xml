@@ -10,21 +10,54 @@
 			android:layout_width="fill_parent" android:id="@+id/resultsName"
 			android:text="Name" android:typeface="sans" android:textSize="16sp"
 			android:textStyle="bold" android:shadowColor="#000000"
-			android:shadowDx="2" android:shadowDy="2" android:shadowRadius="1"></TextView>
+			android:shadowDx="2" android:shadowDy="2" android:shadowRadius="1">
+		</TextView>
 
 		<LinearLayout android:layout_height="wrap_content"
 			android:layout_width="fill_parent">
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:textStyle="bold"
 				android:text="Date " android:textSize="13sp" android:shadowColor="#000000"
-				android:shadowDx="2" android:shadowDy="2" android:shadowRadius="1"></TextView>
+				android:shadowDx="2" android:shadowDy="2" android:shadowRadius="1">
+			</TextView>
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:id="@+id/resultsDate"
 				android:textSize="13sp" android:shadowColor="#000000"
 				android:shadowDx="2" android:shadowDy="2" android:shadowRadius="1"></TextView>
+
 		</LinearLayout>
 
+		<LinearLayout android:layout_height="wrap_content"
+			android:layout_width="fill_parent">
+			<TextView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:textStyle="bold"
+				android:text="Duration " android:textSize="13sp"
+				android:shadowColor="#000000" android:shadowDx="2" android:shadowDy="2"
+				android:shadowRadius="1">
+			</TextView>
+			<TextView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/duration"
+				android:textSize="13sp" android:shadowColor="#000000"
+				android:shadowDx="2" android:shadowDy="2" android:shadowRadius="1">
+			</TextView>
+		</LinearLayout>
+		<LinearLayout android:layout_height="wrap_content"
+			android:layout_width="fill_parent">
+			<TextView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:textStyle="bold"
+				android:text="Distance " android:textSize="13sp"
+				android:shadowColor="#000000" android:shadowDx="2" android:shadowDy="2"
+				android:shadowRadius="1">
+			</TextView>
+			<TextView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/distance"
+				android:textSize="13sp" android:shadowColor="#000000"
+				android:shadowDx="2" android:shadowDy="2" android:shadowRadius="1">
+			</TextView>
+		</LinearLayout>
+
+
 	</LinearLayout>
-	
+
 
 </LinearLayout>

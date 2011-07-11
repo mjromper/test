@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:background="@drawable/background"
+	android:weightSum="1.0">
+	<!-- <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" 
+		android:text="HomeActivity" /> -->
+	<TextView android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:layout_weight="0.1"
+		android:text="">
+	</TextView>
+	<RelativeLayout android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:layout_weight="0.4">
+		<LinearLayout android:orientation="vertical"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_centerInParent="true">
+			<LinearLayout android:orientation="horizontal"
+				android:layout_height="wrap_content" android:layout_width="fill_parent">
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:textStyle="bold"
+					android:textSize="20sp" android:shadowColor="#000000"
+					android:shadowDx="2" android:shadowDy="2" android:shadowRadius="1"
+
+					android:text="Distance:\t\t" />
+				<TextView android:id="@+id/runningDistTV"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:textSize="20sp" android:textScaleX="1.2"
+
+					android:shadowColor="#000000" android:shadowDx="2"
+					android:shadowDy="2" android:shadowRadius="1" android:text="0 km" />
+			</LinearLayout>
+			<LinearLayout android:orientation="horizontal"
+				android:layout_height="wrap_content" android:layout_width="fill_parent">
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:textStyle="bold"
+					android:textSize="20sp" android:shadowColor="#000000"
+					android:shadowDx="2" android:shadowDy="2" android:shadowRadius="1"
+
+					android:text="Time:\t\t\t\t" />
+
+				<Chronometer android:id="@+id/runningTimeTV"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:textSize="20sp" android:textColor="#BEBEBE"
+
+					android:shadowColor="#000000" android:shadowDx="2"
+					android:shadowDy="2" android:shadowRadius="1" android:textScaleX="1.2" />
+			</LinearLayout>
+			<LinearLayout android:orientation="horizontal"
+				android:layout_height="wrap_content" android:layout_width="fill_parent">
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:textStyle="bold"
+					android:textSize="20sp" android:shadowColor="#000000"
+					android:shadowDx="2" android:shadowDy="2" android:shadowRadius="1"
+
+					android:text="Speed:\t\t\t" />
+				<TextView android:id="@+id/runningSpeedTV"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:textSize="20sp" android:textScaleX="1.2"
+
+					android:shadowColor="#000000" android:shadowDx="2"
+					android:shadowDy="2" android:shadowRadius="1" android:text="0 m/s" />
+			</LinearLayout>
+			<LinearLayout android:orientation="horizontal"
+				android:layout_height="wrap_content" android:layout_width="fill_parent">
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:textStyle="bold"
+					android:textSize="20sp" android:shadowColor="#000000"
+					android:shadowDx="2" android:shadowDy="2" android:shadowRadius="1"
+					android:text="Cal:\t\t\t\t\t" />
+				<TextView android:id="@+id/runningCalTV"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:textSize="20sp" android:textScaleX="1.2"
+					android:shadowColor="#000000" android:shadowDx="2"
+					android:shadowDy="2" android:shadowRadius="1" android:text="cate vrei" />
+			</LinearLayout>
+		</LinearLayout>
+	</RelativeLayout>
+	<RelativeLayout android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:layout_weight="0.4">
+
+		<Button android:id="@+id/resume_track_btn"
+			android:layout_width="160sp" android:layout_height="60sp"
+			android:layout_alignParentLeft="true" android:layout_centerVertical="true"
+			android:text="@string/resume_track_btn" android:textStyle="bold"
+			android:textScaleX="1.5">
+		</Button>
+		<Button android:id="@+id/stop_track_btn" android:layout_width="160sp"
+			android:layout_height="60sp" android:layout_alignParentRight="true"
+			android:layout_centerVertical="true" android:text="@string/stop_track_btn"
+			android:textStyle="bold" android:textScaleX="1.5">
+		</Button>
+		<Button android:text="Show Map" android:id="@+id/buttonmap"
+			android:layout_height="wrap_content" android:layout_width="wrap_content"
+			android:layout_below="@+id/resume_track_btn"
+			android:layout_centerHorizontal="true">
+		</Button>
+
+	</RelativeLayout>
+</LinearLayout>
