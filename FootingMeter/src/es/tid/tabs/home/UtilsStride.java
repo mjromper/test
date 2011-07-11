@@ -13,7 +13,7 @@ import es.tid.database.impl.DbLocationsAccess;
 import es.tid.database.impl.DbRacesAccess;
 
 public class UtilsStride {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(UtilsStride.class);
 
 
@@ -28,6 +28,10 @@ public class UtilsStride {
 	public static Starter mainActivity;
 
 	public static Race actualRace = null;
+
+
+	private static int oldLat;
+	private static int oldLng;
 
 	public static final double GEO_CONV = 1E6;
 
@@ -44,29 +48,41 @@ public class UtilsStride {
 		race.setDistance(totalDistance);
 		race.setDate(date);		
 		dbRaces.insertOrUpdate(race);	
-		
+
 		actualRace = dbRaces.selectRaceByDate(date);
 
 
 	}
 
-	public static void insertLocation(int lat, int lng) {
+	public static boolean insertLocation(Double lat, Double lng) {
 		
+		boolean res = false;
+
 		if (actualRace != null){
 			Location loc = new Location();
 			loc.setLat(lat);
 			loc.setLng(lng);
+			int latE6 = (int)(lat*GEO_CONV);
+			int lngE6 = (int)(lng*GEO_CONV);
 			
-			loc.setRacePkey(actualRace.getPkey());
+			if (latE6 != oldLat && lngE6 != oldLng){	
+				
+				oldLat = latE6;
+				oldLng = lngE6;
+				loc.setRacePkey(actualRace.getPkey());
 
-			DbLocationsAccess dbLocations = new DbLocationsAccess(mainActivity, DbRacesAccess.DB_NAME);
-			dbLocations.insert(loc);
+				DbLocationsAccess dbLocations = new DbLocationsAccess(mainActivity, DbRacesAccess.DB_NAME);
+				dbLocations.insert(loc);
+				res = true;
+			}
 		}
+		
+		return res;
 
 	}
 
 	public static ArrayList<Location> findLocationsByRacePkey(Integer pkey) {
-		
+
 		DbLocationsAccess dbLocations = new DbLocationsAccess(mainActivity, DbRacesAccess.DB_NAME);
 		return dbLocations.selectLocationByRacePkey(pkey);
 	}

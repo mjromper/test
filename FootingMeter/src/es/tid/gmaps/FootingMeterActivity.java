@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
@@ -41,21 +42,27 @@ public class FootingMeterActivity extends MapActivity {
 	@Override
 	protected void onResume() {
 		logger.info("onResume()");
-		super.onResume();
-		if (UtilsStride.actualRace != null){
-			drawRace2Map(UtilsStride.actualRace);
-		}
-		if (lm == null && listener == null){
-			lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-			listener = new YLocationListener(this);
-			lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, listener);
-			logger.info("Location listener registered!");
-		}
+		super.onResume();		
+		
 	}
 
 	@Override
 	protected void onStart() {
 		logger.info("onStart()");
+		if (lm == null && listener == null){
+			try {
+				Settings.Secure.setLocationProviderEnabled(getContentResolver(), LocationManager.GPS_PROVIDER, true);
+				logger.info("GPS enabled !");
+			} catch (Exception e) {
+				logger.error("Error enabling GPS: "+e);
+			}
+			lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+			listener = new YLocationListener(this);
+			lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, listener);
+			logger.info("Location listener registered!");
+		}
+		
+		
 		super.onStart();
 	}
 
@@ -83,12 +90,14 @@ public class FootingMeterActivity extends MapActivity {
 		mapView.displayZoomControls(true);
 
 		logger.info("Footing Application Started!!!");		
+		
+		if (UtilsStride.actualRace != null){
+			drawRace2Map(UtilsStride.actualRace);
+		}
 
 	}
 
 	private void drawRace2Map(final Race race) {
-
-		resetMap();
 
 		logger.info("Drawing race into map");
 
@@ -106,7 +115,7 @@ public class FootingMeterActivity extends MapActivity {
 
 	public void addLocation2Map(GeoPoint point){
 
-		OverlayItem overlayitem = new OverlayItem(point, "Location", ""+point.getLatitudeE6()+", "+point.getLongitudeE6());
+		OverlayItem overlayitem = new OverlayItem(point, "Location", "("+point.getLatitudeE6()/UtilsStride.GEO_CONV+", "+point.getLongitudeE6()/UtilsStride.GEO_CONV+")");
 		logger.info("Location added to MAP: "+point);
 		mapView.getController().animateTo(point);
 		itemizedoverlay.addOverlay(overlayitem);
@@ -118,11 +127,6 @@ public class FootingMeterActivity extends MapActivity {
 	protected boolean isRouteDisplayed() {
 		return false;
 	}	
-
-
-	private void resetMap() {
-		itemizedoverlay.clear();		
-	}
 
 	/**
 	 * Launch this activity
@@ -179,10 +183,13 @@ public class FootingMeterActivity extends MapActivity {
 			double lat = location.getLatitude();
 			double lng = location.getLongitude();
 
-			GeoPoint geop = new GeoPoint((int) (lat* UtilsStride.GEO_CONV) , (int) (lng* UtilsStride.GEO_CONV));
-			UtilsStride.pathPoints.add(geop);
-			activity.addLocation2Map(geop);
-			UtilsStride.insertLocation((int) (lat), (int) (lng));
+			
+			if (UtilsStride.insertLocation((lat), (lng))){
+				GeoPoint geop = new GeoPoint((int) (lat* UtilsStride.GEO_CONV) , (int) (lng* UtilsStride.GEO_CONV));
+
+				UtilsStride.pathPoints.add(geop);
+				activity.addLocation2Map(geop);
+			}
 			
 		}
 	}
@@ -199,13 +206,22 @@ public class FootingMeterActivity extends MapActivity {
 		{
 			logger.info("back en map");
 			if (lm != null && listener != null){
+				try {
+					Settings.Secure.setLocationProviderEnabled(getContentResolver(), LocationManager.GPS_PROVIDER, false);
+					logger.info("GPS enabled !");
+				} catch (Exception e) {
+					logger.error("Error enabling GPS: "+e);
+				}
 				lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 				lm.removeUpdates(listener);
 				logger.info("Location listener registered!");
 			}
 			// preventing default implementation previous to
 			// android.os.Build.VERSION_CODES.ECLAIR
-			return super.onKeyDown(keyCode, event);
+			listener = null;
+			lm = null;
+			finish();
+			return true;
 		}
 		return super.onKeyDown(keyCode, event);
 	}

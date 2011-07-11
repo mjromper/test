@@ -29,9 +29,9 @@ import es.tid.tabs.TabGroupActivity;
 public class RunningActivity extends Activity
 {
 	private static DecimalFormat df = new DecimalFormat("0.###");
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(RunningActivity.class);
-	
+
 	private LocationManager lm;
 	private LocationListener locationListener;
 
@@ -64,8 +64,8 @@ public class RunningActivity extends Activity
 
 		totalDistance = UtilsStride.totalDistance;
 		chronos.setBase(SystemClock.elapsedRealtime() - UtilsStride.totalTime);
-		
-		
+
+
 
 		if (recording && firstTime)
 		{
@@ -84,10 +84,10 @@ public class RunningActivity extends Activity
 			{
 				// save data
 				UtilsStride.addRaceToDB(totalDistance, SystemClock.elapsedRealtime() - chronos.getBase(), dateRace);
-				
+
 				unRegisterLocationListener();
 				recording = false;
-				
+
 				chronos.stop();
 
 				//Intent intent = new Intent(getParent(), FinalResultsActivity.class);
@@ -117,25 +117,25 @@ public class RunningActivity extends Activity
 			}
 		};
 		resumeRaceBtn.setOnClickListener(resumeTrackBtnListener);
-		
+
 		OnClickListener mapBtnListener = new OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
-								
+
 				unRegisterLocationListener();				
 
 				FootingMeterActivity.launch(getApplicationContext(), UtilsStride.actualRace);
 			}
 		};
 		mapBtn.setOnClickListener(mapBtnListener);
-		
-		
+
+
 
 		// GPS
 		registerLocationListener();
-		
+
 	}
 
 	@Override
@@ -146,11 +146,11 @@ public class RunningActivity extends Activity
 		{
 			registerLocationListener();
 		}
-		
+
 		UtilsStride.pathPoints.clear();
 		totalDistance = 0;
 	}
-	
+
 	private void registerLocationListener() {
 
 		try {
@@ -165,7 +165,7 @@ public class RunningActivity extends Activity
 		logger.info("Location listener registered!");
 
 	}
-	
+
 	private void unRegisterLocationListener() {
 
 		try {
@@ -210,10 +210,12 @@ public class RunningActivity extends Activity
 					setKms(results[0]);
 				}
 
-				GeoPoint geop = new GeoPoint((int) (lat * UtilsStride.GEO_CONV) , (int) (lng * UtilsStride.GEO_CONV));
-				UtilsStride.pathPoints.add(geop);
-				UtilsStride.insertLocation((int) (lat), (int) (lng));
-				
+				if (UtilsStride.insertLocation((lat), (lng))){
+					GeoPoint geop = new GeoPoint((int) (lat * UtilsStride.GEO_CONV) , (int) (lng * UtilsStride.GEO_CONV));
+
+					UtilsStride.pathPoints.add(geop);
+				}
+
 			}
 		}
 

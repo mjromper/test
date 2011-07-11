@@ -75,8 +75,8 @@ public class DbLocationsAccess extends DbAccess<Location> {
 			safezone = new Location();
 			safezone.setPkey(cursor.getInt(cursor.getColumnIndex(DbTableModel.LOCATION_ID)));
 			safezone.setRacePkey(cursor.getInt(cursor.getColumnIndex(DbTableModel.LOCATION_RACE)));
-			safezone.setLat(cursor.getInt(cursor.getColumnIndex(DbTableModel.LOCATION_LAT)));
-			safezone.setLng(cursor.getInt(cursor.getColumnIndex(DbTableModel.LOCATION_LNG)));
+			safezone.setLat(cursor.getDouble(cursor.getColumnIndex(DbTableModel.LOCATION_LAT)));
+			safezone.setLng(cursor.getDouble(cursor.getColumnIndex(DbTableModel.LOCATION_LNG)));
 		}
 
 		return safezone;

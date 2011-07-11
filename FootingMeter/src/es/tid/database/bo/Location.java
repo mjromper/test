@@ -7,8 +7,8 @@ package es.tid.database.bo;
 public class Location {
     
     private Integer pkey;    
-    private Integer lat;    
-    private Integer lng; 
+    private Double lat;    
+    private Double lng; 
     private Integer racePkey;
 
     /**
@@ -24,7 +24,7 @@ public class Location {
      * @param lat
      * @param lng
      */
-    public Location(Integer pkey, Integer racePkey, Integer lat, Integer lng) {
+    public Location(Integer pkey, Integer racePkey, Double lat, Double lng) {
         super();
         this.pkey = pkey;
         this.lat = lat;
@@ -51,28 +51,28 @@ public class Location {
     /**
      * @return the lat
      */
-    public Integer getLat() {
+    public Double getLat() {
         return lat;
     }
 
     /**
      * @param lat the lat to set
      */
-    public void setLat(Integer lat) {
+    public void setLat(Double lat) {
         this.lat = lat;
     }
 
     /**
      * @return the lng
      */
-    public Integer getLng() {
+    public Double getLng() {
         return lng;
     }
 
     /**
      * @param lng the lng to set
      */
-    public void setLng(Integer lng) {
+    public void setLng(Double lng) {
         this.lng = lng;
     }    
 
