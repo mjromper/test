@@ -16,7 +16,6 @@ import com.google.code.microlog4android.appender.FileAppender;
 import com.google.code.microlog4android.config.PropertyConfigurator;
 import com.google.code.microlog4android.format.PatternFormatter;
 
-import es.tid.gmaps.FootingMeterActivity;
 import es.tid.tabs.HomeGroupActivity;
 import es.tid.tabs.RecordsGroupActivity;
 import es.tid.tabs.home.UtilsStride;
@@ -28,7 +27,6 @@ public class Starter extends TabActivity {
 
 
 	private static final int EXIT = 1;
-	private static final int MAP = 0;
 	
 	private TabHost tabHost;
 
@@ -62,7 +60,6 @@ public class Starter extends TabActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-		menu.add(0,MAP,0,"Show map");
 		menu.add(0,EXIT,0,"Exit");
 		return true;
 	}
@@ -70,8 +67,6 @@ public class Starter extends TabActivity {
 	public boolean onOptionsItemSelected (MenuItem item){
 
 		switch (item.getItemId()){
-		case MAP:
-			FootingMeterActivity.launch(getApplicationContext(), UtilsStride.actualRace);
 		case EXIT :   
 			finish();
 			return true;

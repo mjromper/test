@@ -47,7 +47,7 @@ public class BDResultsActivity extends ListActivity
 		Toast.makeText(getApplicationContext(), "Race selected: "+id, Toast.LENGTH_LONG).show();
 		//super.onListItemClick(l, v, position, id);
 		if (recordsList != null && recordsList.get((int)id) != null){
-			FootingMeterActivity.launch(getApplicationContext(), recordsList.get((int)id));
+			FootingMeterActivity.launch(getApplicationContext(), recordsList.get((int)id), 1);
 		}
 	}
 

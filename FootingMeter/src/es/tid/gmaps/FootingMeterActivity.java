@@ -30,39 +30,25 @@ public class FootingMeterActivity extends MapActivity {
 
 	private static final Logger logger = LoggerFactory.getLogger(FootingMeterActivity.class);
 
+    private static final String EXTRA_RECORD = "record";
+
 	private MapView mapView;
 	private List<Overlay> mapOverlays;
 	private Drawable drawable;
 	private HelloItemizedOverlay itemizedoverlay;
 
-	private static LocationManager lm;
-
-	private static YLocationListener listener;
+	private LocationManager lm;
+	private YLocationListener listener;
 
 	@Override
 	protected void onResume() {
 		logger.info("onResume()");
-		super.onResume();		
-		
-	}
+		super.onResume();
+    }
 
 	@Override
 	protected void onStart() {
 		logger.info("onStart()");
-		if (lm == null && listener == null){
-			try {
-				Settings.Secure.setLocationProviderEnabled(getContentResolver(), LocationManager.GPS_PROVIDER, true);
-				logger.info("GPS enabled !");
-			} catch (Exception e) {
-				logger.error("Error enabling GPS: "+e);
-			}
-			lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-			listener = new YLocationListener(this);
-			lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, listener);
-			logger.info("Location listener registered!");
-		}
-		
-		
 		super.onStart();
 	}
 
@@ -94,7 +80,22 @@ public class FootingMeterActivity extends MapActivity {
 		if (UtilsStride.actualRace != null){
 			drawRace2Map(UtilsStride.actualRace);
 		}
-
+		
+		try {
+            Settings.Secure.setLocationProviderEnabled(getContentResolver(), LocationManager.GPS_PROVIDER, true);
+            logger.info("GPS enabled !");
+        } catch (Exception e) {
+            logger.error("Error enabling GPS: "+e);
+        }   
+        
+        Bundle extras = getIntent().getExtras();
+        int record  = extras.getInt(EXTRA_RECORD);        
+       
+        if (record == 0){
+    		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            listener = new YLocationListener(this);
+            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 15, listener);
+        }
 	}
 
 	private void drawRace2Map(final Race race) {
@@ -132,10 +133,12 @@ public class FootingMeterActivity extends MapActivity {
 	 * Launch this activity
 	 * 
 	 * @param context
+	 * @param record 
 	 */
-	public static void launch(final Context context, final Race race) {
+	public static void launch(final Context context, final Race race, int record) {
 		UtilsStride.actualRace = race;
 		final Intent i = new Intent(context, FootingMeterActivity.class);
+		i.putExtra(EXTRA_RECORD, record);
 		i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		context.startActivity(i);
 	}
@@ -212,7 +215,6 @@ public class FootingMeterActivity extends MapActivity {
 				} catch (Exception e) {
 					logger.error("Error enabling GPS: "+e);
 				}
-				lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 				lm.removeUpdates(listener);
 				logger.info("Location listener registered!");
 			}
