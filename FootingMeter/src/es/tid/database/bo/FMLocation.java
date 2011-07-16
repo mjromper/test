@@ -4,7 +4,7 @@ package es.tid.database.bo;
  * @author mjrp
  *
  */
-public class Location {
+public class FMLocation {
     
     private Integer pkey;    
     private Double lat;    
@@ -14,7 +14,7 @@ public class Location {
     /**
      * Default constructor
      */
-    public Location() {
+    public FMLocation() {
         super();
     }
 
@@ -24,7 +24,7 @@ public class Location {
      * @param lat
      * @param lng
      */
-    public Location(Integer pkey, Integer racePkey, Double lat, Double lng) {
+    public FMLocation(Integer pkey, Integer racePkey, Double lat, Double lng) {
         super();
         this.pkey = pkey;
         this.lat = lat;

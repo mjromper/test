@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ import com.google.code.microlog4android.Logger;
 import com.google.code.microlog4android.LoggerFactory;
 
 import es.tid.R;
-import es.tid.database.bo.Location;
+import es.tid.database.bo.FMLocation;
 import es.tid.database.bo.Race;
 import es.tid.tabs.home.UtilsStride;
 
@@ -30,7 +31,7 @@ public class FootingMeterActivity extends MapActivity {
 
 	private static final Logger logger = LoggerFactory.getLogger(FootingMeterActivity.class);
 
-    private static final String EXTRA_RECORD = "record";
+	private static final String EXTRA_RECORD = "record";
 
 	private MapView mapView;
 	private List<Overlay> mapOverlays;
@@ -44,7 +45,7 @@ public class FootingMeterActivity extends MapActivity {
 	protected void onResume() {
 		logger.info("onResume()");
 		super.onResume();
-    }
+	}
 
 	@Override
 	protected void onStart() {
@@ -76,33 +77,33 @@ public class FootingMeterActivity extends MapActivity {
 		mapView.displayZoomControls(true);
 
 		logger.info("Footing Application Started!!!");		
-		
+
 		if (UtilsStride.actualRace != null){
 			drawRace2Map(UtilsStride.actualRace);
 		}
-		
+
 		try {
-            Settings.Secure.setLocationProviderEnabled(getContentResolver(), LocationManager.GPS_PROVIDER, true);
-            logger.info("GPS enabled !");
-        } catch (Exception e) {
-            logger.error("Error enabling GPS: "+e);
-        }   
-        
-        Bundle extras = getIntent().getExtras();
-        int record  = extras.getInt(EXTRA_RECORD);        
-       
-        if (record == 0){
-    		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            listener = new YLocationListener(this);
-            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 15, listener);
-        }
+			Settings.Secure.setLocationProviderEnabled(getContentResolver(), LocationManager.GPS_PROVIDER, true);
+			logger.info("GPS enabled !");
+		} catch (Exception e) {
+			logger.error("Error enabling GPS: "+e);
+		}   
+
+		Bundle extras = getIntent().getExtras();
+		int record  = extras.getInt(EXTRA_RECORD);        
+
+		if (record == 0){
+			lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+			listener = new YLocationListener(this);
+			lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 15, listener);
+		}
 	}
 
 	private void drawRace2Map(final Race race) {
 
 		logger.info("Drawing race into map");
 
-		ArrayList<Location> locations = UtilsStride.findLocationsByRacePkey(race.getPkey());
+		ArrayList<FMLocation> locations = UtilsStride.findLocationsByRacePkey(race.getPkey());
 		if (locations!=null){
 			for (int i=0; i< locations.size();i++){
 				GeoPoint geop = new GeoPoint((int) (locations.get(i).getLat() * UtilsStride.GEO_CONV), 
@@ -147,6 +148,7 @@ public class FootingMeterActivity extends MapActivity {
 
 		private Context context;
 		private FootingMeterActivity activity;
+		private double lat = 0, lng = 0, oldLat = 0, oldLng = 0;
 
 
 		public YLocationListener(FootingMeterActivity activity) {
@@ -182,21 +184,30 @@ public class FootingMeterActivity extends MapActivity {
 
 
 		@Override
-		public void onLocationChanged(android.location.Location location) {
-			double lat = location.getLatitude();
-			double lng = location.getLongitude();
+		public void onLocationChanged(Location location) {
 
-			
+			oldLat = lat;
+			oldLng = lng;
+
+			lat = location.getLatitude();
+			lng = location.getLongitude();
+
 			if (UtilsStride.insertLocation((lat), (lng))){
-				GeoPoint geop = new GeoPoint((int) (lat* UtilsStride.GEO_CONV) , (int) (lng* UtilsStride.GEO_CONV));
+				float[] results = new float[4];
+				if (oldLat != 0 && oldLng != 0)
+				{
+					Location.distanceBetween(oldLat, oldLng, lat, lng, results);				
+					UtilsStride.totalDistance += (long) results[0];
 
+				}
+				GeoPoint geop = new GeoPoint((int) (lat* UtilsStride.GEO_CONV) , (int) (lng* UtilsStride.GEO_CONV));
 				UtilsStride.pathPoints.add(geop);
 				activity.addLocation2Map(geop);
 			}
-			
+
 		}
 	}
-	
+
 	/**
 	 * The primary purpose is to prevent systems before
 	 * android.os.Build.VERSION_CODES.ECLAIR from calling their default

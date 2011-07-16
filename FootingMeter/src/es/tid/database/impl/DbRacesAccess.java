@@ -54,9 +54,9 @@ public class DbRacesAccess extends DbAccess<Race> {
 		final int res = getWritableDatabase().delete(DbTableModel.TABLE_RACES_NAME,
 				DbTableModel.RACE_ID + "=" + pkey, null);
 		if (res > 0) {
-			LOG.debug("No race with _ID (" + pkey + ") found to remove it");
-		} else {
 			LOG.debug("Race remove it -> PKEY: " + pkey);
+		} else {
+			LOG.debug("No race with _ID (" + pkey + ") found to remove it");
 		}
 		
 	}

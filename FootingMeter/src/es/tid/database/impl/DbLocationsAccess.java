@@ -12,7 +12,7 @@ import com.google.code.microlog4android.LoggerFactory;
 
 import es.tid.database.DbAccess;
 import es.tid.database.DbTableModel;
-import es.tid.database.bo.Location;
+import es.tid.database.bo.FMLocation;
 
 
 
@@ -22,7 +22,7 @@ import es.tid.database.bo.Location;
  *
  */
 
-public class DbLocationsAccess extends DbAccess<Location> {
+public class DbLocationsAccess extends DbAccess<FMLocation> {
 
 
 
@@ -69,10 +69,10 @@ public class DbLocationsAccess extends DbAccess<Location> {
 	 * @param cursor
 	 * @return
 	 */
-	private Location getEntityByCursor(final Cursor cursor) {
-		Location safezone = null;
+	private FMLocation getEntityByCursor(final Cursor cursor) {
+		FMLocation safezone = null;
 		if (cursor != null) {
-			safezone = new Location();
+			safezone = new FMLocation();
 			safezone.setPkey(cursor.getInt(cursor.getColumnIndex(DbTableModel.LOCATION_ID)));
 			safezone.setRacePkey(cursor.getInt(cursor.getColumnIndex(DbTableModel.LOCATION_RACE)));
 			safezone.setLat(cursor.getDouble(cursor.getColumnIndex(DbTableModel.LOCATION_LAT)));
@@ -87,7 +87,7 @@ public class DbLocationsAccess extends DbAccess<Location> {
 	 * 
 	 * @return
 	 */
-	private ContentValues getContentValues(final Location location) {
+	private ContentValues getContentValues(final FMLocation location) {
 		final ContentValues vals = new ContentValues();
 		vals.put(DbTableModel.LOCATION_RACE, location.getRacePkey());
 		vals.put(DbTableModel.LOCATION_LAT, location.getLat());
@@ -100,7 +100,7 @@ public class DbLocationsAccess extends DbAccess<Location> {
 	 * @see es.tid.ehealth.mobtel.mobile.hathdroid.common.database.DbAccess#insert(java.lang.Object)
 	 */
 	@Override
-	public void insert(final Location location) throws SQLException {
+	public void insert(final FMLocation location) throws SQLException {
 
 		final ContentValues values = getContentValues(location);
 		getWritableDatabase().insertOrThrow(DbTableModel.TABLE_LOCATIONS_NAME, null, values);
@@ -114,9 +114,9 @@ public class DbLocationsAccess extends DbAccess<Location> {
 	 * @see es.tid.ehealth.mobtel.mobile.hathdroid.common.database.DbAccess#findByPkey(java.lang.Integer)
 	 */
 	@Override
-	public Location findByPkey(final Integer pkey) throws SQLException {
+	public FMLocation findByPkey(final Integer pkey) throws SQLException {
 
-		Location location = null;
+		FMLocation location = null;
 
 		final String selection = DbTableModel.LOCATION_ID + " = " + pkey;
 		final Cursor cursor = getReadableDatabase().query(DbTableModel.TABLE_LOCATIONS_NAME, ALL_COLUMNS, selection, null,
@@ -142,9 +142,9 @@ public class DbLocationsAccess extends DbAccess<Location> {
 		final int res = getWritableDatabase().delete(DbTableModel.TABLE_LOCATIONS_NAME,
 				DbTableModel.LOCATION_ID + "=" + pkey, null);
 		if (res > 0) {
-			LOG.debug("No location with _ID (" + pkey + ") found to remove it");
-		} else {
 			LOG.debug("Location remove it -> PKEY: " + pkey);
+		} else {
+			LOG.debug("No location with _ID (" + pkey + ") found to remove it");
 		}
 
 	}
@@ -154,9 +154,9 @@ public class DbLocationsAccess extends DbAccess<Location> {
 	 * @see es.tid.ehealth.mobtel.mobile.hathdroid.common.database.DbAccess#findAll()
 	 */
 	@Override
-	public ArrayList<Location> findAll() throws SQLException {
+	public ArrayList<FMLocation> findAll() throws SQLException {
 
-		ArrayList<Location> locations = null;        
+		ArrayList<FMLocation> locations = null;        
 
 		// Perform a managed query. The Activity will handle closing
 		// and re-querying the cursor when needed.
@@ -164,11 +164,11 @@ public class DbLocationsAccess extends DbAccess<Location> {
 				null, null);
 
 		if (cursor != null && cursor.getCount() > 0) {
-			locations = new ArrayList<Location>(0);
+			locations = new ArrayList<FMLocation>(0);
 		}
 
 		while (cursor.moveToNext()) {
-			final Location location = getEntityByCursor(cursor);
+			final FMLocation location = getEntityByCursor(cursor);
 			locations.add(location);
 
 		}
@@ -187,7 +187,7 @@ public class DbLocationsAccess extends DbAccess<Location> {
 	 * @see es.tid.ehealth.mobtel.mobile.hathdroid.common.database.DbAccess#update(java.lang.Object)
 	 */
 	@Override
-	public void update(final Location location) throws SQLException {
+	public void update(final FMLocation location) throws SQLException {
 		// UPDATE SAFEZONE ADDITIONAL INFO
 		try {
 
@@ -211,19 +211,19 @@ public class DbLocationsAccess extends DbAccess<Location> {
 	 * @param name
 	 * @return Safezone
 	 */
-	public ArrayList<Location> selectLocationByRacePkey(Integer racePkey) {
-		ArrayList<Location> locations = null;
+	public ArrayList<FMLocation> selectLocationByRacePkey(Integer racePkey) {
+		ArrayList<FMLocation> locations = null;
 
 		final String selection = DbTableModel.LOCATION_RACE + " = '" + racePkey + "'";
 		final Cursor cursor = getReadableDatabase().query(DbTableModel.TABLE_LOCATIONS_NAME, ALL_COLUMNS, selection, null,
 				null, null, null);
 
 		if (cursor != null && cursor.getCount() > 0) {
-			locations = new ArrayList<Location>(0);
+			locations = new ArrayList<FMLocation>(0);
 		}
 
 		while (cursor.moveToNext()) {
-			final Location location = getEntityByCursor(cursor);
+			final FMLocation location = getEntityByCursor(cursor);
 			locations.add(location);
 
 		}
@@ -240,7 +240,7 @@ public class DbLocationsAccess extends DbAccess<Location> {
 	 * @see es.tid.ehealth.mobtel.mobile.hathdroid.common.database.DbAccess#insertOrUpdate(java.lang.Object)
 	 */
 	@Override
-	public void insertOrUpdate(Location entity) throws SQLException {
+	public void insertOrUpdate(FMLocation entity) throws SQLException {
 		if (entity != null){
 
 			if (entity.getPkey() == null){

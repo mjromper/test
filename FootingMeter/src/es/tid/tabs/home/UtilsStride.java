@@ -7,7 +7,7 @@ import com.google.code.microlog4android.Logger;
 import com.google.code.microlog4android.LoggerFactory;
 
 import es.tid.Starter;
-import es.tid.database.bo.Location;
+import es.tid.database.bo.FMLocation;
 import es.tid.database.bo.Race;
 import es.tid.database.impl.DbLocationsAccess;
 import es.tid.database.impl.DbRacesAccess;
@@ -59,7 +59,7 @@ public class UtilsStride {
 		boolean res = false;
 
 		if (actualRace != null){
-			Location loc = new Location();
+			FMLocation loc = new FMLocation();
 			loc.setLat(lat);
 			loc.setLng(lng);
 			int latE6 = (int)(lat*GEO_CONV);
@@ -81,10 +81,16 @@ public class UtilsStride {
 
 	}
 
-	public static ArrayList<Location> findLocationsByRacePkey(Integer pkey) {
+	public static ArrayList<FMLocation> findLocationsByRacePkey(Integer pkey) {
 
 		DbLocationsAccess dbLocations = new DbLocationsAccess(mainActivity, DbRacesAccess.DB_NAME);
 		return dbLocations.selectLocationByRacePkey(pkey);
+	}
+
+	public static void deleteRace(Integer pkey) {
+		DbRacesAccess dbRaces = new DbRacesAccess(mainActivity, DbRacesAccess.DB_NAME);
+		dbRaces.deleteByPkey(pkey);
+		
 	}
 
 }
