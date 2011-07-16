@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent" android:background="@drawable/background">
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:background="@drawable/background">
 	<com.google.android.maps.MapView
 		android:id="@+id/map_view" android:layout_width="fill_parent"
-		android:layout_height="fill_parent" android:apiKey="0MfzSh_aDMWGgKRsEvDKtLvZXCaORDwdx3cSHjA" />	
+		android:layout_height="fill_parent" android:apiKey="0MfzSh_aDMWGgKRsEvDKtLvZXCaORDwdx3cSHjA" />
 
 	<!-- debug 48:F2:45:3C:6E:23:A3:8A:40:58:91:21:08:27:92:0D 0MfzSh_aDMWFqZyKO6wSLWKcQp9xqBogGkvMFJg -->
 
 	<!-- hathand FB:B2:71:3E:0D:5D:44:64:6F:02:9E:85:C1:7D:25:5B 0MfzSh_aDMWGgKRsEvDKtLvZXCaORDwdx3cSHjA -->
+
+	<RelativeLayout android:layout_marginTop="0dp"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_weight="0.4" android:id="@+id/relativeLayout1"
+		android:gravity="left">
+		<Chronometer android:textColor="#BEBEBE" android:shadowDx="2 "
+			android:textSize="20sp" android:layout_height="wrap_content"
+			android:layout_width="wrap_content" android:textScaleX="1.2"
+			android:shadowDy="2" android:shadowColor="#000000"
+			android:shadowRadius="1" android:id="@+id/map_chrono"
+			android:layout_above="@+id/relativeLayout1"
+			android:layout_marginBottom="20dp"></Chronometer>
+		<TextView android:text="Distance: 0 Km" android:textScaleX="1.2"
+			android:layout_height="wrap_content" android:textSize="20sp"
+			android:shadowDy="2" android:shadowColor="#000000"
+			android:shadowRadius="1" android:layout_width="fill_parent"
+			android:gravity="left" android:id="@+id/map_distance"
+			android:layout_below="@+id/map_chrono"
+			android:layout_alignParentLeft="true"></TextView>
+	</RelativeLayout>
+
+
 </RelativeLayout>
+

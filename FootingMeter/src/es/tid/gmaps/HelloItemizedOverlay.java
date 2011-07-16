@@ -11,7 +11,7 @@ import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 
-import es.tid.tabs.home.UtilsStride;
+import es.tid.tabs.home.UtilsFooting;
 
 public class HelloItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 
@@ -42,7 +42,7 @@ public class HelloItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 	@Override
 	protected boolean onTap(int index) {
 		// TODO Auto-generated method stub
-		Toast.makeText(mContext, "Location ("+ mOverlays.get(index).getPoint().getLatitudeE6()/UtilsStride.GEO_CONV +", "+mOverlays.get(index).getPoint().getLongitudeE6()/UtilsStride.GEO_CONV, Toast.LENGTH_SHORT).show();
+		Toast.makeText(mContext, "Location ("+ mOverlays.get(index).getPoint().getLatitudeE6()/UtilsFooting.GEO_CONV +", "+mOverlays.get(index).getPoint().getLongitudeE6()/UtilsFooting.GEO_CONV, Toast.LENGTH_SHORT).show();
 		return super.onTap(index);         
 	}
 

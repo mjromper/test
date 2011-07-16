@@ -6,6 +6,7 @@ import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
@@ -13,7 +14,7 @@ import android.widget.Toast;
 import es.tid.database.bo.Race;
 import es.tid.database.impl.DbRacesAccess;
 import es.tid.gmaps.FootingMeterActivity;
-import es.tid.tabs.home.UtilsStride;
+import es.tid.tabs.home.UtilsFooting;
 
 public class BDResultsActivity extends ListActivity
 {
@@ -58,6 +59,13 @@ public class BDResultsActivity extends ListActivity
 		Toast.makeText(getApplicationContext(), "Race  selected: "+id, Toast.LENGTH_LONG).show();
 		getSelectedRace(id);
 		if (selectedRace != null){
+			/*UtilsFooting.actualRace = selectedRace;
+			TabGroupActivity parentActivity = (TabGroupActivity) getParent();
+			Intent intent = new Intent(parentActivity,
+					FootingMeterActivity.class);
+			intent.putExtra(FootingMeterActivity.EXTRA_RECORD, 1);
+			parentActivity.startChildActivity("FootingMeterActivity",
+					intent);	*/
 			FootingMeterActivity.launch(getApplicationContext(), selectedRace, 1);
 		}
 
@@ -84,11 +92,11 @@ public class BDResultsActivity extends ListActivity
 		getSelectedRace(getSelectedItemId());
 		if (selectedRace != null){
 			switch (item.getItemId()) {
-			case VIEW_RACE_ON_MAP:
+			case VIEW_RACE_ON_MAP:				
 				FootingMeterActivity.launch(getApplicationContext(), selectedRace, 1);
 				break;
 			case DELETE_RACE:
-				UtilsStride.deleteRace(selectedRace.getPkey());
+				UtilsFooting.deleteRace(selectedRace.getPkey());
 				onResume();
 				break;
 			default:
@@ -100,6 +108,16 @@ public class BDResultsActivity extends ListActivity
 		return false;
 
 	}  
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		if (keyCode == KeyEvent.KEYCODE_BACK)
+		{
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 
 
 }

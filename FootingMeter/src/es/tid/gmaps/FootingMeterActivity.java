@@ -1,5 +1,6 @@
 package es.tid.gmaps;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +11,11 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.view.KeyEvent;
+import android.widget.Chronometer;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
@@ -25,13 +29,13 @@ import com.google.code.microlog4android.LoggerFactory;
 import es.tid.R;
 import es.tid.database.bo.FMLocation;
 import es.tid.database.bo.Race;
-import es.tid.tabs.home.UtilsStride;
+import es.tid.tabs.home.UtilsFooting;
 
-public class FootingMeterActivity extends MapActivity {
+public class FootingMeterActivity extends MapActivity implements LocationListener{
 
 	private static final Logger logger = LoggerFactory.getLogger(FootingMeterActivity.class);
-
-	private static final String EXTRA_RECORD = "record";
+	private static DecimalFormat df = new DecimalFormat("0.###");
+	public static final String EXTRA_RECORD = "record";
 
 	private MapView mapView;
 	private List<Overlay> mapOverlays;
@@ -39,7 +43,13 @@ public class FootingMeterActivity extends MapActivity {
 	private HelloItemizedOverlay itemizedoverlay;
 
 	private LocationManager lm;
-	private YLocationListener listener;
+	private double lat = 0, lng = 0, oldLat = 0, oldLng = 0;
+
+	private TextView distance;
+
+	private Chronometer chronos;
+
+
 
 	@Override
 	protected void onResume() {
@@ -60,11 +70,14 @@ public class FootingMeterActivity extends MapActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
+		distance = (TextView) findViewById(R.id.map_distance);
+		chronos = (Chronometer) findViewById(R.id.map_chrono);
+
 		mapView = (MapView) findViewById(R.id.map_view);
 		mapView.setBuiltInZoomControls(true);
 
 		mapOverlays = mapView.getOverlays();
-		drawable = this.getResources().getDrawable(R.drawable.icon);
+		drawable = this.getResources().getDrawable(R.drawable.icon_run);
 		itemizedoverlay = new HelloItemizedOverlay(drawable, this);
 		mapOverlays.add(itemizedoverlay);
 
@@ -78,9 +91,6 @@ public class FootingMeterActivity extends MapActivity {
 
 		logger.info("Footing Application Started!!!");		
 
-		if (UtilsStride.actualRace != null){
-			drawRace2Map(UtilsStride.actualRace);
-		}
 
 		try {
 			Settings.Secure.setLocationProviderEnabled(getContentResolver(), LocationManager.GPS_PROVIDER, true);
@@ -90,12 +100,22 @@ public class FootingMeterActivity extends MapActivity {
 		}   
 
 		Bundle extras = getIntent().getExtras();
-		int record  = extras.getInt(EXTRA_RECORD);        
+		int record  = extras.getInt(EXTRA_RECORD);	
 
-		if (record == 0){
+		if (UtilsFooting.actualRace != null){
+			drawRace2Map(UtilsFooting.actualRace);			
+		}
+		if (lm == null)
 			lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-			listener = new YLocationListener(this);
-			lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 15, listener);
+		if (record == 0){			
+			lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 15, this);
+			chronos.setBase(SystemClock.elapsedRealtime() - UtilsFooting.totalTime);
+			chronos.start();
+			distance.setText("Distance: "+df.format((double) UtilsFooting.totalDistance / 1000) + " Km");
+		}else{
+			lm.removeUpdates(this);
+			chronos.setBase(SystemClock.elapsedRealtime() - UtilsFooting.actualRace.getDuration());		
+			distance.setText("Distance: "+df.format((double) UtilsFooting.actualRace.getDistance() / 1000) + " Km");
 		}
 	}
 
@@ -103,11 +123,11 @@ public class FootingMeterActivity extends MapActivity {
 
 		logger.info("Drawing race into map");
 
-		ArrayList<FMLocation> locations = UtilsStride.findLocationsByRacePkey(race.getPkey());
+		ArrayList<FMLocation> locations = UtilsFooting.findLocationsByRacePkey(race.getPkey());
 		if (locations!=null){
 			for (int i=0; i< locations.size();i++){
-				GeoPoint geop = new GeoPoint((int) (locations.get(i).getLat() * UtilsStride.GEO_CONV), 
-						(int) (locations.get(i).getLng() * UtilsStride.GEO_CONV));
+				GeoPoint geop = new GeoPoint((int) (locations.get(i).getLat() * UtilsFooting.GEO_CONV), 
+						(int) (locations.get(i).getLng() * UtilsFooting.GEO_CONV));
 				addLocation2Map(geop);
 			}
 		}
@@ -117,8 +137,8 @@ public class FootingMeterActivity extends MapActivity {
 
 	public void addLocation2Map(GeoPoint point){
 
-		OverlayItem overlayitem = new OverlayItem(point, "Location", "("+point.getLatitudeE6()/UtilsStride.GEO_CONV+", "+point.getLongitudeE6()/UtilsStride.GEO_CONV+")");
-		logger.info("Location added to MAP: "+point);
+		OverlayItem overlayitem = new OverlayItem(point, "Location", "("+point.getLatitudeE6()/UtilsFooting.GEO_CONV+", "+point.getLongitudeE6()/UtilsFooting.GEO_CONV+")");
+		//logger.info("Location added to MAP: "+point);
 		mapView.getController().animateTo(point);
 		itemizedoverlay.addOverlay(overlayitem);
 		mapView.postInvalidate();
@@ -137,75 +157,11 @@ public class FootingMeterActivity extends MapActivity {
 	 * @param record 
 	 */
 	public static void launch(final Context context, final Race race, int record) {
-		UtilsStride.actualRace = race;
+		UtilsFooting.actualRace = race;
 		final Intent i = new Intent(context, FootingMeterActivity.class);
 		i.putExtra(EXTRA_RECORD, record);
 		i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		context.startActivity(i);
-	}
-
-	public class YLocationListener implements LocationListener {
-
-		private Context context;
-		private FootingMeterActivity activity;
-		private double lat = 0, lng = 0, oldLat = 0, oldLng = 0;
-
-
-		public YLocationListener(FootingMeterActivity activity) {
-			context = activity.getApplicationContext();
-			this.activity = activity;
-		}
-
-
-		@Override
-		public void onProviderDisabled(String provider)
-		{
-
-			Toast.makeText(context,"Gps Disabled",Toast.LENGTH_SHORT ).show();
-
-		}
-
-
-		@Override
-		public void onProviderEnabled(String provider)
-		{
-
-			Toast.makeText(context,"Gps Enabled", Toast.LENGTH_SHORT).show();
-
-		}
-
-
-		@Override
-		public void onStatusChanged(String provider, int status, Bundle extras)
-		{
-			//Toast.makeText(context,"Gps Status changed:" +status+", provider = "+provider, Toast.LENGTH_SHORT).show();
-
-		}
-
-
-		@Override
-		public void onLocationChanged(Location location) {
-
-			oldLat = lat;
-			oldLng = lng;
-
-			lat = location.getLatitude();
-			lng = location.getLongitude();
-
-			if (UtilsStride.insertLocation((lat), (lng))){
-				float[] results = new float[4];
-				if (oldLat != 0 && oldLng != 0)
-				{
-					Location.distanceBetween(oldLat, oldLng, lat, lng, results);				
-					UtilsStride.totalDistance += (long) results[0];
-
-				}
-				GeoPoint geop = new GeoPoint((int) (lat* UtilsStride.GEO_CONV) , (int) (lng* UtilsStride.GEO_CONV));
-				UtilsStride.pathPoints.add(geop);
-				activity.addLocation2Map(geop);
-			}
-
-		}
 	}
 
 	/**
@@ -219,24 +175,64 @@ public class FootingMeterActivity extends MapActivity {
 		if (keyCode == KeyEvent.KEYCODE_BACK)
 		{
 			logger.info("back en map");
-			if (lm != null && listener != null){
-				try {
-					Settings.Secure.setLocationProviderEnabled(getContentResolver(), LocationManager.GPS_PROVIDER, false);
-					logger.info("GPS enabled !");
-				} catch (Exception e) {
-					logger.error("Error enabling GPS: "+e);
-				}
-				lm.removeUpdates(listener);
-				logger.info("Location listener registered!");
+			if (lm == null)
+				lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+			
+			try {
+				Settings.Secure.setLocationProviderEnabled(getContentResolver(), LocationManager.GPS_PROVIDER, false);
+				logger.info("GPS enabled !");
+			} catch (Exception e) {
+				logger.error("Error enabling GPS: "+e);
 			}
+			lm.removeUpdates(this);
+			logger.info("Location listener UNregistered!: "+lm.toString());
+
 			// preventing default implementation previous to
 			// android.os.Build.VERSION_CODES.ECLAIR
-			listener = null;
-			lm = null;
-			finish();
-			return true;
+			//finish();
+			return super.onKeyDown(keyCode, event);
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+
+		oldLat = lat;
+		oldLng = lng;
+		lat = location.getLatitude();
+		lng = location.getLongitude();
+		if (UtilsFooting.insertLocation((lat), (lng))){			
+			float[] results = new float[4];
+			if (oldLat != 0 && oldLng != 0)
+			{
+				Location.distanceBetween(oldLat, oldLng, lat, lng, results);				
+				UtilsFooting.totalDistance += (long) results[0];
+				distance.setText("Distance: "+df.format((double) UtilsFooting.totalDistance / 1000) + " Km");
+
+			}
+
+			GeoPoint geop = new GeoPoint((int) (lat* UtilsFooting.GEO_CONV) , (int) (lng* UtilsFooting.GEO_CONV));
+			addLocation2Map(geop);
+		}
+
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		Toast.makeText(this,"Gps Disabled",Toast.LENGTH_SHORT ).show();
+
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		Toast.makeText(this,"Gps Enabled", Toast.LENGTH_SHORT).show();
+
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		//Toast.makeText(context,"Gps Status changed:" +status+", provider = "+provider, Toast.LENGTH_SHORT).show();
 	}
 
 

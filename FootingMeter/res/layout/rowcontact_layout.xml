@@ -6,7 +6,7 @@ android:layout_height="fill_parent"
 android:orientation="vertical"
 xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_gravity="center_horizontal"
->
+android:background="#FFB200">
 <TableRow
 android:id="@+id/table1"
 android:layout_width="125px"

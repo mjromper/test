@@ -30,7 +30,7 @@ public class NewTrackActivity extends Activity {
 				// elena
 				// UtilsStride.trackName =
 				// trackName.getSelectedItem().toString();
-				UtilsStride.runningName = runningName.getText().toString();
+				UtilsFooting.runningName = runningName.getText().toString();
 
 				// ionut
 				// sAux = "" + trackName.getText();

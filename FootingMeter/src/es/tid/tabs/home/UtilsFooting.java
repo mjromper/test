@@ -2,19 +2,13 @@ package es.tid.tabs.home;
 
 import java.util.ArrayList;
 
-import com.google.android.maps.GeoPoint;
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-
 import es.tid.Starter;
 import es.tid.database.bo.FMLocation;
 import es.tid.database.bo.Race;
 import es.tid.database.impl.DbLocationsAccess;
 import es.tid.database.impl.DbRacesAccess;
 
-public class UtilsStride {
-
-	private static final Logger logger = LoggerFactory.getLogger(UtilsStride.class);
+public class UtilsFooting {
 
 
 	public static String runningName = "Today Track";
@@ -22,8 +16,6 @@ public class UtilsStride {
 	public static long totalDistance = 0;
 
 	public static long totalTime = 0;
-
-	public static ArrayList<GeoPoint> pathPoints = new ArrayList<GeoPoint>();
 
 	public static Starter mainActivity;
 
@@ -35,10 +27,7 @@ public class UtilsStride {
 
 	public static final double GEO_CONV = 1E6;
 
-	public static void addRaceToDB(long distance, long time, long date) {
-
-		totalDistance = distance;
-		totalTime = time;
+	public static void addRaceToDB(long date) {
 
 		DbRacesAccess dbRaces = new DbRacesAccess(mainActivity, DbRacesAccess.DB_NAME);
 

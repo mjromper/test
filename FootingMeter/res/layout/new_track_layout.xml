@@ -2,11 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="fill_parent"
 	android:layout_height="fill_parent" android:weightSum="1.0"
-	android:background="@drawable/background">
-	<!--
-		<TextView android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:text="HomeActivity" />
-	-->
+	android:background="#FFB200">
+	<!--android:background="@drawable/background"-->
+
 	<LinearLayout android:orientation="vertical"
 		android:layout_width="fill_parent" android:layout_height="wrap_content"
 		android:layout_marginTop="10dip" android:layout_marginLeft="10dip"
@@ -14,7 +12,7 @@
 		<TextView android:layout_height="wrap_content"
 			android:layout_width="fill_parent" android:textStyle="bold"
 			android:textSize="20sp" android:textScaleX="1.3" android:textColor="#EEEEEE"
-			android:text="New Run" android:shadowColor="#000000"
+			android:text="New Race" android:shadowColor="#000000"
 					android:shadowDx="2"
 					android:shadowDy="2"
 					android:shadowRadius="1" />

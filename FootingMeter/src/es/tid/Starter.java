@@ -18,7 +18,7 @@ import com.google.code.microlog4android.format.PatternFormatter;
 
 import es.tid.tabs.HomeGroupActivity;
 import es.tid.tabs.RecordsGroupActivity;
-import es.tid.tabs.home.UtilsStride;
+import es.tid.tabs.home.UtilsFooting;
 
 
 public class Starter extends TabActivity {
@@ -35,7 +35,7 @@ public class Starter extends TabActivity {
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-
+		micrologMainConfigurator();
 		// Resources res = getResources(); // Resource object to get Drawables
 		final String home = getString(R.string.home_tab);
 		final String map = getString(R.string.stored_tab);
@@ -49,12 +49,11 @@ public class Starter extends TabActivity {
 		tabHost.addTab(tabHost.newTabSpec(map).setIndicator(map, res.getDrawable(R.drawable.ic_tab_map))
 				.setContent(new Intent(this, RecordsGroupActivity.class)));
 
-		
-
 		tabHost.setCurrentTab(0);
 		
-		UtilsStride.mainActivity = this;		
-		micrologMainConfigurator();
+		UtilsFooting.mainActivity = this;	
+		
+		logger.info("FootingMeter APP started!!!");
 	}
 	
 	@Override
@@ -100,6 +99,14 @@ public class Starter extends TabActivity {
 		LoggerFactory.getLogger().setLevel(Level.DEBUG);
 
 	}
+
+	@Override
+	protected void onDestroy() {
+		logger.info("FootingMeter APP closed!!!");
+		super.onDestroy();
+	}
+	
+	
 
 
 }
