@@ -1,7 +1,9 @@
 package es.tid.tabs.home;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,16 +24,22 @@ public class HomeActivity extends Activity {
 		parentActivity.closeAllChildsExceptLastOne();
 
 		final Button newTrackBtn = (Button) findViewById(R.id.new_track_btn);
-		
+
 
 		OnTouchListener newTrackListener = new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				if (event.getAction() == MotionEvent.ACTION_UP) {
+
+					LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+					if (!lm.isProviderEnabled(LocationManager.GPS_PROVIDER)){  
+						UtilsFooting.createGpsDisabledAlert((TabGroupActivity) getParent());  
+					} 
+
 					Intent intent = new Intent(getParent(),
 							NewTrackActivity.class);
 					TabGroupActivity parentActivity = (TabGroupActivity) getParent();
-					
+
 					parentActivity.startChildActivity("NewTrackActivity",
 							intent);
 					return true;
@@ -41,5 +49,7 @@ public class HomeActivity extends Activity {
 		};
 		newTrackBtn.setOnTouchListener(newTrackListener);
 	}
+
+	
 
 }

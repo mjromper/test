@@ -60,9 +60,16 @@ public class RunningActivity extends Activity
 
 		chronos.setBase(SystemClock.elapsedRealtime() - UtilsFooting.totalTime);
 
+		if (lm == null ){
+			lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		}
+		if (locationListener == null){
+			locationListener = new RunLocationListener();
+		}	
 
 		if (recording && firstTime)
 		{
+			
 			chronos.setBase(SystemClock.elapsedRealtime());
 			chronos.start();
 			firstTime = false;
@@ -130,15 +137,10 @@ public class RunningActivity extends Activity
 		};
 		mapBtn.setOnClickListener(mapBtnListener);
 
-		if (lm == null ){
-			lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		}
-		if (locationListener == null){
-			locationListener = new RunLocationListener();
-		}
+
 
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onStop()
 	 */
@@ -162,33 +164,32 @@ public class RunningActivity extends Activity
 		}else{
 			unRegisterGPS();
 		}
-		
+
 	}
 
 
 	private void registerGPS() {
-		if (lm == null ){
-			lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		}
+		
+		
 		if (locationListener == null){
 			locationListener = new RunLocationListener();
-			
+
 		}
 		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 15, locationListener);
-		
+
 		logger.info("Location listener registered!");
 
 	}
 
 	private void unRegisterGPS() {
-		
+
 		if (lm == null )
 			lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		
-		
+
+
 		if (locationListener != null)
 			lm.removeUpdates(locationListener);
-		
+
 		logger.info("Location listener unregistered!");
 		locationListener = null;
 
@@ -219,10 +220,10 @@ public class RunningActivity extends Activity
 		@Override
 		public void onLocationChanged(Location loc)
 		{
-			
+
 			if (loc != null && recording)
 			{
-								
+
 				oldLat = lat;
 				oldLng = lng;
 				lat = loc.getLatitude();

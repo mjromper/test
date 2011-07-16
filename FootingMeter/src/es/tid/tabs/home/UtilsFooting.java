@@ -2,6 +2,11 @@ package es.tid.tabs.home;
 
 import java.util.ArrayList;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+
 import es.tid.Starter;
 import es.tid.database.bo.FMLocation;
 import es.tid.database.bo.Race;
@@ -81,5 +86,27 @@ public class UtilsFooting {
 		dbRaces.deleteByPkey(pkey);
 		
 	}
+	
+	public static void createGpsDisabledAlert(final Context context){  
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);  
+		builder.setMessage("Your GPS is disabled! Would you like to enable it?")  
+		.setCancelable(false)  
+		.setPositiveButton("Enable GPS",  
+				new DialogInterface.OnClickListener(){  
+			public void onClick(DialogInterface dialog, int id){  
+				Intent gpsOptionsIntent = new Intent(  
+						android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);  
+				context.startActivity(gpsOptionsIntent);  
+			}  
+		});  
+		builder.setNegativeButton("Do nothing",  
+				new DialogInterface.OnClickListener(){  
+			public void onClick(DialogInterface dialog, int id){  
+				dialog.cancel();  
+			}  
+		});  
+		AlertDialog alert = builder.create();  
+		alert.show();  
+	}  
 
 }

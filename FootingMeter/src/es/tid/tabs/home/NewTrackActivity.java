@@ -22,7 +22,7 @@ public class NewTrackActivity extends Activity {
 
 		// trackName = (Button) findViewById(R.id.newTrackTrackName);
 		runningName = (EditText) findViewById(R.id.newTrackRunningName);
-		
+
 		final Button nextBtn = (Button) findViewById(R.id.start_btn);
 		OnClickListener nextBtnListener = new OnClickListener() {
 			@Override
@@ -30,12 +30,8 @@ public class NewTrackActivity extends Activity {
 				// elena
 				// UtilsStride.trackName =
 				// trackName.getSelectedItem().toString();
-				UtilsFooting.runningName = runningName.getText().toString();
-
-				// ionut
-				// sAux = "" + trackName.getText();
-				// UtilsStride.currentFileName = sAux;
-				// UtilsStride.newTrack = true;
+				UtilsFooting.runningName = runningName.getText().toString();		
+				
 				TabGroupActivity parentActivity = (TabGroupActivity) getParent();
 				Intent intent = new Intent(parentActivity,
 						RunningActivity.class);
@@ -47,4 +43,8 @@ public class NewTrackActivity extends Activity {
 
 		nextBtn.setOnClickListener(nextBtnListener);
 	}
+
+	
+
+
 }

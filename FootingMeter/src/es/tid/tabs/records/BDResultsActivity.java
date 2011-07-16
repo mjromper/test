@@ -20,6 +20,7 @@ public class BDResultsActivity extends ListActivity
 {
 	private static final int VIEW_RACE_ON_MAP = 0;
 	private static final int DELETE_RACE = 1;
+
 	private ListView listLV;
 	private ResultsAdapter adapter;
 	private ArrayList<Race> recordsList;

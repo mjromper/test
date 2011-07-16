@@ -1,6 +1,7 @@
 package es.tid.tabs.records;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +19,8 @@ public class ResultsAdapter extends BaseAdapter
 {
 	private BDResultsActivity activity;
 	private ArrayList<Race> resultsList;
+	private static DecimalFormat df = new DecimalFormat("0.###");
+
 
 	public ResultsAdapter(BDResultsActivity activity, ArrayList<Race> racesList)
 	{
@@ -67,7 +70,7 @@ public class ResultsAdapter extends BaseAdapter
 			
 			TextView distance = (TextView) convertView.findViewById(R.id.distance);
 			if (entry.getDistance() != null){
-				distance.setText(entry.getDistance() / 1000 +" Km");
+				distance.setText("Distance: "+df.format((double) entry.getDistance() / 1000) + " Km");
 			}
 		}
 

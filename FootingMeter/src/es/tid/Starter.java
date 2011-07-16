@@ -66,7 +66,11 @@ public class Starter extends TabActivity {
 	public boolean onOptionsItemSelected (MenuItem item){
 
 		switch (item.getItemId()){
-		case EXIT :   
+		case EXIT : 
+			/*LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+			if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER)){  
+				UtilsFooting.createGpsDisabledAlert(this);  
+			} */	
 			finish();
 			return true;
 		}
@@ -105,6 +109,8 @@ public class Starter extends TabActivity {
 		logger.info("FootingMeter APP closed!!!");
 		super.onDestroy();
 	}
+	
+	
 	
 	
 
