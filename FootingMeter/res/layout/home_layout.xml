@@ -19,7 +19,7 @@
 			android:layout_width="220sp" 
 			android:layout_height="wrap_content"
 			android:layout_centerInParent="true"
-			android:text="New Run" 
+			android:text="@string/new_race_text" 
 			android:textStyle="bold"
 			android:textScaleX="1.5" >
 		</Button>

@@ -12,8 +12,9 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.provider.Settings;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,8 @@ public class FootingMeterActivity extends MapActivity implements LocationListene
 	private static final Logger logger = LoggerFactory.getLogger(FootingMeterActivity.class);
 	private static DecimalFormat df = new DecimalFormat("0.###");
 	public static final String EXTRA_RECORD = "record";
+	private static final int EXIT = 0;
+	private static final int SATELLITE = 1;
 
 	private MapView mapView;
 	private List<Overlay> mapOverlays;
@@ -48,6 +51,7 @@ public class FootingMeterActivity extends MapActivity implements LocationListene
 	private TextView distance;
 
 	private Chronometer chronos;
+	private boolean satellite = false;
 
 
 
@@ -85,19 +89,9 @@ public class FootingMeterActivity extends MapActivity implements LocationListene
 
 		mapView.getController().setZoom(18);
 		mapView.setClickable(true);
-		mapView.setEnabled(true);
-		mapView.setSatellite(true);
+		mapView.setEnabled(true);		
 		mapView.displayZoomControls(true);
-
-		logger.info("Footing Application Started!!!");		
-
-
-		try {
-			Settings.Secure.setLocationProviderEnabled(getContentResolver(), LocationManager.GPS_PROVIDER, true);
-			logger.info("GPS enabled !");
-		} catch (Exception e) {
-			logger.error("Error enabling GPS: "+e);
-		}   
+		mapView.setSatellite(satellite);
 
 		Bundle extras = getIntent().getExtras();
 		int record  = extras.getInt(EXTRA_RECORD);	
@@ -135,7 +129,7 @@ public class FootingMeterActivity extends MapActivity implements LocationListene
 	}
 
 
-	public void addLocation2Map(GeoPoint point){
+	private void addLocation2Map(GeoPoint point){
 
 		OverlayItem overlayitem = new OverlayItem(point, "Location", "("+point.getLatitudeE6()/UtilsFooting.GEO_CONV+", "+point.getLongitudeE6()/UtilsFooting.GEO_CONV+")");
 		//logger.info("Location added to MAP: "+point);
@@ -174,18 +168,7 @@ public class FootingMeterActivity extends MapActivity implements LocationListene
 	{
 		if (keyCode == KeyEvent.KEYCODE_BACK)
 		{
-			logger.info("back en map");
-			if (lm == null)
-				lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-			
-			try {
-				Settings.Secure.setLocationProviderEnabled(getContentResolver(), LocationManager.GPS_PROVIDER, false);
-				logger.info("GPS enabled !");
-			} catch (Exception e) {
-				logger.error("Error enabling GPS: "+e);
-			}
-			lm.removeUpdates(this);
-			logger.info("Location listener UNregistered!: "+lm.toString());
+			unRegisterGPS();			
 
 			// preventing default implementation previous to
 			// android.os.Build.VERSION_CODES.ECLAIR
@@ -193,6 +176,16 @@ public class FootingMeterActivity extends MapActivity implements LocationListene
 			return super.onKeyDown(keyCode, event);
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+
+	private void unRegisterGPS() {
+		logger.info("back en map");
+		if (lm == null)
+			lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+		lm.removeUpdates(this);
+		logger.info("Location listener UNregistered!: "+lm.toString());
+
 	}
 
 	@Override
@@ -233,6 +226,36 @@ public class FootingMeterActivity extends MapActivity implements LocationListene
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
 		//Toast.makeText(context,"Gps Status changed:" +status+", provider = "+provider, Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		menu.add(0,SATELLITE,0,"Satellite On");
+		menu.add(0,EXIT,0,"Exit Map");
+		return true;
+	}
+
+	public boolean onOptionsItemSelected (MenuItem item){
+
+		switch (item.getItemId()){
+		case SATELLITE :
+			if (satellite){
+				satellite  = false;
+				mapView.setSatellite(satellite);
+				item.setTitle("Satellite On");
+			}else{
+				satellite  = true;
+				mapView.setSatellite(satellite);
+				item.setTitle("Satellite Off");
+			}
+			return true;		
+		case EXIT :  
+			unRegisterGPS();
+			finish();
+			return true;
+		}
+		return false;
 	}
 
 

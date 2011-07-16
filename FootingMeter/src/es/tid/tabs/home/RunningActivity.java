@@ -10,8 +10,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.provider.Settings;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -83,6 +81,8 @@ public class RunningActivity extends Activity
 			{
 
 				stopRecording();
+				//Disable resume button
+				resumeRaceBtn.setEnabled(false);
 
 			}
 
@@ -98,12 +98,12 @@ public class RunningActivity extends Activity
 				if (recording == true)
 				{
 					recording = false;
-					unRegisterLocationListener();
+					unRegisterGPS();
 					chronos.stop();
 				}
 				else
 				{
-					registerLocationListener();
+					registerGPS();
 					recording = true;
 					chronos.start();
 				}
@@ -117,7 +117,7 @@ public class RunningActivity extends Activity
 			public void onClick(View v)
 			{
 
-				unRegisterLocationListener();				
+				unRegisterGPS();				
 				UtilsFooting.totalTime = SystemClock.elapsedRealtime() - chronos.getBase();
 				/*TabGroupActivity parentActivity = (TabGroupActivity) getParent();
 				Intent intent = new Intent(parentActivity,
@@ -138,34 +138,35 @@ public class RunningActivity extends Activity
 		}
 
 	}
-	
-	
 
-
-
-
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onStop()
+	 */
 	@Override
 	protected void onStop() {
-		unRegisterLocationListener();
+		unRegisterGPS();
 		super.onStop();
 	}
 
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onResume()
+	 */
 	@Override
 	public void onResume()
 	{
 		super.onResume();
 		if (recording == true)
 		{
-			registerLocationListener();
+			registerGPS();
 		}else{
-			unRegisterLocationListener();
+			unRegisterGPS();
 		}
 		
 	}
 
 
-	private void registerLocationListener() {
+	private void registerGPS() {
 		if (lm == null ){
 			lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		}
@@ -179,7 +180,7 @@ public class RunningActivity extends Activity
 
 	}
 
-	private void unRegisterLocationListener() {
+	private void unRegisterGPS() {
 		
 		if (lm == null )
 			lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -198,16 +199,14 @@ public class RunningActivity extends Activity
 		UtilsFooting.totalTime = SystemClock.elapsedRealtime() - chronos.getBase();
 		UtilsFooting.addRaceToDB(dateRace);
 
-		//Unregister GPS		
+		//Unregister GPS	
+		unRegisterGPS();
 		recording = false;
 
 		//reset values
 		chronos.stop(); 
 		UtilsFooting.totalDistance = 0;
-		UtilsFooting.totalTime = 0;
-
-		//Disable resume button
-		resumeRaceBtn.setEnabled(false);
+		UtilsFooting.totalTime = 0;	
 
 	}
 

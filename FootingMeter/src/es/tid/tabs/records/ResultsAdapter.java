@@ -1,5 +1,7 @@
 package es.tid.tabs.records;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -52,11 +54,15 @@ public class ResultsAdapter extends BaseAdapter
 			resultsName.setText(entry.getName());
 
 			TextView resultsDate= (TextView) convertView.findViewById(R.id.resultsDate);
-			resultsDate.setText(new Date(entry.getDate()).toString());
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			Date date = new Date(entry.getDate());
+			resultsDate.setText(sdf.format(date).toString());
 			
 			TextView duration = (TextView) convertView.findViewById(R.id.duration);
 			if (entry.getDuration() != null){
-				duration.setText(entry.getDuration() /  1000 +" s");
+				DateFormat df = new SimpleDateFormat("HH 'hours', mm 'mins,' ss 'seconds'");
+				String time = df.format(new Date(entry.getDuration()));
+				duration.setText(time);
 			}
 			
 			TextView distance = (TextView) convertView.findViewById(R.id.distance);

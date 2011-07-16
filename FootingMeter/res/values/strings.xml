@@ -4,9 +4,12 @@
     <string name="app_name">FootingMeter</string>
     
     <string name="home_tab">Home</string>
-    <string name="stored_tab">Stored tracks</string>
+    <string name="stored_tab">Stored races</string>
     <string name="resume_track_btn">Pause/Resume</string>
     <string name="stop_track_btn">Stop</string>
+    
+    <string name="new_race_text">New Race</string>
+    <string name="start_running_text">Start running</string>
     
     
     
