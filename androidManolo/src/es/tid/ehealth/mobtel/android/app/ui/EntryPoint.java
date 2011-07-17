@@ -73,8 +73,7 @@ public class EntryPoint extends AppActivity {
 	}	
 
 	private void init() {
-		
-		
+	
 		contactS = new ContactServiceImpl(this);
 
 		emergencyButton = (ImageButton) findViewById(R.id.buttonemergency);

@@ -3,6 +3,7 @@ package es.tid.ehealth.mobtel.android.app.ui;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,16 +19,8 @@ import es.tid.ehealth.mobtel.android.common.bo.Contact;
 
 public class MyArrayAdapter extends  BaseAdapter {
 
-	// static to save the reference to the outer class and to avoid access to
-	// any members of the containing class
-	static class ViewHolder {
-		public ImageView imageView;
-		public TextView contactName;
-		public TextView contactPhone;
-	}
-
 	private static final Logger logger = LoggerFactory.getLogger(MyArrayAdapter.class);
-	private final Activity context;
+	private final Activity activity;
 
 	private final ArrayList<Contact> contacts;
 
@@ -38,51 +31,48 @@ public class MyArrayAdapter extends  BaseAdapter {
 	 * @param ids
 	 * @param contacts
 	 */
-	public MyArrayAdapter(final Activity context , final ArrayList<Contact> contacts) {
-		this.context = context;
+	public MyArrayAdapter(final Activity activity , final ArrayList<Contact> contacts) {
+		this.activity = activity;
 		this.contacts = contacts;
 	}
 
 	@Override
-	public View getView(final int position, final View convertView, final ViewGroup parent) {
-		View rowView = convertView;
+	public View getView(final int position, View convertView, final ViewGroup parent) {
 		if (contacts != null){
+			
+			if (convertView == null)
+			{
+				LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				convertView = inflater.inflate(R.layout.rowcontact_layout, null);
+			}
+			
 			Contact contact = contacts.get(position);
 			String label1 = contact.getDisplayName();
 			String label2 = "";
-
-
-			ViewHolder holder;
-			if (rowView == null) {
-				final LayoutInflater inflater = context.getLayoutInflater();
-				rowView = inflater.inflate(R.layout.rowcontact_layout, null, true);
-				holder = new ViewHolder();
-				holder.contactName = (TextView) rowView.findViewById(R.id.labelcontact);
-				holder.imageView = (ImageView) rowView.findViewById(R.id.iconcontact);
-				holder.contactPhone = (TextView) rowView.findViewById(R.id.labelcontactphone);
-				rowView.setTag(holder);
-			} else {
-				holder = (ViewHolder) rowView.getTag();
-			}
-			holder.imageView.setImageResource(R.drawable.icon);
-			holder.contactName.setText(label1);
+			
+			ImageView image = (ImageView) convertView.findViewById(R.id.iconcontact);
+			image.setImageResource(R.drawable.icon);
+			
+			TextView name = (TextView) convertView.findViewById(R.id.labelcontact);
+			name.setText(label1);
 
 			try {
 				if (contact.getPhones() != null && contact.getPhones().size() > 0 && contact.getPhones().get(0)!= null 
 						&& contact.getPhones().get(0).getNumber() != null){
 					label2 = contact.getPhones().get(0).getNumber();
 				}
-				holder.contactPhone.setText(label2);
+				TextView phone = (TextView) convertView.findViewById(R.id.labelcontactphone);
+				phone.setText(label2);
 			}catch (Exception e) {
 				logger.error("Error Adapter: "+e);
 			}					
 
 			if (contact.getPhotoBitmap() != null) {
-				holder.imageView.setImageBitmap(contact.getPhotoBitmap());
+				image.setImageBitmap(contact.getPhotoBitmap());
 			}
 		}
 
-		return rowView;
+		return convertView;
 	}
 
 	@Override
