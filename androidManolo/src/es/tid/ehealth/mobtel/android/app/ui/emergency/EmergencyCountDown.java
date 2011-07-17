@@ -15,7 +15,6 @@ import com.google.code.microlog4android.Logger;
 import com.google.code.microlog4android.LoggerFactory;
 
 import es.tid.ehealth.mobtel.android.R;
-import es.tid.ehealth.mobtel.android.app.ui.EntryPoint;
 import es.tid.ehealth.mobtel.android.common.components.AppActivity;
 
 public class EmergencyCountDown extends AppActivity{
@@ -51,7 +50,7 @@ public class EmergencyCountDown extends AppActivity{
 		exitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	logger.debug("Emergency button clicked");
-            	EntryPoint.launch(getApplicationContext());
+            	//EntryPoint.launch(getApplicationContext());
             	timing.cancel();
             	finish();
             }

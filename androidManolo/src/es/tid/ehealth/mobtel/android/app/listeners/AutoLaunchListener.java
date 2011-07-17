@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.util.Log;
 import android.widget.Toast;
-import es.tid.ehealth.mobtel.android.app.ui.Starter;
+import es.tid.ehealth.mobtel.android.app.ui.EntryPoint;
 
 public class AutoLaunchListener extends BroadcastReceiver {
 	
@@ -30,7 +30,7 @@ public class AutoLaunchListener extends BroadcastReceiver {
 	        }
 	    	Toast.makeText(context, "Telecare begining to start!", Toast.LENGTH_LONG).show();
 	    	Log.v("AutoLunchApp","START TELECARE NAVIGATOR!!!");
-	    	Intent i = new Intent(context,Starter.class);
+	    	Intent i = new Intent(context,EntryPoint.class);
 	    	i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 	    	context.startActivity(i);
 	    }

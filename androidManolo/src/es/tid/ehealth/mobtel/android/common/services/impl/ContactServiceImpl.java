@@ -1,5 +1,6 @@
 package es.tid.ehealth.mobtel.android.common.services.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.content.Context;
@@ -17,152 +18,159 @@ import es.tid.ehealth.mobtel.android.common.services.ContactService;
 
 public class ContactServiceImpl implements ContactService{
 
-    private static final Logger logger = LoggerFactory.getLogger(ContactServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(ContactServiceImpl.class);
 
-    private static final int MAX_NUM_OF_QUICKDIALS = 4;    
+	private static final int MAX_NUM_OF_QUICKDIALS = 4;    
 
-    /**
-     * To made possible db contact access
-     */
-    private DbContactPhoneAccess contactsPhoneDbAccess;
-
-
-    /**
-     * Default constructor
-     * @param context
-     */
-    public ContactServiceImpl(Context context) {
-
-        contactsPhoneDbAccess = new DbContactPhoneAccess(context);       
-
-    }
-
-    /* (non-Javadoc)
-     * @see es.tid.ehealth.mobtel.android.common.services.ContactService#updateOrCreateContact(es.tid.ehealth.mobtel.android.common.bo.Contact)
-     */
-    @Override
-    public boolean updateOrCreate(Contact contact){
-        String idContact = contactsPhoneDbAccess.getIdContactByDisplayName(contact.getDisplayName());
-        String rawIdContact = null;
-        boolean update = false;
-               
-        if (idContact == null){            
-            rawIdContact = contactsPhoneDbAccess.addContactToPhoneDb(contact.getDisplayName());
-            idContact = contactsPhoneDbAccess.getContactId(rawIdContact);
-
-        }else{  
-            update = true;
-            rawIdContact = contactsPhoneDbAccess.getRawIdContactById(idContact);
-        } 
-        
-        contact.setId(idContact);  
-        boolean persist = contactsPhoneDbAccess.updateOrCreate(contact,rawIdContact);
-        
-        if (persist){
-            if (update){
-                logger.info("Contact "+contact.getDisplayName()+" UPDATED!!");
-            }else{
-                logger.info("Contact "+contact.getDisplayName()+" INSERTED!!");
-            }
-        }
-        return persist;
-    }   
+	/**
+	 * To made possible db contact access
+	 */
+	private DbContactPhoneAccess contactsPhoneDbAccess;
 
 
-    /* (non-Javadoc)
-     * @see es.tid.ehealth.mobtel.android.common.services.ContactService#getAllContactsData()
-     */
-    @Override
-    public HashMap<String,Contact> getAllContactsData() {
+	/**
+	 * Default constructor
+	 * @param context
+	 */
+	public ContactServiceImpl(Context context) {
+
+		contactsPhoneDbAccess = new DbContactPhoneAccess(context);       
+
+	}
+
+	/* (non-Javadoc)
+	 * @see es.tid.ehealth.mobtel.android.common.services.ContactService#updateOrCreateContact(es.tid.ehealth.mobtel.android.common.bo.Contact)
+	 */
+	@Override
+	public boolean updateOrCreate(Contact contact){
+		String idContact = contactsPhoneDbAccess.getIdContactByDisplayName(contact.getDisplayName());
+		String rawIdContact = null;
+		boolean update = false;
+
+		if (idContact == null){            
+			rawIdContact = contactsPhoneDbAccess.addContactToPhoneDb(contact.getDisplayName());
+			idContact = contactsPhoneDbAccess.getContactId(rawIdContact);
+
+		}else{  
+			update = true;
+			rawIdContact = contactsPhoneDbAccess.getRawIdContactById(idContact);
+		} 
+
+		contact.setId(idContact);  
+		boolean persist = contactsPhoneDbAccess.updateOrCreate(contact,rawIdContact);
+
+		if (persist){
+			if (update){
+				logger.info("Contact "+contact.getDisplayName()+" UPDATED!!");
+			}else{
+				logger.info("Contact "+contact.getDisplayName()+" INSERTED!!");
+			}
+		}
+		return persist;
+	}   
 
 
-        Cursor cursor = contactsPhoneDbAccess.getCursor();
-        HashMap<String,Contact> contacts = null;
-        try {          
-
-            if (cursor.getCount() > 0) {
-                contacts = new HashMap<String,Contact>(cursor.getCount()+1);
-                while (cursor.moveToNext()) {
-                    String idContact = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
-                    Contact contact = contactsPhoneDbAccess.getContactBasicData(idContact,true);  
-                    contacts.put(idContact,contact);
-                }
-            }
-        }finally{
-            cursor.close();
-        }
-
-        return contacts;
-    }
-
-    /* (non-Javadoc)
-     * @see es.tid.ehealth.mobtel.android.common.services.ContactService#getContactByPhoneNumber(java.lang.String)
-     */
-    @Override
-    public Contact getContactByPhoneNumber(String phoneNumber) {        
-        return contactsPhoneDbAccess.getContactByPhoneNumber(phoneNumber);
-    }
-
-    /* (non-Javadoc)
-     * @see es.tid.ehealth.mobtel.android.common.services.ContactService#getQuickDialContactsData()
-     */
-    @Override
-    public HashMap<Integer, Contact> getQuickDialContactsData() {
-        HashMap<Integer, Contact> quicks = null;
-        Cursor cursor = contactsPhoneDbAccess.getCursor();
-
-        try {       
-            if (cursor.getCount() > 0) {
-
-                while (cursor.moveToNext()) {
-                    String idContact = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
-                    String quickDial = contactsPhoneDbAccess.getQuickOrderData(idContact);
-                    if (quickDial!=null){                        
-                        Contact contact = contactsPhoneDbAccess.getContactBasicData(idContact,true);
-                        if (contact != null && quicks == null){
-                            quicks = new HashMap<Integer,Contact>();
-
-                        }
-                        if (quicks != null){
-                            quicks.put(Integer.parseInt(quickDial),contact);
-                            logger.debug("QuickDial contact found: "+quickDial);
-                        }
-
-                    }    
-
-                    if (quicks!= null && quicks.size() == MAX_NUM_OF_QUICKDIALS){
-                        break;
-                    }
-
-                }
-            }
-        }finally{
-            cursor.close();
-        }
-        return quicks;
-    }
-
-    /* (non-Javadoc)
-     * @see es.tid.ehealth.mobtel.android.common.services.ContactService#delete(java.lang.String)
-     */
-    @Override
-    public boolean delete(Contact contact) {        
-
-        return contactsPhoneDbAccess.delete(contact);
-
-    }
+	/* (non-Javadoc)
+	 * @see es.tid.ehealth.mobtel.android.common.services.ContactService#getAllContactsData()
+	 */
+	@Override
+	public ArrayList<Contact> getAllContactsData() {
 
 
-    protected void test(){
+		Cursor cursor = contactsPhoneDbAccess.getCursor();
+		ArrayList<Contact> contacts = null;
+		try {          
 
-        Contact cTest = new Contact();
-        cTest.setDisplayName("Fernando");
-        cTest.addPhone(new MPhone("698951325", Phone.TYPE_MOBILE));
-        cTest.setQuickDial(4);
-        cTest.setIdPlat("112222");           
+			if (cursor.getCount() > 0) {
+				logger.info("Contacts found: "+cursor.getCount());
+				contacts = new ArrayList<Contact>(0);
+				while (cursor.moveToNext()) {
+					String idContact = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+					Contact contact = contactsPhoneDbAccess.getContactBasicData(idContact,true);  
+					contacts.add(contact);
+				}
+			}
+		}catch (Exception e) {
+			logger.error("# getAllContactsData: "+e);
 
-        updateOrCreate(cTest);            
-    }
+		}finally{
+			cursor.close();
+		}
+
+		return contacts;
+	}
+
+	/* (non-Javadoc)
+	 * @see es.tid.ehealth.mobtel.android.common.services.ContactService#getContactByPhoneNumber(java.lang.String)
+	 */
+	@Override
+	public Contact getContactByPhoneNumber(String phoneNumber) {        
+		return contactsPhoneDbAccess.getContactByPhoneNumber(phoneNumber);
+	}
+
+	/* (non-Javadoc)
+	 * @see es.tid.ehealth.mobtel.android.common.services.ContactService#getQuickDialContactsData()
+	 */
+	@Override
+	public HashMap<Integer, Contact> getQuickDialContactsData() {
+		HashMap<Integer, Contact> quicks = null;
+		Cursor cursor = contactsPhoneDbAccess.getCursor();
+		if (cursor != null){
+			try {       
+				if (cursor.getCount() > 0) {
+
+					while (cursor.moveToNext()) {
+						String idContact = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+						String quickDial = contactsPhoneDbAccess.getQuickOrderData(idContact);
+						if (quickDial!=null){                        
+							Contact contact = contactsPhoneDbAccess.getContactBasicData(idContact,true);
+							if (contact != null && quicks == null){
+								quicks = new HashMap<Integer,Contact>();
+
+							}
+							if (quicks != null){
+								quicks.put(Integer.parseInt(quickDial),contact);
+								logger.debug("QuickDial contact found: "+quickDial);
+							}
+
+						}    
+
+						if (quicks!= null && quicks.size() == MAX_NUM_OF_QUICKDIALS){
+							break;
+						}
+
+					}
+				}
+			}finally{
+				cursor.close();
+			}
+		}else{
+			logger.info("#getQuickDialContactsData: NOT quicksdials FOUND");
+		}
+		return quicks;
+	}
+
+	/* (non-Javadoc)
+	 * @see es.tid.ehealth.mobtel.android.common.services.ContactService#delete(java.lang.String)
+	 */
+	@Override
+	public boolean delete(Contact contact) {        
+
+		return contactsPhoneDbAccess.delete(contact);
+
+	}
+
+
+	protected void test(){
+
+		Contact cTest = new Contact();
+		cTest.setDisplayName("Fernando");
+		cTest.addPhone(new MPhone("698951325", Phone.TYPE_MOBILE));
+		cTest.setQuickDial(4);
+		cTest.setIdPlat("112222");           
+
+		updateOrCreate(cTest);            
+	}
 
 
 

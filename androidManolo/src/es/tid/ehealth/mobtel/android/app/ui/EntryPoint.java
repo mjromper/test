@@ -10,16 +10,22 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.code.microlog4android.Level;
 import com.google.code.microlog4android.Logger;
 import com.google.code.microlog4android.LoggerFactory;
+import com.google.code.microlog4android.appender.FileAppender;
+import com.google.code.microlog4android.config.PropertyConfigurator;
+import com.google.code.microlog4android.format.PatternFormatter;
 
 import es.tid.ehealth.mobtel.android.R;
-import es.tid.ehealth.mobtel.android.app.services.SynchronizationService;
+import es.tid.ehealth.mobtel.android.app.listeners.PowerSignal;
 import es.tid.ehealth.mobtel.android.app.ui.emergency.EmergencyCountDown;
 import es.tid.ehealth.mobtel.android.common.bo.Contact;
 import es.tid.ehealth.mobtel.android.common.components.AppActivity;
@@ -43,6 +49,8 @@ public class EntryPoint extends AppActivity {
 
     private static final int PICK_CONTACT = 3;
 
+	private static final int EXIT = 0;
+
 
     @Override
     protected void onStart() {
@@ -55,6 +63,9 @@ public class EntryPoint extends AppActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.entrypoint);
+        micrologMainConfigurator();	
+        logger.info("START TELECARE APPLICATION!!!!");	
+		new PowerSignal(getApplicationContext());
         init();
     }	
 
@@ -66,8 +77,8 @@ public class EntryPoint extends AppActivity {
         emergencyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {  
                 logger.debug("Emergency button clicked");
-                EmergencyCountDown.launch(getApplicationContext());
-                finish();            	            	            	
+                EmergencyCountDown.launch(EntryPoint.this);
+                //finish();            	            	            	
             }
         });
         emergencyButton.setImageResource(R.drawable.botonemergencia);
@@ -114,7 +125,7 @@ public class EntryPoint extends AppActivity {
 
             @Override
             public void onClick(View v) {
-                ContactListInfo.launch(getApplicationContext());            
+                ContactListInfo.launch(EntryPoint.this);          
 
             }
         });
@@ -161,7 +172,7 @@ public class EntryPoint extends AppActivity {
             i.setAction(Intent.ACTION_CALL);
             i.setData(Uri.parse("tel:" + quickSelected.getPhones().get(0).getNumber()));
             startActivity(i);
-            finish();
+            //finish();
         }catch (Exception e) {
             logger.error("Error trying calling -> "+e);
         }
@@ -172,7 +183,6 @@ public class EntryPoint extends AppActivity {
         Intent i = new Intent(context,EntryPoint.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(i);
-
     }
 
 
@@ -237,5 +247,51 @@ public class EntryPoint extends AppActivity {
         }
 
     }
+    
+    @Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		menu.add(0,EXIT,0,"Exit");
+		return true;
+	}
+	
+	public boolean onOptionsItemSelected (MenuItem item){
+
+		switch (item.getItemId()){
+		case EXIT : 
+			/*LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+			if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER)){  
+				UtilsFooting.createGpsDisabledAlert(this);  
+			} */	
+			finish();
+			return true;
+		}
+		return false;
+	}
+	
+	private void micrologMainConfigurator() {
+
+		PropertyConfigurator.getConfigurator(this).configure();
+		int numApp = LoggerFactory.getLogger().getNumberOfAppenders();
+		
+		PatternFormatter formatter = new PatternFormatter();
+		//formatter.setPattern("[%d] [%t] [%P] %c - %m %T");
+		formatter.setPattern("[%d]%:[%P] [%c] - %m %T");		
+		
+		for (int i=0;i<numApp;i++){
+			//if (LoggerFactory.getLogger().getAppender(i).toString().contains("FileAppender")){
+				//LoggerFactory.getLogger().removeAppender(LoggerFactory.getLogger().getAppender(i));
+			//}else{
+				LoggerFactory.getLogger().getAppender(i).setFormatter(formatter);		
+			//}				 
+		}
+		FileAppender myFileAppender = new FileAppender();
+		myFileAppender.setFileName("telecare_log.txt");
+		myFileAppender.setFormatter(formatter);
+		LoggerFactory.getLogger().addAppender(myFileAppender);
+		LoggerFactory.getLogger().setLevel(Level.DEBUG);
+
+	}	
+
 
 }

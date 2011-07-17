@@ -1,5 +1,6 @@
 package es.tid.ehealth.mobtel.android.common.services;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import es.tid.ehealth.mobtel.android.common.bo.Contact;
@@ -21,7 +22,7 @@ public interface ContactService {
      * Get a hasmap of all contacts inserted the system 
      * @return HashMap<String,Contact> contact hashmap idexed by it idContact
      */
-    public HashMap<String,Contact> getAllContactsData();
+    public ArrayList<Contact> getAllContactsData();
 
     /**
      * Look for a contact by it phone number

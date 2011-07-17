@@ -21,8 +21,8 @@ public class AppListActivity extends ListActivity{
 			return true;
 		case KeyEvent.KEYCODE_CAMERA:
 			return true;
-		//case KeyEvent.KEYCODE_BACK:
-		//	return true;
+		case KeyEvent.KEYCODE_BACK:
+			return true;
 		case KeyEvent.KEYCODE_HOME:
 			return true;
 		case KeyEvent.KEYCODE_DPAD_CENTER:

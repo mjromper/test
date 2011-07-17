@@ -38,8 +38,8 @@ public class AppActivity extends Activity{
 		case KeyEvent.KEYCODE_CAMERA:
 			logger.debug("Key CAMERA pressed");
 			return true;
-		//case KeyEvent.KEYCODE_BACK:
-		//	return true;
+		case KeyEvent.KEYCODE_BACK:
+			return true;
 		case KeyEvent.KEYCODE_HOME:
 			logger.debug("Key HOME pressed");
 			return true;
