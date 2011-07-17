@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.code.microlog4android.Level;
@@ -48,6 +49,9 @@ public class EntryPoint extends AppActivity {
 
 	private ContactService contactS;
 
+	private TextView[] qdText = new TextView[4];
+
+	
 	private static final int PICK_CONTACT = 3;
 
 	private static final int EXIT = 0;
@@ -62,19 +66,24 @@ public class EntryPoint extends AppActivity {
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.entrypoint);
 		micrologMainConfigurator();	
 		logger.info("START TELECARE APPLICATION!!!!");	
 		new PowerSignal(getApplicationContext());
-		
+
 		init();
 	}	
 
 	private void init() {
-	
+
 		contactS = new ContactServiceImpl(this);
+		
+		qdText[0] = (TextView) findViewById(R.id.qd1);
+		qdText[1] = (TextView) findViewById(R.id.qd2);
+		qdText[2] = (TextView) findViewById(R.id.qd3);
+		qdText[3] = (TextView) findViewById(R.id.qd4);
 
 		emergencyButton = (ImageButton) findViewById(R.id.buttonemergency);
 		emergencyButton.setOnClickListener(new View.OnClickListener() {
@@ -153,6 +162,9 @@ public class EntryPoint extends AppActivity {
 						logger.debug("Set quickDial "+i); 
 						Bitmap scaledImage = Bitmap.createScaledBitmap(qdContacts.get(i).getPhotoBitmap(), 135, 135, false);
 						quickButtons[i-1].setImageBitmap(scaledImage);
+						qdText[i-1].setText("QD "+(i)+": "+ qdContacts.get(i).getDisplayName());
+					}else{
+						qdText[i-1].setText("QD "+(i)+" is empty");
 					}
 				}    			
 
@@ -292,7 +304,7 @@ public class EntryPoint extends AppActivity {
 		Intent i = new Intent(cotext, EntryPoint.class);
 		i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		cotext.startActivity(i);
-		
+
 	}	
 
 

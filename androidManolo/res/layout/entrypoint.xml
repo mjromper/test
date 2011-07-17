@@ -14,7 +14,7 @@
 			android:layout_width="fill_parent" android:layout_height="wrap_content"
 			android:layout_marginTop="0dip" android:layout_marginLeft="0dip"
 			android:layout_marginRight="0dip" android:layout_weight="0.1">
-			<TextView android:text="Q1:" android:id="@+id/textView1" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+			<TextView android:text="Q1:" android:id="@+id/qd1" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
 			<ImageButton android:id="@+id/quickbutton1"
 				android:layout_width="145px" android:layout_height="145px">
 			</ImageButton>
@@ -23,7 +23,7 @@
 			android:layout_width="fill_parent" android:layout_height="wrap_content"
 			android:layout_marginTop="0dip" android:layout_marginLeft="10dip"
 			android:layout_marginRight="0dip" android:layout_weight="0.1">
-			<TextView android:text="Q2:" android:id="@+id/textView2" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+			<TextView android:text="Q2:" android:id="@+id/qd2" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
 			<ImageButton android:id="@+id/quickbutton2"
 				android:layout_width="145px" android:layout_height="145px">
 			</ImageButton>
@@ -36,7 +36,7 @@
 			android:layout_width="fill_parent" android:layout_height="wrap_content"
 			android:layout_marginTop="0dip" android:layout_marginLeft="0dip"
 			android:layout_marginRight="0dip" android:layout_weight="0.1">
-			<TextView android:text="Q3:" android:id="@+id/textView3" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+			<TextView android:text="Q3:" android:id="@+id/qd3" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
 			<ImageButton android:id="@+id/quickbutton3"
 				android:layout_width="145px" android:layout_height="145px">
 			</ImageButton>
@@ -45,7 +45,7 @@
 			android:layout_width="fill_parent" android:layout_height="wrap_content"
 			android:layout_marginTop="0dip" android:layout_marginLeft="10dip"
 			android:layout_marginRight="0dip" android:layout_weight="0.1">
-			<TextView android:text="Q4:" android:id="@+id/textView4" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+			<TextView android:text="Q4:" android:id="@+id/qd4" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
 			<ImageButton android:id="@+id/quickbutton4"
 				android:layout_width="145px" android:layout_height="145px">
 			</ImageButton>
