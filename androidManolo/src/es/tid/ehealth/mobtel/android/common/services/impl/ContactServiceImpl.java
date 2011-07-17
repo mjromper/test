@@ -20,7 +20,7 @@ public class ContactServiceImpl implements ContactService{
 
 	private static final Logger logger = LoggerFactory.getLogger(ContactServiceImpl.class);
 
-	private static final int MAX_NUM_OF_QUICKDIALS = 1;    
+	private static final int MAX_NUM_OF_QUICKDIALS = 4;    
 
 	/**
 	 * To made possible db contact access

@@ -7,19 +7,16 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.code.microlog4android.Logger;
 import com.google.code.microlog4android.LoggerFactory;
 
-import es.tid.ehealth.mobtel.android.R;
 import es.tid.ehealth.mobtel.android.common.bo.Contact;
 import es.tid.ehealth.mobtel.android.common.services.ContactService;
 import es.tid.ehealth.mobtel.android.common.services.impl.ContactServiceImpl;
@@ -27,7 +24,10 @@ import es.tid.ehealth.mobtel.android.common.services.impl.ContactServiceImpl;
 public class ContactListInfo extends ListActivity {
 
 	private static final Logger logger = LoggerFactory.getLogger(ContactListInfo.class);
+	private static final int SET_AS_EMERGENCY = 0;
 	private static Activity parent = null;
+	private MyArrayAdapter adapter;
+
 
 	/**
 	 * Launch this activity
@@ -42,19 +42,9 @@ public class ContactListInfo extends ListActivity {
 	}
 
 	private ArrayList<Contact> contacts;
+	private Contact selectedContact;
+	private ListView listLV;
 
-	/**
-	 * Fill this activity with contacts data
-	 */
-	private void fillData() {
-
-		final ContactService contactS = new ContactServiceImpl(this);
-		contacts = contactS.getAllContactsData();
-		if (contacts != null) {
-			this.setListAdapter(new MyArrayAdapter(this, contacts));
-		}
-
-	}
 
 	/**
 	 * Called when the activity is first created. *
@@ -62,7 +52,24 @@ public class ContactListInfo extends ListActivity {
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		listLV = this.getListView();
+		registerForContextMenu(listLV);
 		fillData();
+	}
+	
+	/**
+	 * Fill this activity with contacts data
+	 */
+	private void fillData() {
+		
+		final ContactService contactS = new ContactServiceImpl(this);
+		contacts = contactS.getAllContactsData();
+		if (contacts != null) {
+			adapter = new MyArrayAdapter(this, contacts);
+			listLV.setAdapter(adapter);
+		}else{
+			listLV.setAdapter(null);
+		}
 	}
 
 	/*
@@ -72,10 +79,9 @@ public class ContactListInfo extends ListActivity {
 	 */
 	@Override
 	protected void onListItemClick(final ListView l, final View v, final int position, final long id) {
-		super.onListItemClick(l, v, position, id);
-		Contact selected = contacts.get(position);
+		super.onListItemClick(l, v, position, id);		
 		// Get the item that was clicked
-		//Toast.makeText(this, "You selected: " + position, Toast.LENGTH_SHORT).show();
+		Contact selected = contacts.get(position);
 		if (selected.getPhones() != null && selected.getPhones().size() > 0 && selected.getPhones().get(0)!= null 
 				&& selected.getPhones().get(0).getNumber() != null){
 
@@ -99,90 +105,44 @@ public class ContactListInfo extends ListActivity {
 	protected void onStart() {
 		super.onStart();
 	}
+	
+	@Override  
+	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
+		super.onCreateContextMenu(menu, v, menuInfo);  
+		menu.setHeaderTitle("Contact Options");  
+		menu.add(0, SET_AS_EMERGENCY, 0, "Set as emergency contact");  
+	}  
 
-}
-
-class MyArrayAdapter extends  BaseAdapter {
-
-	// static to save the reference to the outer class and to avoid access to
-	// any members of the containing class
-	static class ViewHolder {
-		public ImageView imageView;
-		public TextView contactName;
-		public TextView contactPhone;
-	}
-
-	private static final Logger logger = LoggerFactory.getLogger(MyArrayAdapter.class);
-	private final Activity context;
-
-	private final ArrayList<Contact> contacts;
-
-	/**
-	 * Default constructor
-	 * 
-	 * @param context
-	 * @param ids
-	 * @param contacts
-	 */
-	public MyArrayAdapter(final Activity context , final ArrayList<Contact> contacts) {
-		this.context = context;
-		this.contacts = contacts;
-	}
-
-	@Override
-	public View getView(final int position, final View convertView, final ViewGroup parent) {
-		View rowView = convertView;
-		if (contacts != null){
-			Contact contact = contacts.get(position);
-			String label1 = contact.getDisplayName();
-			String label2 = "";
-
-
-			ViewHolder holder;
-			if (rowView == null) {
-				final LayoutInflater inflater = context.getLayoutInflater();
-				rowView = inflater.inflate(R.layout.rowcontact_layout, null, true);
-				holder = new ViewHolder();
-				holder.contactName = (TextView) rowView.findViewById(R.id.labelcontact);
-				holder.imageView = (ImageView) rowView.findViewById(R.id.iconcontact);
-				holder.contactPhone = (TextView) rowView.findViewById(R.id.labelcontactphone);
-				rowView.setTag(holder);
-			} else {
-				holder = (ViewHolder) rowView.getTag();
+	@Override  
+	public boolean onContextItemSelected(MenuItem item) {
+		Long id = getSelectedItemId();
+		getSelectedContact(id);
+		if (selectedContact != null){
+			switch (item.getItemId()) {
+			case SET_AS_EMERGENCY:				
+				UtilsTelecare.emergencyNumber = selectedContact.getPhones().get(0).getNumber();
+				logger.info("Set number as emergency number:" +UtilsTelecare.emergencyNumber);
+				break;
+			
+			default:
+				break;
 			}
-			holder.imageView.setImageResource(R.drawable.icon);
-			holder.contactName.setText(label1);
-
-			try {
-				if (contact.getPhones() != null && contact.getPhones().size() > 0 && contact.getPhones().get(0)!= null 
-						&& contact.getPhones().get(0).getNumber() != null){
-					label2 = contact.getPhones().get(0).getNumber();
-				}
-				holder.contactPhone.setText(label2);
-			}catch (Exception e) {
-				logger.error("Error Adapter: "+e);
-			}					
-
-			if (contact.getPhotoBitmap() != null) {
-				holder.imageView.setImageBitmap(contact.getPhotoBitmap());
-			}
+			return true;
 		}
 
-		return rowView;
+		return false;
+
 	}
 
-	@Override
-	public int getCount() {		
-		return contacts.size();
+	private void getSelectedContact(long id) {
+		if (contacts != null && contacts.get((int) id) != null){
+			selectedContact = contacts.get((int) id);
+		}
+		
 	}
+	
 
-	@Override
-	public Object getItem(int position) {
-		return contacts.get(position);
-	}
-
-	@Override
-	public long getItemId(int position) {		
-		return position;
-	}
 }
+
+
+

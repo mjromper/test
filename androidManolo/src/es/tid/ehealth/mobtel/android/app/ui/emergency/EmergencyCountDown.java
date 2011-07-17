@@ -15,12 +15,13 @@ import com.google.code.microlog4android.Logger;
 import com.google.code.microlog4android.LoggerFactory;
 
 import es.tid.ehealth.mobtel.android.R;
+import es.tid.ehealth.mobtel.android.app.ui.UtilsTelecare;
 import es.tid.ehealth.mobtel.android.common.components.AppActivity;
 
 public class EmergencyCountDown extends AppActivity{
 	
 	private static final Logger logger = LoggerFactory.getLogger(EmergencyCountDown.class);
-	private static final String EMEREGENCY_NUMBER = "0034647724506";
+	private static final String EMEREGENCY_NUMBER = UtilsTelecare.emergencyNumber;
 	private ImageButton countDowunImage;
 	private ImageButton exitButton;
 	private int count = 10;
@@ -144,7 +145,10 @@ public class EmergencyCountDown extends AppActivity{
 	public void callToEmergencyNumber() {		
 
 		try {			
-			String number = EMEREGENCY_NUMBER;			
+			String number = EMEREGENCY_NUMBER;	
+			if (!number.startsWith("0034")){
+				number = "0034"+number;
+			}
 			startActivityCall(number);
 			finish();
 		}catch (Exception e) {
