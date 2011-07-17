@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+ <!-- PROPERTIES -->
+    <string name="url_config_cgi">http://10.95.123.166:3000/configs.fcgi</string>
+    <string name="url_ack_cgi">http://10.95.123.166:3000/acks.fcgi</string>
+    
+    <string name="app_name">MobileTelecare</string>
+    <string name="message_config_sync">UPDATE:1</string>
+    
+ <!-- ============================== -->
+    <!--  app/dialog examples strings  -->
+    <!-- ============================== -->
+
+    <string name="activity_alert_dialog">App/Dialog</string>
+    <string name="alert_dialog_two_buttons">OK Cancel dialog with a message</string>
+    <string name="alert_dialog_two_buttons2">OK Cancel dialog with a long message</string>
+    <string name="alert_dialog_select_button">List dialog</string>
+    <string name="alert_dialog_single_choice">Single choice list</string>
+    <string name="alert_dialog_multi_choice">Repeat alarm</string>
+    <string name="alert_dialog_multi_choice_cursor">Send Call to VoiceMail</string>
+    <string name="alert_dialog_progress_button">Progress dialog</string>
+    <string name="alert_dialog_text_entry">Text Entry dialog</string>
+    <string name="alert_dialog_username">Name:</string>
+    <string name="alert_dialog_password">Password:</string>
+    <string name="alert_dialog_two_buttons_title">
+        Lorem ipsum dolor sit aie consectetur adipiscing\nPlloaso mako nuto
+        siwuf cakso dodtos anr koop.
+    </string>
+    <string name="alert_dialog_two_buttons_msg">Header title</string>
+    <string name="alert_dialog_two_buttons2_msg">
+        Plloaso mako nuto siwuf cakso dodtos anr koop a
+        cupy uf cak vux noaw yerw phuno. Whag schengos, uf efed, quiel
+        ba mada su otrenzr.\n\nSwipontgwook proudgs hus yag su ba dagarmidad.
+        Plasa maku noga wipont trenzsa schengos ent kaap zux comy.\n\nWipont trenz
+        kipg naar mixent phona. Cak pwico siructiun
+        ruous nust apoply tyu cak Uhex sisulutiun munityuw uw dseg
+    </string>
+    <string name="alert_dialog_ok">OK</string>
+    <string name="alert_dialog_hide">Hide</string>
+    <string name="alert_dialog_something">Something</string>
+    <string name="alert_dialog_cancel">Cancel</string>
+    <string name="alert_dialog_progress_text1">34\%</string>
+    <string name="alert_dialog_progress_text2">145/305 KB</string>
+
+    <string name="select_dialog">Header title</string>
+    <string name="select_dialog_show">List dialog</string>
+    
+   
+    
+</resources>
