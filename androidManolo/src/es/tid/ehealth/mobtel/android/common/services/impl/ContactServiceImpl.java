@@ -20,7 +20,7 @@ public class ContactServiceImpl implements ContactService{
 
 	private static final Logger logger = LoggerFactory.getLogger(ContactServiceImpl.class);
 
-	private static final int MAX_NUM_OF_QUICKDIALS = 4;    
+	private static final int MAX_NUM_OF_QUICKDIALS = 1;    
 
 	/**
 	 * To made possible db contact access
@@ -108,39 +108,82 @@ public class ContactServiceImpl implements ContactService{
 		return contactsPhoneDbAccess.getContactByPhoneNumber(phoneNumber);
 	}
 
+	//	/* (non-Javadoc)
+	//	 * @see es.tid.ehealth.mobtel.android.common.services.ContactService#getQuickDialContactsData()
+	//	 */
+	//	@Override
+	//	public HashMap<Integer, Contact> getQuickDialContactsData() {
+	//		HashMap<Integer, Contact> quicks = null;
+	//		Cursor cursor = contactsPhoneDbAccess.getCursor();
+	//		if (cursor != null){
+	//			try {       
+	//				if (cursor.getCount() > 0) {
+	//
+	//					while (cursor.moveToNext()) {
+	//						String idContact = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+	//						String quickDial = contactsPhoneDbAccess.getQuickOrderData(idContact);
+	//						if (quickDial!=null){                        
+	//							Contact contact = contactsPhoneDbAccess.getContactBasicData(idContact,true);
+	//							if (contact != null && quicks == null){
+	//								quicks = new HashMap<Integer,Contact>();
+	//
+	//							}
+	//							if (quicks != null){
+	//								quicks.put(Integer.parseInt(quickDial),contact);
+	//								logger.debug("QuickDial contact found: "+quickDial);
+	//							}
+	//
+	//						}    
+	//
+	//						if (quicks!= null && quicks.size() == MAX_NUM_OF_QUICKDIALS){
+	//							break;
+	//						}
+	//
+	//					}
+	//				}
+	//			}finally{
+	//				cursor.close();
+	//			}
+	//		}else{
+	//			logger.info("#getQuickDialContactsData: NOT quicksdials FOUND");
+	//		}
+	//		return quicks;
+	//	}
+
 	/* (non-Javadoc)
 	 * @see es.tid.ehealth.mobtel.android.common.services.ContactService#getQuickDialContactsData()
 	 */
 	@Override
 	public HashMap<Integer, Contact> getQuickDialContactsData() {
 		HashMap<Integer, Contact> quicks = null;
+		quicks = new HashMap<Integer,Contact>();
 		Cursor cursor = contactsPhoneDbAccess.getCursor();
+		int quick = 1;
 		if (cursor != null){
 			try {       
 				if (cursor.getCount() > 0) {
 
 					while (cursor.moveToNext()) {
-						String idContact = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
-						String quickDial = contactsPhoneDbAccess.getQuickOrderData(idContact);
-						if (quickDial!=null){                        
-							Contact contact = contactsPhoneDbAccess.getContactBasicData(idContact,true);
-							if (contact != null && quicks == null){
-								quicks = new HashMap<Integer,Contact>();
+						String idContact = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));						
+						Contact contact = contactsPhoneDbAccess.getContactBasicData(idContact,true);
 
-							}
+						if (contact.getPhotoBitmap() != null && contact.getPhones() != null && contact.getPhones().size() > 0){
+
 							if (quicks != null){
-								quicks.put(Integer.parseInt(quickDial),contact);
-								logger.debug("QuickDial contact found: "+quickDial);
+								quicks.put(quick,contact);
+								logger.debug("QuickDial contact found: "+quick);
+								quick++;
 							}
 
 						}    
 
-						if (quicks!= null && quicks.size() == MAX_NUM_OF_QUICKDIALS){
+						if (quicks != null && quicks.size() == MAX_NUM_OF_QUICKDIALS){
 							break;
 						}
-
 					}
+
 				}
+
 			}finally{
 				cursor.close();
 			}

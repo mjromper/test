@@ -29,12 +29,12 @@ public class CallingContact extends AppActivity{
 	private static String ID_CONTACT = "idContact";
 
 	private static String PHONE_CONTACT = "phoneContact";
-	
+
 	private ImageButton hungdown;
 	private ImageView callingContactImage;
 	private String contactId = "";
 	private String contactPhone = "";
-	
+
 	/**
 	 * TelephonyManager instance used by this activity
 	 */
@@ -44,34 +44,34 @@ public class CallingContact extends AppActivity{
 	 * AIDL access to the telephony service process
 	 */
 	private  com.android.internal.telephony.ITelephony telephonyService;
-	
+
 	/**
-     * Service to access contact data
-     */
-    private ContactService contactS;
-	
+	 * Service to access contact data
+	 */
+	private ContactService contactS;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		 super.onCreate(savedInstanceState);
-		 
-		// grab an instance of telephony manager
-			tm = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
-			logger.debug("Telephony Manager created in device: "+tm.getDeviceId());
-			CallStateListener callStateListener = new CallStateListener(); 
-			tm.listen(callStateListener, PhoneStateListener.LISTEN_CALL_STATE); 
+		super.onCreate(savedInstanceState);
 
-			// connect to the underlying Android telephony system
-			connectToTelephonyService();
-		 
-		 setContentView(R.layout.callingcontact);
-		 
-		 Bundle extras = getIntent().getExtras();
-	     contactId  = extras.getString(ID_CONTACT);
-	     contactPhone  = extras.getString(PHONE_CONTACT);
-	     
-	     logger.debug("Contact calling (id,phonenumber)-> ("+contactId+","+contactPhone+")");
-		 
-		 init();		 
+		// grab an instance of telephony manager
+		tm = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+		//logger.debug("Telephony Manager created in device: "+tm.getDeviceId());
+		CallStateListener callStateListener = new CallStateListener(); 
+		tm.listen(callStateListener, PhoneStateListener.LISTEN_CALL_STATE); 
+
+		// connect to the underlying Android telephony system
+		connectToTelephonyService();
+
+		setContentView(R.layout.callingcontact);
+
+		Bundle extras = getIntent().getExtras();
+		contactId  = extras.getString(ID_CONTACT);
+		contactPhone  = extras.getString(PHONE_CONTACT);
+
+		logger.debug("Contact calling (id,phonenumber)-> ("+contactId+","+contactPhone+")");
+
+		init();		 
 	}
 
 	/** From Tedd's source
@@ -79,16 +79,13 @@ public class CallingContact extends AppActivity{
 	 * get an instance of ITelephony to talk handle calls with
 	 */
 	private void connectToTelephonyService() {
-		logger.debug("Connect to the underlying Android telephony system");
 		try
-		{
-			logger.debug("Connecting to TelephonyService: "+tm.getClass().getName());
+		{			
 			Class<?> c = Class.forName(tm.getClass().getName());
 			Method m = c.getDeclaredMethod("getITelephony");
 			m.setAccessible(true);
-			logger.debug("Connecting to TelephonyService 2: ");
 			telephonyService = (ITelephony) m.invoke(tm);
-			logger.debug("Connecting to TelephonyService 3: ");
+			//logger.debug("Connected to TelephonyService: "+tm.getClass().getName());
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -99,27 +96,27 @@ public class CallingContact extends AppActivity{
 	}
 
 	private void init() {
-	    
-	    contactS = new ContactServiceImpl(this);
-		
+
+		contactS = new ContactServiceImpl(this);
+
 		hungdown = (ImageButton) findViewById(R.id.hung_down_button);
 		hungdown.setImageResource(R.drawable.hungdown);
 		hungdown.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-            	reject();
-            }
+			public void onClick(View v) {
+				reject();
+			}
 		});
 		callingContactImage = (ImageView) findViewById(R.id.callingcontactimage);
-		
+
 		Contact contact = contactS.getContactByPhoneNumber(contactPhone);		
 		if (contact != null){
 			callingContactImage.setImageBitmap(contact.getPhotoBitmap());
 		}else{
 			callingContactImage.setImageResource(R.drawable.unknowncontact);
 		}		
-		
+
 	}
-	
+
 	private void reject() {
 		logger.debug(" Reject call");
 		ignoreCallAidl();
@@ -127,7 +124,7 @@ public class CallingContact extends AppActivity{
 		moveTaskToBack(true);
 		finish();
 	}
-	
+
 	/**
 	 * AIDL/ITelephony technique for ignoring calls
 	 */
@@ -151,7 +148,7 @@ public class CallingContact extends AppActivity{
 		i.putExtra(CallingContact.ID_CONTACT, String.valueOf(contactId));
 		i.putExtra(CallingContact.PHONE_CONTACT , String.valueOf(contactPhone));
 		context.startActivity(i);
-		
+
 	}	 
 
 }

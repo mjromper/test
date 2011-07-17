@@ -20,7 +20,7 @@ import es.tid.ehealth.mobtel.android.common.components.AppActivity;
 public class EmergencyCountDown extends AppActivity{
 	
 	private static final Logger logger = LoggerFactory.getLogger(EmergencyCountDown.class);
-	private static final String EMEREGENCY_NUMBER = "+34958537893";
+	private static final String EMEREGENCY_NUMBER = "0034647724506";
 	private ImageButton countDowunImage;
 	private ImageButton exitButton;
 	private int count = 10;

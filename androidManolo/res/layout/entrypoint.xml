@@ -1,83 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-android:id="@+id/widget64"
-android:layout_width="fill_parent"
-android:layout_height="fill_parent"
-android:orientation="vertical"
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:background="@drawable/bbg"
-android:layout_gravity="center_horizontal"
->
-<ImageButton
-android:id="@+id/buttonemergency"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_gravity="center_horizontal"
->
-</ImageButton>
-<TableRow
-android:id="@+id/tablerow2"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:orientation="horizontal"
-android:layout_gravity="center_horizontal"
->
-<ImageButton
-android:id="@+id/quickbutton1"
-android:layout_width="150px"
-android:layout_height="150px"
->
-</ImageButton>
-<ImageButton
-android:id="@+id/quickbutton2"
-android:layout_width="150px"
-android:layout_height="150px"
->
-</ImageButton>
-</TableRow>
-<TableRow
-android:id="@+id/tablerow1"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:orientation="horizontal"
-android:layout_gravity="center_horizontal"
->
-<ImageButton
-android:id="@+id/quickbutton3"
-android:layout_width="150px"
-android:layout_height="150px"
->
-</ImageButton>
-<ImageButton
-android:id="@+id/quickbutton4"
-android:layout_width="150px"
-android:layout_height="150px"
->
-</ImageButton>
-</TableRow>
+<LinearLayout android:id="@+id/widget64"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android"
+	android:background="@drawable/bbg" android:layout_gravity="center_horizontal">
+	<ImageButton android:id="@+id/buttonemergency"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal">
+	</ImageButton>
+	<TableRow android:id="@+id/tablerow2" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:orientation="horizontal"
+		android:layout_gravity="center_horizontal">
+		<LinearLayout android:orientation="vertical"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"
+			android:layout_marginTop="0dip" android:layout_marginLeft="0dip"
+			android:layout_marginRight="0dip" android:layout_weight="0.1">
+			<TextView android:text="Q1:" android:id="@+id/textView1" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+			<ImageButton android:id="@+id/quickbutton1"
+				android:layout_width="145px" android:layout_height="145px">
+			</ImageButton>
+		</LinearLayout>
+		<LinearLayout android:orientation="vertical"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"
+			android:layout_marginTop="0dip" android:layout_marginLeft="10dip"
+			android:layout_marginRight="0dip" android:layout_weight="0.1">
+			<TextView android:text="Q2:" android:id="@+id/textView2" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+			<ImageButton android:id="@+id/quickbutton2"
+				android:layout_width="145px" android:layout_height="145px">
+			</ImageButton>
+		</LinearLayout>
+	</TableRow>
+	<TableRow android:id="@+id/tablerow1" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:orientation="horizontal"
+		android:layout_gravity="center_horizontal" android:layout_marginTop="5dip">
+		<LinearLayout android:orientation="vertical"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"
+			android:layout_marginTop="0dip" android:layout_marginLeft="0dip"
+			android:layout_marginRight="0dip" android:layout_weight="0.1">
+			<TextView android:text="Q3:" android:id="@+id/textView3" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+			<ImageButton android:id="@+id/quickbutton3"
+				android:layout_width="145px" android:layout_height="145px">
+			</ImageButton>
+		</LinearLayout>
+		<LinearLayout android:orientation="vertical"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"
+			android:layout_marginTop="0dip" android:layout_marginLeft="10dip"
+			android:layout_marginRight="0dip" android:layout_weight="0.1">
+			<TextView android:text="Q4:" android:id="@+id/textView4" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+			<ImageButton android:id="@+id/quickbutton4"
+				android:layout_width="145px" android:layout_height="145px">
+			</ImageButton>
+		</LinearLayout>
+	</TableRow>
 
-<TableRow
-android:id="@+id/widget90"
-android:layout_width="fill_parent"
-android:layout_height="wrap_content"
-android:orientation="horizontal"
-android:layout_marginTop="40px"
-android:layout_marginLeft="40px"
-android:layout_gravity="center_horizontal"
->
-<ImageButton
-android:id="@+id/imagecontactlist"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
->
-</ImageButton>
-<ImageView
-android:id="@+id/imagesignal"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
->
-</ImageView>
-</TableRow>
+	<TableRow android:id="@+id/widget90" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:orientation="horizontal"
+		android:layout_marginTop="30px" android:layout_marginLeft="40px"
+		android:layout_gravity="center_horizontal">
+		<ImageButton android:id="@+id/imagecontactlist"
+			android:layout_width="wrap_content" android:layout_height="wrap_content">
+		</ImageButton>
+		<ImageView android:id="@+id/imagesignal"
+			android:layout_width="wrap_content" android:layout_height="wrap_content">
+		</ImageView>
+	</TableRow>
 
 
 </LinearLayout>

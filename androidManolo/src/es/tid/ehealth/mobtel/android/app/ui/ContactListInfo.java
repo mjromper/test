@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,16 +27,18 @@ import es.tid.ehealth.mobtel.android.common.services.impl.ContactServiceImpl;
 public class ContactListInfo extends ListActivity {
 
 	private static final Logger logger = LoggerFactory.getLogger(ContactListInfo.class);
+	private static Activity parent = null;
 
 	/**
 	 * Launch this activity
 	 * 
 	 * @param context
 	 */
-	public static void launch(final Context context) {
-		final Intent i = new Intent(context, ContactListInfo.class);
+	public static void launch(Activity parentActivity) {
+		parent = parentActivity;
+		final Intent i = new Intent(parentActivity, ContactListInfo.class);
 		i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		context.startActivity(i);
+		parentActivity.startActivity(i);
 	}
 
 	private ArrayList<Contact> contacts;
@@ -85,7 +86,7 @@ public class ContactListInfo extends ListActivity {
 				number = "0034"+number;			
 			}
 			i.setData(Uri.parse("tel:" + number));
-			startActivity(i);
+			parent.startActivity(i);
 			finish();
 		}else{
 			Toast.makeText(this, "This contact has no phone number to make call", Toast.LENGTH_SHORT).show();

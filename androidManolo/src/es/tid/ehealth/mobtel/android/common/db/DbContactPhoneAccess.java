@@ -384,7 +384,7 @@ public class DbContactPhoneAccess {
 	 * @param idContact
 	 * @return photo Bitmap
 	 */
-	protected Bitmap getPhotoBitmap(String idContact) {
+	public Bitmap getPhotoBitmap(String idContact) {
 
 		long id = Long.valueOf(idContact);      
 		Uri contactPhotoUri = ContentUris.withAppendedId(Contacts.CONTENT_URI, id);
