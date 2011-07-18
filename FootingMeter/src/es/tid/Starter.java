@@ -51,7 +51,7 @@ public class Starter extends TabActivity {
 
 		tabHost.setCurrentTab(0);
 		
-		UtilsFooting.mainActivity = this;	
+		UtilsFooting.setMainActivity(this);	
 		
 		logger.info("FootingMeter APP started!!!");
 	}

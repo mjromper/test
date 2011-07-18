@@ -45,7 +45,6 @@ public class FootingMeterActivity extends MapActivity implements LocationListene
 	private Drawable drawable;
 	private HelloItemizedOverlay itemizedoverlay;
 
-	private LocationManager lm;
 	private double lat = 0, lng = 0, oldLat = 0, oldLng = 0;
 
 	private TextView distance;
@@ -106,15 +105,15 @@ public class FootingMeterActivity extends MapActivity implements LocationListene
 		if (UtilsFooting.actualRace != null){
 			drawRace2Map(UtilsFooting.actualRace);			
 		}
-		if (lm == null)
-			lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+			
+		
 		if (record == 0){			
-			lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 80000, 10, this);
+			UtilsFooting.lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 80000, 10, this);
 			chronos.setBase(SystemClock.elapsedRealtime() - UtilsFooting.totalTime);
 			chronos.start();
 			distance.setText("Distance: "+df.format((double) UtilsFooting.totalDistance / 1000) + " Km");
 		}else{
-			lm.removeUpdates(this);
+			UtilsFooting.lm.removeUpdates(this);
 			chronos.setBase(SystemClock.elapsedRealtime() - UtilsFooting.actualRace.getDuration());		
 			distance.setText("Distance: "+df.format((double) UtilsFooting.actualRace.getDistance() / 1000) + " Km");
 		}
@@ -187,11 +186,8 @@ public class FootingMeterActivity extends MapActivity implements LocationListene
 
 	private void unRegisterGPS() {
 		logger.info("back en map");
-		if (lm == null)
-			lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-		lm.removeUpdates(this);
-		logger.info("Location listener UNregistered!: "+lm.toString());
+		UtilsFooting.lm.removeUpdates(this);
+		logger.info("Location listener UNregistered!: ");
 
 	}
 
