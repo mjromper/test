@@ -92,8 +92,10 @@ public class ContactListInfo extends ListActivity {
 			final Intent i = new Intent();
 			i.setAction(Intent.ACTION_CALL);
 			String number = selected.getPhones().get(0).getNumber();
-			if (!number.startsWith("0034")){
-				number = "0034"+number;			
+			if (number.startsWith(UtilsTelecare.UK_PREFIX)){
+				//Do nothing
+			}else if (!number.startsWith(UtilsTelecare.SPAIN_PREFIX)){
+				number = UtilsTelecare.SPAIN_PREFIX+number;
 			}
 			i.setData(Uri.parse("tel:" + number));
 			parent.startActivity(i);

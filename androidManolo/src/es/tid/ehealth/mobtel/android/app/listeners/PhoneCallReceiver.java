@@ -37,8 +37,10 @@ public class PhoneCallReceiver extends BroadcastReceiver {
 		//Ringing. A new call arrived and is ringing or waiting. In the latter case, another call is already active. 
 		if (state.equals(TelephonyManager.EXTRA_STATE_RINGING) ) 
 		{	
+			
 			incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
 			logger.debug("Incoming Number: " + incomingNumber);
+			CallPrompt.setSuccess(false);
 			CallPrompt.launch(context, incomingNumber);
 			
 		}
@@ -53,10 +55,12 @@ public class PhoneCallReceiver extends BroadcastReceiver {
 		//No activity. 
 		else if(state.equals(TelephonyManager.EXTRA_STATE_IDLE))
 		{		
-			EntryPoint.launch(context);
 			if (previousState.equals(TelephonyManager.EXTRA_STATE_RINGING)){
+				CallPrompt.setSuccess(true);
 				MissedCallAlertDialog.showAlertDialog(context, "Missed Call", incomingNumber);
 			}
+			EntryPoint.launch(context);
+			
 		
 		}
 		

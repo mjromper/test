@@ -146,8 +146,10 @@ public class EmergencyCountDown extends AppActivity{
 
 		try {			
 			String number = EMEREGENCY_NUMBER;	
-			if (!number.startsWith("0034")){
-				number = "0034"+number;
+			if (number.startsWith(UtilsTelecare.UK_PREFIX)){
+				//Do nothing
+			}else if (!number.startsWith(UtilsTelecare.SPAIN_PREFIX)){
+				number = UtilsTelecare.SPAIN_PREFIX+number;
 			}
 			startActivityCall(number);
 			finish();

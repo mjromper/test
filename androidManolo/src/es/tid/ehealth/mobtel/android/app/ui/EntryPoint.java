@@ -181,10 +181,16 @@ public class EntryPoint extends AppActivity {
 
 		try {
 			quickSelected = qdContacts.get(quick);	
-			logger.debug("Calling to "+quickSelected.getPhones().get(0).getNumber());
+			String number = quickSelected.getPhones().get(0).getNumber();
+			if (number.startsWith(UtilsTelecare.UK_PREFIX)){
+				//Do nothing
+			}else if (!number.startsWith(UtilsTelecare.SPAIN_PREFIX)){
+				number = UtilsTelecare.SPAIN_PREFIX+number;
+			}
+			logger.debug("Calling to "+number);
 			Intent i = new Intent();
 			i.setAction(Intent.ACTION_CALL);
-			i.setData(Uri.parse("tel:" + quickSelected.getPhones().get(0).getNumber()));
+			i.setData(Uri.parse("tel:" + number));
 			startActivity(i);
 		}catch (Exception e) {
 			Toast.makeText(this, "No quick dial set up", Toast.LENGTH_LONG).show();

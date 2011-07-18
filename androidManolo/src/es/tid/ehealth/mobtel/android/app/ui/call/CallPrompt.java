@@ -36,7 +36,7 @@ public class CallPrompt extends Activity {
 	private static final Logger logger = LoggerFactory.getLogger(CallPrompt.class);
 
 
-	private boolean success = false;
+	private static boolean success = false;
 
 	private static String PHONE_CONTACT = "phoneContact";
 
@@ -180,15 +180,28 @@ public class CallPrompt extends Activity {
 		super.onStart();
 		logger.debug("starting CallPrompt");
 	}
+	
+	
+	@Override
+	protected void onPause() {
+		logger.debug("onPause");
+		super.onPause();
+	}
 
 	@Override
 	protected void onStop() {
 		super.onStop();
 
-		logger.debug("verifying success");
+		logger.debug("onStop");
 		//We are sneaky.
 		//We can relaunch if phones lagged in starting, so then tries to cancel our visible lifecycle
-		if (!success) launch(getApplicationContext(),"");
+		if (!success){
+			logger.debug("Relaunch callPompt");
+			launch(getApplicationContext(),"");
+		}else{
+			logger.debug("finish() callPompt");
+			finish();
+		}
 
 		//there is a bug where if you test this too fast after going home, it blocks the activity start
 		//so far it only seems to affect service and receiver based activity starting
@@ -257,4 +270,12 @@ public class CallPrompt extends Activity {
 
 		context.startActivity(i);
 	}
+
+	public static void setSuccess(boolean success) {
+		CallPrompt.success = success;
+	}
+
+	public static boolean isSuccess() {
+		return success;
+	}	
 }
