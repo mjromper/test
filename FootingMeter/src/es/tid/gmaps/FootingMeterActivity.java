@@ -81,7 +81,14 @@ public class FootingMeterActivity extends MapActivity implements LocationListene
 		mapView.setBuiltInZoomControls(true);
 
 		mapOverlays = mapView.getOverlays();
-		drawable = this.getResources().getDrawable(R.drawable.icon_run);
+		if (UtilsFooting.actualRace != null){
+			if (UtilsFooting.actualRace.getType().equals("On foot")){
+				UtilsFooting.market = R.drawable.icon_run;
+			}else{
+				UtilsFooting.market = R.drawable.icon_bike;
+			}
+		}
+		drawable = this.getResources().getDrawable(UtilsFooting.market);
 		itemizedoverlay = new HelloItemizedOverlay(drawable, this);
 		mapOverlays.add(itemizedoverlay);
 
@@ -102,7 +109,7 @@ public class FootingMeterActivity extends MapActivity implements LocationListene
 		if (lm == null)
 			lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		if (record == 0){			
-			lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 15, this);
+			lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 80000, 10, this);
 			chronos.setBase(SystemClock.elapsedRealtime() - UtilsFooting.totalTime);
 			chronos.start();
 			distance.setText("Distance: "+df.format((double) UtilsFooting.totalDistance / 1000) + " Km");

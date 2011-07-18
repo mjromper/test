@@ -29,7 +29,8 @@ public class DbRacesAccess extends DbAccess<Race> {
 	private static final Logger LOG = LoggerFactory.getLogger(DbRacesAccess.class);
 
 	private static final String[] ALL_COLUMNS = { DbTableModel.RACE_ID, 
-		DbTableModel.RACE_NAME,  
+		DbTableModel.RACE_NAME,
+		DbTableModel.RACE_TYPE,
 		DbTableModel.RACE_DATE, 
 		DbTableModel.RACE_DURATION, 
 		DbTableModel.RACE_DISTANCE};
@@ -168,6 +169,7 @@ public class DbRacesAccess extends DbAccess<Race> {
 	private ContentValues getContentValues(final Race race) {
 		final ContentValues vals = new ContentValues();
 		vals.put(DbTableModel.RACE_NAME,race.getName());
+		vals.put(DbTableModel.RACE_TYPE,race.getType());
 		vals.put(DbTableModel.RACE_DATE, race.getDate());   
 		vals.put(DbTableModel.RACE_DURATION, race.getDuration());
 		vals.put(DbTableModel.RACE_DISTANCE, race.getDistance());
@@ -186,6 +188,7 @@ public class DbRacesAccess extends DbAccess<Race> {
 			race = new Race();
 			race.setPkey(cursor.getInt(cursor.getColumnIndex(DbTableModel.RACE_ID)));
 			race.setName(cursor.getString(cursor.getColumnIndex(DbTableModel.RACE_NAME)));
+			race.setType(cursor.getString(cursor.getColumnIndex(DbTableModel.RACE_TYPE)));
 			race.setDate(Long.valueOf(cursor.getString(cursor.getColumnIndex(DbTableModel.RACE_DATE))));
 			if (cursor.getString(cursor.getColumnIndex(DbTableModel.RACE_DURATION))!= null){
 				race.setDuration(Long.valueOf(cursor.getString(cursor.getColumnIndex(DbTableModel.RACE_DURATION))));

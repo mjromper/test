@@ -24,11 +24,9 @@ public final class DbTableModel {
     public static final String RACE_NAME = "name";
     public static final String RACE_DURATION = "duration";
     public static final String RACE_DISTANCE = "distance";
+	public static final String RACE_TYPE = "type";
 
-	
-    
-    
-    
+
     /**
        The caller references the constants using Consts.EMPTY_STRING,
        and so on. Thus, the caller should be prevented from constructing objects of

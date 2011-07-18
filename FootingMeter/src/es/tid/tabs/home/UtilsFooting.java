@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import es.tid.R;
 import es.tid.Starter;
 import es.tid.database.bo.FMLocation;
 import es.tid.database.bo.Race;
@@ -30,6 +31,8 @@ public class UtilsFooting {
 	private static int oldLat;
 	private static int oldLng;
 
+	public static int market = R.drawable.icon_run;
+
 	public static final double GEO_CONV = 1E6;
 
 	public static void addRaceToDB(long date) {
@@ -37,6 +40,11 @@ public class UtilsFooting {
 		DbRacesAccess dbRaces = new DbRacesAccess(mainActivity, DbRacesAccess.DB_NAME);
 
 		Race race = new Race();
+		race.setType("On foot");
+		if (market == R.drawable.icon_bike){
+			race.setType("By bike");
+		}
+		
 		race.setName(runningName);
 		race.setDuration(totalTime);
 		race.setDistance(totalDistance);
@@ -53,18 +61,19 @@ public class UtilsFooting {
 		boolean res = false;
 
 		if (actualRace != null){
-			FMLocation loc = new FMLocation();
-			loc.setLat(lat);
-			loc.setLng(lng);
+			
 			int latE6 = (int)(lat*GEO_CONV);
-			int lngE6 = (int)(lng*GEO_CONV);
+			int lngE6 = (int)(lng*GEO_CONV);			
 			
 			if (latE6 != oldLat && lngE6 != oldLng){	
 				
 				oldLat = latE6;
 				oldLng = lngE6;
+				
+				FMLocation loc = new FMLocation();
+				loc.setLat(lat);
+				loc.setLng(lng);
 				loc.setRacePkey(actualRace.getPkey());
-
 				DbLocationsAccess dbLocations = new DbLocationsAccess(mainActivity, DbRacesAccess.DB_NAME);
 				dbLocations.insert(loc);
 				res = true;

@@ -8,11 +8,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import es.tid.R;
 import es.tid.tabs.TabGroupActivity;
 
 public class NewTrackActivity extends Activity {
 	private EditText runningName;
+	private RadioGroup radioGroup;
 
 
 	@Override
@@ -23,6 +26,19 @@ public class NewTrackActivity extends Activity {
 		// trackName = (Button) findViewById(R.id.newTrackTrackName);
 		runningName = (EditText) findViewById(R.id.newTrackRunningName);
 
+		radioGroup = (RadioGroup) findViewById(R.id.radiotype);
+		radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				if(group.getCheckedRadioButtonId() == R.id.radiobybike){
+					UtilsFooting.market = R.drawable.icon_bike;
+				}else if (group.getCheckedRadioButtonId() == R.id.radioonfoot){
+					UtilsFooting.market = R.drawable.icon_run;
+				}
+
+			}
+		});
+
 		final Button nextBtn = (Button) findViewById(R.id.start_btn);
 		OnClickListener nextBtnListener = new OnClickListener() {
 			@Override
@@ -31,7 +47,7 @@ public class NewTrackActivity extends Activity {
 				// UtilsStride.trackName =
 				// trackName.getSelectedItem().toString();
 				UtilsFooting.runningName = runningName.getText().toString();		
-				
+
 				TabGroupActivity parentActivity = (TabGroupActivity) getParent();
 				Intent intent = new Intent(parentActivity,
 						RunningActivity.class);
@@ -44,7 +60,7 @@ public class NewTrackActivity extends Activity {
 		nextBtn.setOnClickListener(nextBtnListener);
 	}
 
-	
+
 
 
 }

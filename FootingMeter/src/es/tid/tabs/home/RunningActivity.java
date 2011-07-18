@@ -158,6 +158,7 @@ public class RunningActivity extends Activity
 	public void onResume()
 	{
 		super.onResume();
+		distanceTV.setText(df.format((double) UtilsFooting.totalDistance / 1000) + " Km");
 		if (recording == true)
 		{
 			registerGPS();
@@ -175,7 +176,7 @@ public class RunningActivity extends Activity
 			locationListener = new RunLocationListener();
 
 		}
-		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 15, locationListener);
+		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 8000, 10, locationListener);
 
 		logger.info("Location listener registered!");
 

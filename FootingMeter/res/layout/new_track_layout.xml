@@ -24,7 +24,7 @@
 	</TextView>
 
 	<RelativeLayout android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:layout_weight="0.44">
+		android:layout_height="wrap_content" android:layout_weight="0.24">
 		<LinearLayout android:orientation="vertical"
 			android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:layout_centerInParent="true">
@@ -40,18 +40,39 @@
 					android:textSize="16sp" android:lines="1" android:text="default name" />
 			</LinearLayout>
 
-
-			<LinearLayout android:orientation="horizontal"
-				android:layout_height="wrap_content" android:layout_width="fill_parent">
-
-			</LinearLayout>
-			<LinearLayout android:orientation="horizontal"
-				android:layout_height="wrap_content" android:layout_width="fill_parent">
-
-
-			</LinearLayout>
 		</LinearLayout>
+
+
 	</RelativeLayout>
+	<RelativeLayout android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:layout_weight="0.2">
+
+		<LinearLayout android:orientation="vertical"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_centerInParent="true">
+			<LinearLayout android:orientation="horizontal"
+				android:layout_height="wrap_content" android:layout_width="fill_parent">
+				<RadioGroup android:layout_height="wrap_content"
+					android:layout_width="wrap_content" android:id="@+id/radiotype">
+					<RadioButton android:layout_height="wrap_content"
+						android:layout_width="wrap_content" android:textStyle="bold"
+						android:textSize="18sp" android:shadowColor="#000000"
+						android:shadowDx="2" android:shadowDy="2" android:shadowRadius="1"
+						android:text="On foot \t" android:checked="true" android:id="@+id/radioonfoot"></RadioButton>
+					<RadioButton android:layout_height="wrap_content"
+						android:layout_width="wrap_content" android:textStyle="bold"
+						android:textSize="18sp" android:shadowColor="#000000"
+						android:shadowDx="2" android:shadowDy="2" android:shadowRadius="1"
+						android:text="By bike \t" android:id="@+id/radiobybike"></RadioButton>
+				</RadioGroup>
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+
+	</RelativeLayout>
+
 	<RelativeLayout android:layout_width="fill_parent"
 		android:layout_height="wrap_content" android:layout_weight="0.3">
 		<Button android:id="@+id/start_btn" android:layout_width="200sp"

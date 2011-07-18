@@ -54,7 +54,7 @@ public class ResultsAdapter extends BaseAdapter
 			}
 
 			TextView resultsName = (TextView) convertView.findViewById(R.id.resultsName);
-			resultsName.setText(entry.getName());
+			resultsName.setText(entry.getName()+" ("+entry.getType()+")");
 
 			TextView resultsDate= (TextView) convertView.findViewById(R.id.resultsDate);
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");

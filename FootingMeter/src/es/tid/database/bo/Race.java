@@ -9,18 +9,29 @@ public class Race {
 	private Long date;
 	private Long duration;
 	private Long distance;
+	private String type;
 	
 	public Race(){
 		super();
 	}
 
-	public Race(Integer pkey, String name, Long date, Long duration, Long distance) {
+	/**
+	 * Constructor using fields
+	 * @param pkey
+	 * @param name
+	 * @param date
+	 * @param duration
+	 * @param distance
+	 * @param type
+	 */
+	public Race(Integer pkey, String name, Long date, Long duration, Long distance, String type) {
 		super();
 		this.pkey = pkey;
 		this.name = name;
 		this.date = date;
 		this.duration = duration;
 		this.distance = distance;
+		this.type = type;
 	}
 
 	public void setPkey(Integer pkey) {
@@ -66,6 +77,15 @@ public class Race {
 
 	public Long getDistance() {
 		return distance;
+	}
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+		
 	}
 
 }
