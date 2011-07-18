@@ -51,6 +51,7 @@ public class FootingMeterActivity extends MapActivity implements LocationListene
 
 	private Chronometer chronos;
 	private boolean satellite = false;
+	private int record = 0;
 
 
 
@@ -62,8 +63,20 @@ public class FootingMeterActivity extends MapActivity implements LocationListene
 
 	@Override
 	protected void onStart() {
-		logger.info("onStart()");
+		logger.info("onStart()");		
 		super.onStart();
+		if (record == 0){	
+			registerGPS();
+			logger.info("onStart# GPS ON");
+			chronos.setBase(SystemClock.elapsedRealtime() - UtilsFooting.totalTime);
+			chronos.start();
+			distance.setText("Distance: "+df.format((double) UtilsFooting.totalDistance / 1000) + " Km");
+		}else{
+			unRegisterGPS();
+			logger.info("onStart# GPS OFF");
+			chronos.setBase(SystemClock.elapsedRealtime() - UtilsFooting.actualRace.getDuration());		
+			distance.setText("Distance: "+df.format((double) UtilsFooting.actualRace.getDistance() / 1000) + " Km");
+		}
 	}
 
 	/** Called when the activity is first created. */
@@ -100,23 +113,12 @@ public class FootingMeterActivity extends MapActivity implements LocationListene
 		mapView.setSatellite(satellite);
 
 		Bundle extras = getIntent().getExtras();
-		int record  = extras.getInt(EXTRA_RECORD);	
+		record   = extras.getInt(EXTRA_RECORD);	
 
 		if (UtilsFooting.actualRace != null){
 			drawRace2Map(UtilsFooting.actualRace);			
-		}
-			
+		}	
 		
-		if (record == 0){			
-			UtilsFooting.lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 80000, 10, this);
-			chronos.setBase(SystemClock.elapsedRealtime() - UtilsFooting.totalTime);
-			chronos.start();
-			distance.setText("Distance: "+df.format((double) UtilsFooting.totalDistance / 1000) + " Km");
-		}else{
-			UtilsFooting.lm.removeUpdates(this);
-			chronos.setBase(SystemClock.elapsedRealtime() - UtilsFooting.actualRace.getDuration());		
-			distance.setText("Distance: "+df.format((double) UtilsFooting.actualRace.getDistance() / 1000) + " Km");
-		}
 	}
 
 	private void drawRace2Map(final Race race) {
@@ -174,7 +176,8 @@ public class FootingMeterActivity extends MapActivity implements LocationListene
 	{
 		if (keyCode == KeyEvent.KEYCODE_BACK)
 		{
-			unRegisterGPS();			
+			unRegisterGPS();
+			logger.info("KEYCODE_BACK# GPS OFF");
 
 			// preventing default implementation previous to
 			// android.os.Build.VERSION_CODES.ECLAIR
@@ -185,9 +188,12 @@ public class FootingMeterActivity extends MapActivity implements LocationListene
 	}
 
 	private void unRegisterGPS() {
-		logger.info("back en map");
 		UtilsFooting.lm.removeUpdates(this);
-		logger.info("Location listener UNregistered!: ");
+
+	}
+	
+	private void registerGPS() {
+		UtilsFooting.lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 8000, 10, this);
 
 	}
 
@@ -255,6 +261,7 @@ public class FootingMeterActivity extends MapActivity implements LocationListene
 			return true;		
 		case EXIT :  
 			unRegisterGPS();
+			logger.info("EXIT# GPS OFF");
 			finish();
 			return true;
 		}

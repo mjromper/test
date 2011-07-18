@@ -102,11 +102,13 @@ public class RunningActivity extends Activity
 				{
 					recording = false;
 					unRegisterGPS();
+					logger.info("onClick Stop race# Recording > GPS OFF");
 					chronos.stop();
 				}
 				else
 				{
 					registerGPS();
+					logger.info("onClick Resume race# Recording > GPS ON");
 					recording = true;
 					chronos.start();
 				}
@@ -141,8 +143,10 @@ public class RunningActivity extends Activity
 	 * @see android.app.Activity#onStop()
 	 */
 	@Override
-	protected void onStop() {
+	protected void onStop() {		
 		unRegisterGPS();
+		logger.info("onStop# Recording > GPS OFF");
+		UtilsFooting.addRaceToDB(dateRace);
 		super.onStop();
 	}
 
@@ -156,10 +160,12 @@ public class RunningActivity extends Activity
 		super.onResume();
 		distanceTV.setText(df.format((double) UtilsFooting.totalDistance / 1000) + " Km");
 		if (recording == true)
-		{
+		{			
 			registerGPS();
-		}else{
+			logger.info("onResume# Recording > GPS ON");
+		}else{			
 			unRegisterGPS();
+			logger.info("onResume# NOT Recording > GPS OFF");
 		}
 
 	}
@@ -173,7 +179,7 @@ public class RunningActivity extends Activity
 		}
 		UtilsFooting.lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 8000, 10, locationListener);
 
-		logger.info("Location listener registered!");
+		
 
 	}
 
@@ -182,7 +188,7 @@ public class RunningActivity extends Activity
 		if (locationListener != null)
 			UtilsFooting.lm.removeUpdates(locationListener);
 
-		logger.info("Location listener unregistered!");
+		
 
 	}
 
@@ -193,6 +199,7 @@ public class RunningActivity extends Activity
 
 		//Unregister GPS	
 		unRegisterGPS();
+		logger.info("stopRecording# GPS OFF");
 		recording = false;
 
 		//reset values
