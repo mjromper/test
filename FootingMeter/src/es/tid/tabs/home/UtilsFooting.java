@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.LocationManager;
 
 import es.tid.R;
 import es.tid.Starter;
@@ -32,6 +33,8 @@ public class UtilsFooting {
 	private static int oldLng;
 
 	public static int market = R.drawable.icon_run;
+
+	public static LocationManager lm = null;
 
 	public static final double GEO_CONV = 1E6;
 
@@ -116,6 +119,11 @@ public class UtilsFooting {
 		});  
 		AlertDialog alert = builder.create();  
 		alert.show();  
+	}
+
+	public static void setMainActivity(Starter starter) {
+		mainActivity = starter;
+		lm = (LocationManager) mainActivity.getSystemService(Context.LOCATION_SERVICE);		
 	}  
 
 }

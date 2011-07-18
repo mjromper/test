@@ -4,7 +4,6 @@ import java.text.DecimalFormat;
 import java.util.Date;
 
 import android.app.Activity;
-import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -28,7 +27,6 @@ public class RunningActivity extends Activity
 
 	private static final Logger logger = LoggerFactory.getLogger(RunningActivity.class);
 
-	private LocationManager lm;
 	private LocationListener locationListener;
 
 	// GUI
@@ -60,9 +58,7 @@ public class RunningActivity extends Activity
 
 		chronos.setBase(SystemClock.elapsedRealtime() - UtilsFooting.totalTime);
 
-		if (lm == null ){
-			lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		}
+		
 		if (locationListener == null){
 			locationListener = new RunLocationListener();
 		}	
@@ -174,9 +170,8 @@ public class RunningActivity extends Activity
 		
 		if (locationListener == null){
 			locationListener = new RunLocationListener();
-
 		}
-		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 8000, 10, locationListener);
+		UtilsFooting.lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 8000, 10, locationListener);
 
 		logger.info("Location listener registered!");
 
@@ -184,15 +179,10 @@ public class RunningActivity extends Activity
 
 	private void unRegisterGPS() {
 
-		if (lm == null )
-			lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-
 		if (locationListener != null)
-			lm.removeUpdates(locationListener);
+			UtilsFooting.lm.removeUpdates(locationListener);
 
 		logger.info("Location listener unregistered!");
-		locationListener = null;
 
 	}
 
