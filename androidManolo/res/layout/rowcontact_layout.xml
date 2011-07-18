@@ -1,55 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?>
-<TableLayout
-android:id="@+id/widget29"
-android:layout_width="fill_parent"
-android:layout_height="fill_parent"
-android:orientation="vertical"
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:background="@drawable/bbgcontact"
-android:layout_gravity="center_horizontal"
->
-<TableRow
-android:id="@+id/table1"
-android:layout_width="125px"
-android:layout_height="wrap_content"
-android:orientation="horizontal"
->
-<ImageView
-android:id="@+id/iconcontact"
-android:layout_width="75px"
-android:layout_height="75px"
-android:padding="5px"
->
-</ImageView>
-<TextView
-android:id="@+id/labelcontactphone"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:padding="10px"
-android:text="TextView"
-android:textSize="20sp"
-android:textColor="#ff3366ff"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/LinearLayout01" android:layout_width="fill_parent"
+	android:layout_height="wrap_content" android:orientation="horizontal"
+	android:paddingLeft="10sp" android:paddingRight="10sp"
+	android:paddingTop="2sp" android:paddingBottom="2sp"
+	android:background="@drawable/bbgcontact">
+	<LinearLayout android:layout_width="wrap_content"
+		android:layout_height="fill_parent" android:orientation="vertical">
 
->
-</TextView>
-</TableRow>
-<TableRow
-android:id="@+id/table2"
-android:layout_width="251px"
-android:layout_height="wrap_content"
-android:padding="2px"
-android:orientation="horizontal"
->
-<TextView
-android:id="@+id/labelcontact"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:text="TextView"
-android:textSize="20sp"
-android:textColor="#ff3366ff"
->
-</TextView>
-</TableRow>
-</TableLayout>
+		<LinearLayout android:layout_height="wrap_content"
+			android:layout_width="fill_parent">
+			<TextView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/resultsDate"
+				android:textSize="13sp" android:shadowColor="#000000"
+				android:shadowDx="2" android:shadowDy="2" android:shadowRadius="1"></TextView>
+			<ImageView android:src="@drawable/icon" android:id="@+id/iconcontact"
+				android:layout_height="wrap_content" android:layout_width="wrap_content"></ImageView>
+			<TextView android:id="@+id/labelcontactphone"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:padding="10px" android:text="TextView" android:textSize="20sp"
+				android:textColor="#ff3366ff">
+			</TextView>
 
+		</LinearLayout>
+
+		<LinearLayout android:layout_height="wrap_content"
+			android:layout_width="fill_parent">
+			<LinearLayout android:layout_height="wrap_content"
+				android:layout_width="fill_parent">
+				<TextView android:id="@+id/labelcontact"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:text="TextView" android:textSize="20sp" android:textColor="#ff3366ff"></TextView>
+			</LinearLayout>
+		</LinearLayout>
+
+
+	</LinearLayout>
+
+
+</LinearLayout>
 

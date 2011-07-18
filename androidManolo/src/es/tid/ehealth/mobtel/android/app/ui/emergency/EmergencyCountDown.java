@@ -21,7 +21,6 @@ import es.tid.ehealth.mobtel.android.common.components.AppActivity;
 public class EmergencyCountDown extends AppActivity{
 	
 	private static final Logger logger = LoggerFactory.getLogger(EmergencyCountDown.class);
-	private static final String EMEREGENCY_NUMBER = UtilsTelecare.emergencyNumber;
 	private ImageButton countDowunImage;
 	private ImageButton exitButton;
 	private int count = 10;
@@ -145,7 +144,7 @@ public class EmergencyCountDown extends AppActivity{
 	public void callToEmergencyNumber() {		
 
 		try {			
-			String number = EMEREGENCY_NUMBER;	
+			String number = UtilsTelecare.emergencyNumber;	
 			if (number.startsWith(UtilsTelecare.UK_PREFIX)){
 				//Do nothing
 			}else if (!number.startsWith(UtilsTelecare.SPAIN_PREFIX)){

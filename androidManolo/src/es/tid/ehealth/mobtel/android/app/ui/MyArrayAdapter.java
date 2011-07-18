@@ -21,20 +21,40 @@ public class MyArrayAdapter extends  BaseAdapter {
 
 	private static final Logger logger = LoggerFactory.getLogger(MyArrayAdapter.class);
 	private final Activity activity;
-
-	private final ArrayList<Contact> contacts;
+	private ArrayList<Contact> contacts;
+	private final String[] ids;
 
 	/**
 	 * Default constructor
+	 * @param ids 
 	 * 
 	 * @param context
 	 * @param ids
 	 * @param contacts
 	 */
-	public MyArrayAdapter(final Activity activity , final ArrayList<Contact> contacts) {
+	public MyArrayAdapter(final Activity activity , String[] ids, final ArrayList<Contact> contacts) {
 		this.activity = activity;
 		this.contacts = contacts;
+		this.ids = ids;
 	}
+	
+	public int getCount()
+	{
+		return contacts.size();
+	}
+
+	public Contact getItem(int position)
+	{
+		return contacts.get(position);
+	}
+
+	public long getItemId(int position)
+	{
+		ContactListInfo.selectedContact = getItem(position);
+		return Long.valueOf(ids[position]);
+	}
+	
+	
 
 	@Override
 	public View getView(final int position, View convertView, final ViewGroup parent) {
@@ -75,18 +95,4 @@ public class MyArrayAdapter extends  BaseAdapter {
 		return convertView;
 	}
 
-	@Override
-	public int getCount() {		
-		return contacts.size();
-	}
-
-	@Override
-	public Object getItem(int position) {
-		return contacts.get(position);
-	}
-
-	@Override
-	public long getItemId(int position) {		
-		return (long) position;
-	}
 }
